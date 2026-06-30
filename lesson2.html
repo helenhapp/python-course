@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Навчальні матеріали" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <!-- Назва на вкладці -->
+    <title>Python Lesson 2</title>
+
+    <!-- Скрипт перемикання теми -->
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      const hljsThemeLink =
+        savedTheme === "dark"
+          ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
+
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link id="hljs-theme" rel="stylesheet" href="${hljsThemeLink}" />`,
+      );
+    </script>
+
+    <!-- Підключення шрифтів (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Підсвітка коду (Highlight.js) -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
+    ></script>
+
+    <!-- CodeMirror -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"
+    ></script>
+
+    <!-- Власні стилі та скрипти -->
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./main.js" defer></script>
+  </head>
+
+  <body>
+    <!-- "Завіса", яка плавно зникає при завантаженні сторінки -->
+    <div class="transition-curtain"></div>
+
+    <!-- top-bar -->
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            width="62"
+            height="62"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Хедер з назвою теми та посиланнями -->
+    <header>
+      <div class="title-container">
+        <a href="#" class="nav-arrow prev-arrow" title="Попередній урок"
+          ><img src="./media/icons/double-alt-arrow-left.svg"
+        /></a>
+
+        <h1 id="lesson-title">Python: 02</h1>
+
+        <a href="#" class="nav-arrow next-arrow" title="Наступний урок"
+          ><img src="./media/icons/double-alt-arrow-right.svg"
+        /></a>
+      </div>
+
+      <p class="topic">Бібліотека turtle та цикл for</p>
+
+      <!-- Короткий опис -->
+      <section class="objective">
+        <ul>
+          <li>...</li>
+          <li>...</li>
+          <li>...</li>
+        </ul>
+      </section>
+
+      <hr />
+    </header>
+
+    <!-- Основний контент -->
+    <main>
+      <!-- tab buttons -->
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-target="part-1">Part 1</button>
+        <button class="tab-btn" data-target="part-2">Part 2</button>
+        <button class="tab-btn" data-target="part-3">Part 3</button>
+        <!-- <button class="tab-btn" data-target="part-4">Homework</button> -->
+      </div>
+
+      <!-- 
+        Part 1:
+        1. import turtle
+        2. draw a line (forward, backward)
+        3. turn the turle to draw shapes (left, right)
+        + extra: using variables
+      -->
+      <section id="part-1" class="accordion tab-content active show">
+        <!-- 📚 Теорія 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Теорія 1</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p1-turtle">Бібліотека turtle</h3>
+
+            <p>
+              Уяви, що в тебе на екрані живе маленька віртуальна черепашка. Вона
+              вміє розуміти твої команди і залишати за собою слід — малювати
+              лінії, коли рухається.
+            </p>
+
+            <p>
+              Бібліотека <span class="accent">turtle</span> (з англійської —
+              «черепаха») у Python — це цікавий спосіб вивчати основи
+              програмування, створюючи власні малюнки та навіть прості анімації.
+            </p>
+
+            <hr />
+
+            <h3 id="import">import turtle</h3>
+
+            <p>
+              Щоб наша програма зрозуміла команди для керування черепашкою, на
+              початку програми потрібно підключити її бібліотеку:
+              <span class="accent">import turtle</span>.
+            </p>
+
+            <p>
+              Ще одна важлива команда —
+              <span class="accent">turtle.done()</span>. Її ми пишемо в самому
+              кінці програми. Вона потрібна для того, щоб вікно з нашим малюнком
+              залишалося відкритим, поки ми самі його не закриємо. Хоча в деяких
+              програмах (наприклад, в Thonny) все може працювати і без неї,
+              краще одразу взяти за звичку завжди додавати цей рядок.
+            </p>
+
+            <pre><code class="language-python">import turtle
+
+# Тут будуть наші команди для малювання...
+
+turtle.done()</code></pre>
+
+            <p>
+              Після запуску цієї програми, має відкритися нове вікно. Це наше
+              полотно для малювання, і поки що воно порожнє:
+            </p>
+
+            <img
+              src="./images/lesson2/example1.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <hr />
+
+            <h3 id="move">Рух вперед та назад</h3>
+
+            <p>
+              Тепер навчимо черепашку рухатися! Хоча можна й просто писати
+              turtle.назва_команди(), хорошою практикою в програмуванні є
+              створення для нашої черепашки
+              <span class="accent">окремої змінної</span>. Назвемо її,
+              наприклад, bob (ти можеш обрати будь-яку свою назву). Для цього ми
+              пишемо: <span class="accent">bob = turtle.Turtle()</span>. Після
+              створення такої змінної, на раніше порожньому полотні, рівно по
+              центру, має зʼявитися стрілка. Це і є наш Боб, яким ми будемо
+              малювати.
+            </p>
+
+            <pre><code class="language-python">bob = turtle.Turtle()</code></pre>
+
+            <img
+              src="./images/lesson2/example2.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <p>
+              Щоб Боб рухався вперед, використовуємо команду
+              <span class="accent">forward()</span>, а для руху назад —
+              <span class="accent">backward()</span>. У дужках вказуємо
+              кількість пікселів — це відстань, яку пройде черепашка.
+            </p>
+
+            <pre><code class="language-python">bob.forward(150)  # Боб малює лінію вперед на 150 пікселів
+bob.backward(50)  # Боб повертається назад по тій самій лінії на 50 пікселів</code></pre>
+
+            <img
+              src="./images/lesson2/example3.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <hr />
+
+            <h3 id="turn">Повороти</h3>
+
+            <p>
+              Рухатися по прямій — це добре, але як малювати фігури без
+              поворотів? Тому існують команди
+              <span class="accent">left()</span> (поворот ліворуч, проти
+              годинникової стрілки) та
+              <span class="accent">right()</span> (поворот праворуч, за
+              годинниковою стрілкою). В дужках вказуємо
+              <span class="accent">кут повороту</span> в градусах (від 0 до
+              360).
+            </p>
+
+            <p>
+              Зверни увагу: ми вказуємо кут, на який черепашка має відхилитися
+              від свого поточного напрямку руху (тобто, це зовнішній кут
+              повороту, а не внутрішній кут фігури, яку малюємо).
+            </p>
+
+            <pre><code class="language-python">bob.forward(100) # Рух вперед на 100 пікселів
+bob.left(90)     # Повертаємо ліворуч на 90 градусів
+bob.forward(100) # Знову рух вперед, але вже в напрямку вгору
+bob.right(45)    # Повертаємо праворуч на 45 градусів
+bob.forward(100) # Рух вгору по діагоналі</code></pre>
+
+            <img
+              src="./images/lesson2/example4.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <hr />
+
+            <h3 id="shapes">Малювання фігур</h3>
+
+            <p>
+              Тепер об'єднаємо все вивчене, щоб намалювати
+              <span class="accent">квадрат</span>. Квадрат має 4 рівні сторони
+              та 4 кути по 90 градусів:
+            </p>
+
+            <pre><code class="language-python">import turtle
+
+bob = turtle.Turtle()
+
+# Малюємо квадрат зі стороною 100 пікселів
+bob.forward(100)
+bob.left(90)
+bob.forward(100)
+bob.left(90)
+bob.forward(100)
+bob.left(90)
+bob.forward(100)
+bob.left(90)
+
+turtle.done()</code></pre>
+
+            <img
+              src="./images/lesson2/example5.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <p>
+              Цей код працює, але, якщо ми захочемо змінити розмір квадрата зі
+              100 на 155 пікселів, доведеться вручну змінювати числа аж у
+              чотирьох місцях в коді. Це забирає час. До того ж, такі числа, які
+              виринають в коді без пояснень, що вони означають, програмісти
+              називають <span class="accent">«магічними»</span> — їх краще
+              уникати, адже вони роблять код заплутаним і збільшують ризик
+              помилок.
+            </p>
+
+            <p>
+              Щоб зробити програму зручнішою, створимо змінну
+              <span class="accent">side</span> (з англійської — «сторона») і
+              збережемо в ній число <span class="accent">155</span>. Далі просто
+              вкажемо назву цієї змінної в дужках команди
+              <span class="accent">forward()</span>. Тепер, щоб змінити розмір
+              фігури, достатньо оновити число лише в
+              <span class="accent">одному</span> рядку!
+            </p>
+
+            <pre><code class="language-python">import turtle
+
+bob = turtle.Turtle()
+
+side = 155 # Створюємо змінну для довжини сторони
+
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+
+turtle.done()</code></pre>
+
+            <hr />
+
+            <h3 id="p1-test">Питання для самоперевірки</h3>
+
+            <div class="soft-callout">
+              <!-- Q1 -->
+              <h4>Перевір свої знання</h4>
+
+              <p>
+                <span class="semibold">Питання 1:</span> Де в програмі має
+                знаходитися рядок <span class="accent">import turtle</span> і
+                чому?
+              </p>
+              <details class="answer">
+                <summary>Відповідь</summary>
+                <p>
+                  Цей рядок обов'язково пишеться <b>на самому початку</b> (у
+                  першому рядку). Це потрібно для того, щоб Python заздалегідь
+                  завантажив бібліотеку і знав усі команди для черепашки ще до
+                  того, як ми почнемо їх використовувати.
+                </p>
+              </details>
+
+              <p>
+                <span class="semibold">Питання 2:</span> Зараз черепашка
+                дивиться вправо. Яку команду і з яким значенням в дужках треба
+                написати, щоб вона розвернулася
+                <span class="accent">в протилежний бік</span>?
+              </p>
+              <details class="answer">
+                <summary>Відповідь</summary>
+                <p>
+                  Для розвороту треба використати команду <b>left(180)</b> або
+                  <b>right(180)</b>.
+                </p>
+              </details>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 1</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task1" open>
+              <summary><h4>Завдання 1.1: Прямокутник</h4></summary>
+
+              <div>
+                <p>
+                  Намалюй прямокутник. Розміри прямокутника мають бути збережені
+                  у змінних (width, height).
+                </p>
+
+                <img
+                  src="./images/task1_1.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task1">
+              <summary><h4>Завдання 1.2: Ромб</h4></summary>
+
+              <div>
+                <p>Намалюй ромб. Його кути не мають усі бути рівними.</p>
+
+                <img
+                  src="./images/task1_2.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task1">
+              <summary><h4>Завдання 1.3: Рівносторонній трикутник</h4></summary>
+
+              <div>
+                <p>
+                  Намалюй трикутник, у якого всі сторони рівні. Розмір сторони
+                  має бути збережений у змінній (side).
+                </p>
+
+                <img
+                  src="./images/task1_3.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 
+        Part 2:
+        1. make the lines prettier (pencolor, pensize) 
+        2. move without drawing (penup, pendown, goto)
+        3. bg color (fillcolor, begin_fill, end_fill)
+      -->
+      <section id="part-2" class="accordion tab-content">
+        <!-- 📚 Теорія 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Теорія 2</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="style">Колір та товщина ліній</h3>
+
+            <p>
+              За замовчуванням черепашка малює чорною лінією, товщиною в 1
+              піксель. Але ми можемо зробити наші малюнки яскравішими! Для цього
+              є дві команди:
+            </p>
+
+            <ul type="square">
+              <li>
+                <span class="accent">pensize()</span> - змінює товщину лінії. В
+                дужках пишемо число (кількість пікселів).
+              </li>
+              <li>
+                <span class="accent">pencolor()</span> - змінює колір лінії. В
+                дужках англійською пишемо назву кольору, обовʼязково в лапках.
+              </li>
+            </ul>
+
+            <pre><code class="language-python">bob.pensize(3)  
+side = 100      
+
+bob.pencolor("red") 
+bob.forward(side)
+bob.left(90)
+
+bob.pencolor("blue")
+bob.forward(side)
+bob.left(90)
+
+bob.pencolor("green")
+bob.forward(side)
+bob.left(90)
+
+bob.pencolor("orange")
+bob.forward(side)</code></pre>
+
+            <img
+              src="./images/lesson2/example6.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <p>
+              Головне правило: спочатку візьми потрібну ручку, а потім малюй.
+              Щойно ти зміниш колір чи товщину лінії, черепашка буде малювати
+              саме в такому стилі, поки ти не даси їй іншу команду.
+            </p>
+
+            <p>
+              Кольорів, які знає Python, є багато. Переглянути їх можна на
+              <a
+                class="inline-link"
+                href="https://cs111.wellesley.edu/labs/lab03/colors"
+                target="_blank"
+                >цьому сайті</a
+              >.
+            </p>
+
+            <hr />
+
+            <h3 id="move1">Рух без малювання (спосіб 1)</h3>
+
+            <p>
+              Іноді нам потрібно перемістити черепашку в інше місце на екрані,
+              але так, щоб вона не залишала за собою слід. Уяви, що ти відриваєш
+              ручку від паперу, переносиш руку, і знову ставиш на папір. У
+              Python для цього є команди:
+            </p>
+
+            <ul type="square">
+              <li>
+                <span class="accent">penup()</span> - підняти ручку (черепашка
+                рухається, але не малює).
+              </li>
+              <li>
+                <span class="accent">pendown()</span> - опустити ручку
+                (черепашка знову малює).
+              </li>
+            </ul>
+
+            <p>
+              Давай намалюємо два квадрати поруч, використовуючи ці команди:
+            </p>
+
+            <pre><code class="language-python">bob.pencolor("seagreen")
+bob.pensize(4)
+side = 120
+
+# Малюємо перший квадрат
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+
+bob.penup()       # Піднімаємо ручку
+bob.forward(150)  # Проходимо 150 пікселів вперед 
+bob.pendown()     # Опускаємо ручку, щоб знову малювати
+
+# Малюємо другий квадрат
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+bob.forward(side)</code></pre>
+
+            <img
+              src="./images/lesson2/example7.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <hr />
+
+            <h3 id="move2">Рух без малювання (спосіб 2)</h3>
+
+            <p>
+              Вираховувати відстань командами forward() та поворотами не завжди
+              зручно. Екран черепашки — це
+              <span class="accent">координатна площина</span>. Центр екрана — це
+              точка з координатами <span class="accent">(0, 0)</span>.
+            </p>
+
+            <ul type="square">
+              <li>
+                Вісь <span class="accent">X</span> відповідає за рух
+                вліво/вправо (праворуч від нуля числа додатні, ліворуч —
+                від'ємні).
+              </li>
+              <li>
+                Вісь <span class="accent">Y</span> відповідає за рух вгору/вниз
+                (вгору числа додатні, вниз — від'ємні).
+              </li>
+            </ul>
+
+            <p>
+              Ми можемо миттєво телепортувати черепашку в будь-яку точку за
+              допомогою команди <span class="accent">goto(x, y)</span>.
+              Наприклад, <span class="accent">goto(100, 50)</span> перемістить
+              Боба на 100 пікселів вправо і на 50 вгору від центру екрана.
+            </p>
+
+            <p>Намалюємо два квадрати в різних кутках полотна:</p>
+
+            <pre><code class="language-python">bob.pensize(5)
+side = 200
+
+# Телепортуємося у верхній лівий кут для першого квадрата
+bob.penup()
+bob.goto(-300, 300)  # X від'ємне (вліво), Y додатнє (вгору)
+bob.pendown()
+
+# Малюємо перший квадрат
+bob.pencolor("violet")
+bob.forward(side)
+bob.right(90)
+bob.forward(side)
+bob.right(90)
+bob.forward(side)
+bob.right(90)
+bob.forward(side)
+
+# Телепортуємося у нижній правий кут для другого квадрата
+bob.penup()
+bob.goto(300, -300)  # X додатнє (вправо), Y від'ємне (вниз)
+bob.pendown()
+
+# Малюємо другий квадрат
+bob.pencolor("turquoise")
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+bob.forward(side)
+bob.left(90)
+bob.forward(side)</code></pre>
+
+            <img
+              src="./images/lesson2/example8.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <hr />
+
+            <h3 id="bg">Колір фону (Заливка)</h3>
+
+            <p>
+              Фігури можуть бути не лише з кольоровими контурами, а й повністю
+              зафарбованими всередині. Для цього потрібні три кроки:
+            </p>
+
+            <ul type="square">
+              <li>
+                <span class="accent">fillcolor("колір")</span> — обираємо колір
+                заливки.
+              </li>
+              <li>
+                <span class="accent">begin_fill()</span> - кажемо черепашці:
+                "Зараз я почну малювати фігуру, яку треба зафарбувати". Цю
+                команду пишемо <span class="accent">перед</span> малюванням
+                фігури.
+              </li>
+              <li>
+                <span class="accent">end_fill()</span> — кажемо черепашці:
+                "Фігура готова, розфарбовуй!". Пишемо одразу
+                <span class="accent">після</span> того, як фігура замкнулася.
+              </li>
+            </ul>
+
+            <pre><code class="language-python">bob.pensize(5)
+bob.pencolor("slateblue")
+bob.fillcolor("palegreen")
+
+side = 220
+bob.begin_fill()
+bob.forward(side)
+bob.right(90)
+bob.forward(side)
+bob.right(90)
+bob.forward(side)
+bob.right(90)
+bob.forward(side)
+bob.end_fill()</code></pre>
+
+            <img
+              src="./images/lesson2/example9.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <hr />
+
+            <h3 id="p2-test">Питання для самоперевірки</h3>
+
+            <div class="soft-callout">
+              <h4>Перевір свої знання</h4>
+
+              <!-- Q1 -->
+              <p>
+                <span class="semibold">Питання 1:</span> Що станеться, якщо у
+                команді <span class="accent">pencolor</span> забути написати
+                лапки навколо кольору, наприклад
+                <span class="accent">pencolor(red)</span>?
+              </p>
+              <details class="answer">
+                <summary>Відповідь</summary>
+                <p>
+                  Програма видасть помилку. Без лапок Python подумає, що red —
+                  це <b>змінна</b>, яку ми десь створили раніше, і не зрозуміє,
+                  що це назва кольору.
+                </p>
+              </details>
+
+              <!-- Q2 -->
+              <p>
+                <span class="semibold">Питання 2:</span> Чому перед
+                використанням команди
+                <span class="accent">goto()</span> найчастіше пишуть
+                <span class="accent">penup()</span>?
+              </p>
+              <details class="answer">
+                <summary>Відповідь</summary>
+                <p>
+                  Якщо ручка опущена (<b>pendown</b>), то під час миттєвого
+                  переміщення в точку <b>goto()</b> черепашка
+                  <b>прокреслить лінію</b> через весь екран. Щоб переміщення
+                  було "невидимим", ручку треба спочатку підняти.
+                </p>
+              </details>
+
+              <!-- Q3 -->
+              <p>
+                <span class="semibold">Питання 3:</span> В якому місці коду
+                потрібно писати команди
+                <span class="accent">begin_fill()</span> та
+                <span class="accent">end_fill()</span> ?
+              </p>
+              <details class="answer">
+                <summary>Відповідь</summary>
+                <p>
+                  Команду <b>begin_fill()</b> ставимо безпосередньо перед першою
+                  лінією фігури, яку хочемо зафарбувати. А команду
+                  <b>end_fill()</b> — одразу після того, як намалювали останню
+                  лінію, яка замкнула цю фігуру.
+                </p>
+              </details>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 2</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task2" open>
+              <summary><h4>Завдання 2.1: Прапор</h4></summary>
+
+              <div>
+                <p>
+                  Намалюй два прямокутники один над одним: верхній синього
+                  кольору, нижній - жовтого.
+                </p>
+
+                <img
+                  src="./images/task2_1.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task2">
+              <summary><h4>Завдання 2.2: Шахівниця</h4></summary>
+
+              <div>
+                <p>
+                  Намалюй великий квадрат, який складається з 4 менших
+                  квадратиків (2 чорних, 2 білих, розташованих у шаховому
+                  порядку).
+                </p>
+
+                <img
+                  src="./images/task2_2.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task2">
+              <summary><h4>Завдання 2.3: Будинок</h4></summary>
+
+              <div>
+                <p>
+                  Намалювати будинок, де стіни — це квадрат, а дах — трикутник,
+                  із заливкою різними кольорами.
+                </p>
+
+                <img
+                  src="./images/task2_3.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 
+        Part 3:
+        1. for loops
+        2. turtle + input()
+      -->
+      <section id="part-3" class="accordion tab-content">
+        <!-- 📚 Теорія 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Теорія 3</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="loops">Цикли</h3>
+
+            <p>
+              Уяви, що тобі потрібно намалювати фігуру з
+              <span class="accent">20</span> сторін. Писати команди
+              <span class="accent">forward()</span> та
+              <span class="accent">left()</span> 20 разів підряд — це дуже довго
+              і нудно.
+            </p>
+
+            <p>
+              У програмуванні є золоте правило:
+              <span class="accent"> комп'ютер має працювати замість тебе </span
+              >. Щоб не копіювати однакові рядки коду багато разів, програмісти
+              використовують <span class="accent">цикли</span>. Цикл — це
+              спеціальна команда, яка змушує комп'ютер
+              <span class="accent">повторювати</span> певну дію потрібну
+              кількість разів.
+            </p>
+
+            <p>
+              Існує кілька видів циклів, але сьогодні ми познайомимося з
+              найпопулярнішим із них — циклом <span class="accent">for</span>.
+            </p>
+
+            <hr />
+
+            <h3 id="loops">Цикл for</h3>
+
+            <p>
+              З англійської слово "for" перекладається як "для", а "range" — як
+              "діапазон". Тому рядок
+              <span class="accent">for i in range(4):</span> можна прочитати
+              так:
+              <i>"для кожного кроку в діапазоні з 4 повторень зроби наступне"</i
+              >.
+            </p>
+
+            <p>
+              Сьогодні ми лише знайомимось з циклами. Все, що тобі потрібно
+              запам'ятати зараз: команда
+              <span class="accent">for i in range(n):</span> каже комп'ютеру
+              повторити дію рівно <span class="accent">n</span> разів.
+            </p>
+
+            <p>Давай подивимося, як сильно цикл спрощує малювання квадрата:</p>
+
+            <pre><code class="language-python">side = 100
+
+# Кажемо комп'ютеру повторити команди 4 рази
+for i in range(4):
+    bob.forward(side)
+    bob.left(90)</code></pre>
+
+            <p>
+              Зверни увагу на порожні місця (пробіли) перед командами
+              <span class="accent">bob.forward()</span> та
+              <span class="accent">bob.left()</span>. Їх можна швидко поставити
+              клавішею <span class="accent">Tab</span> на клавіатурі. Саме
+              завдяки цим відступам Python розуміє, які саме команди
+              "знаходяться всередині циклу" і їх треба повторювати.
+            </p>
+
+            <img
+              src="./images/lesson2/example#.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <hr />
+
+            <h3 id="loops">turtle + input()</h3>
+
+            <p>
+              А тепер давай згадаємо те, що ми вчили на першому уроці! Функція
+              <span class="accent">input()</span> дозволяє нашій програмі
+              спілкуватися з користувачем — ставити йому запитання і чекати на
+              відповідь з клавіатури.
+            </p>
+
+            <p>
+              Пам'ятай: <span class="accent">input()</span> завжди повертає
+              текст (тип <span class="accent">str</span>). Тому, якщо ми питаємо
+              користувача про розмір квадрата (тобто просимо ввести число),
+              обов'язково треба перетворити його відповідь на число за допомогою
+              <span class="accent">int()</span> (для цілих чисел) або
+              <span class="accent">float()</span> (для дробів).
+            </p>
+
+            <p>
+              Давай напишемо програму, яка спочатку питає в користувача, якого
+              розміру і кольору квадрат він хоче, а потім малює його:
+            </p>
+
+            <pre><code class="language-python"># 1. Спілкуємося з користувачем
+# Перетворюємо введену відстань на ціле число
+user_size = int(input("Введіть розмір квадрата (в пікселях): "))
+
+# Колір залишаємо як текст
+user_color = input("Введіть колір англійською (наприклад, red, green, blue): ")
+
+# 2. Починаємо малювати
+bob.pensize(3)
+bob.pencolor(user_color)  # Застосовуємо колір від користувача
+
+# 3. Використовуємо цикл для квадрата
+for i in range(4):
+    bob.forward(user_size)  # Застосовуємо розмір від користувача
+    bob.left(90)</code></pre>
+
+            <img
+              src="./images/lesson2/example#.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <hr />
+
+            <h3 id="p3-test">Питання для самоперевірки</h3>
+
+            <div class="soft-callout">
+              <h4>Перевір свої знання</h4>
+
+              <!-- Q1 -->
+              <p>
+                <span class="semibold">Питання 1:</span> Як комп'ютер розуміє,
+                які саме команди належать до циклу і їх треба повторювати, а які
+                — ні?
+              </p>
+              <details class="answer">
+                <summary>Відповідь</summary>
+                <p>
+                  За допомогою відступів (пробілів або табуляції). Усі команди,
+                  які зсунуті вправо під рядком <b>for ... :</b>, знаходяться
+                  "всередині" циклу і будуть повторюватися. Код, який написаний
+                  без відступів з лівого краю, до циклу не входить.
+                </p>
+              </details>
+
+              <!-- Q2 -->
+              <p>
+                <span class="semibold">Питання 2:</span> Що робить рядок
+                <span class="accent"> for i in range(10): </span>?
+              </p>
+              <details class="answer">
+                <summary>Відповідь</summary>
+                <p>
+                  Він дає вказівку комп'ютеру повторити команди, які знаходяться
+                  всередині циклу (з відступом), рівно <b>10 разів</b>.
+                </p>
+              </details>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 3</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task3" open>
+              <summary><h4>Завдання 3.1: Трикутник</h4></summary>
+
+              <div>
+                <p>
+                  Знову намалюй рівносторонній трикутник, але викорастай цикл
+                  <span class="accent">for</span>.
+                </p>
+
+                <img
+                  src="./images/task3_1.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task3">
+              <summary><h4>Завдання 3.2: Багатокутник</h4></summary>
+
+              <div>
+                <p>Напиши програму, яка:</p>
+
+                <ol>
+                  <li>
+                    Запитує у користувача кількість сторін (n) багатокутника і
+                    довжину сторони (length).
+                  </li>
+                  <li>Обчислює потрібний кут повороту черепашки (angle).</li>
+                  <li>Малює правильний багатокутник циклом for.</li>
+                </ol>
+
+                <img
+                  src="./images/task3_2_1.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+
+                <img
+                  src="./images/task3_2_2.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task3">
+              <summary><h4>Завдання 3.3: Зірка</h4></summary>
+
+              <div>
+                <p>Цей код малює пʼятикутну зірку:</p>
+
+                <pre><code class="language-python">for i in range(5):
+    bob.forward(200)
+    bob.right(144)</code></pre>
+
+                <ol>
+                  <li>
+                    Поекспериментуй із цифрами в дужках, щоб вийшла зірка з
+                    більшою кількістю кутів.
+                  </li>
+                  <li>
+                    Зміни колір та товщину ліній і додай заливку на свій смак.
+                  </li>
+                </ol>
+
+                <img
+                  src="./images/task3_3.png"
+                  alt="code result"
+                  class="zoomable"
+                />
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <!-- Кнопка для повернення на початок сторінки -->
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Повернутися нагору"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
+
+    <dialog id="clear-confirm-dialog" class="custom-dialog">
+      <div class="dialog-content">
+        <h3>⚠️ Увага!</h3>
+        <p>Ти справді хочеш видалити ВСІ свої відповіді і почати заново?</p>
+        <div class="dialog-actions">
+          <button type="button" id="dialog-cancel-btn">Скасувати</button>
+          <button type="button" id="dialog-confirm-btn">Так, видалити</button>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>
