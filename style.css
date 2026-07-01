@@ -284,6 +284,21 @@ p code {
   border-radius: 3px;
 }
 
+.img-container {
+  display: flex; /* Вмикаємо flex-модель */
+  justify-content: center; /* Горизонтальне центрування */
+  align-items: center; /* ВЕРТИКАЛЬНЕ центрування */
+  gap: 15px; /* Відстань між картинками */
+  margin: 15px 0;
+}
+
+.img-container img {
+  flex: 1; /* Обидві картинки займають рівну ширину */
+  max-width: 48%; /* Щоб вони не перекривали одна одну */
+  height: auto; /* Зберігає пропорції */
+  border-radius: 8px;
+}
+
 /* ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ */
 /* 🌸 3. АНІМАЦІЇ ПЕРЕХОДІВ */
 /* ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ */
