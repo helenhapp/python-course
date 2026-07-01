@@ -514,11 +514,11 @@ turtle.done()</code></pre>
 
             <ul type="square">
               <li>
-                <span class="accent">pensize()</span> - змінює товщину лінії. В
+                <span class="accent">pensize()</span> – змінює товщину лінії. В
                 дужках пишемо число (кількість пікселів).
               </li>
               <li>
-                <span class="accent">pencolor()</span> - змінює колір лінії. В
+                <span class="accent">pencolor()</span> – змінює колір лінії. В
                 дужках англійською пишемо назву кольору, обовʼязково в лапках.
               </li>
             </ul>
@@ -576,11 +576,11 @@ bob.forward(side)</code></pre>
 
             <ul type="square">
               <li>
-                <span class="accent">penup()</span> - підняти ручку (черепашка
+                <span class="accent">penup()</span> – підняти ручку (черепашка
                 рухається, але не малює).
               </li>
               <li>
-                <span class="accent">pendown()</span> - опустити ручку
+                <span class="accent">pendown()</span> – опустити ручку
                 (черепашка знову малює).
               </li>
             </ul>
@@ -708,13 +708,13 @@ bob.forward(side)</code></pre>
                 заливки.
               </li>
               <li>
-                <span class="accent">begin_fill()</span> - кажемо черепашці:
+                <span class="accent">begin_fill()</span> – кажемо черепашці:
                 "Зараз я почну малювати фігуру, яку треба зафарбувати". Цю
                 команду пишемо <span class="accent">перед</span> малюванням
                 фігури.
               </li>
               <li>
-                <span class="accent">end_fill()</span> — кажемо черепашці:
+                <span class="accent">end_fill()</span> – кажемо черепашці:
                 "Фігура готова, розфарбовуй!". Пишемо одразу
                 <span class="accent">після</span> того, як фігура замкнулася.
               </li>
@@ -821,7 +821,7 @@ bob.end_fill()</code></pre>
               <div>
                 <p>
                   Намалюй два прямокутники один над одним: верхній синього
-                  кольору, нижній - жовтого.
+                  кольору, нижній – жовтого.
                 </p>
 
                 <img src="./images/lesson2/task2_1.png" alt="code result" />
@@ -1096,6 +1096,33 @@ for i in range(4):
                 <pre><code class="language-python">for i in range(5):
     bob.forward(200)
     bob.right(144)</code></pre>
+
+                <p>
+                  Головна математична формула для зірок:
+                  <code>Кут повороту = (360 * k) / n</code>
+                </p>
+
+                <ul>
+                  <li>
+                    <span class="accent">n</span> – це кількість променів зірки.
+                  </li>
+                  <li>
+                    <span class="accent">k</span> – це кількість повних обертів,
+                    які зробить черепашка (або те, через скільки "вершин" вона
+                    перестрибує). Правило:
+                    <span class="accent">1 < k < n/2</span>.
+                  </li>
+                  <li><span class="accent">n</span> та
+                  <span class="accent">k</span> – цілі числа.</li>
+                </ul>
+
+                <p>
+                  Числа <span class="accent">n</span> та
+                  <span class="accent">k</span> не повинні мати спільних
+                  дільників (окрім одиниці). Вони мають бути взаємно простими.
+                  Якщо у них буде спільний дільник, черепашка замкне фігуру
+                  занадто рано, і зірка однією безперервною лінією не вийде.
+                </p>
 
                 <ol>
                   <li>
