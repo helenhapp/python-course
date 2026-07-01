@@ -153,10 +153,17 @@
 
       <!-- Короткий опис -->
       <section class="objective">
-        <ul>
-          <li>...</li>
-          <li>...</li>
-          <li>...</li>
+        <p>
+          На цьому уроці ми поєднаємо програмування з геометрією, щоб
+          перетворити код на яскраві візуальні образи. Ти навчишся:
+        </p>
+        <ul type="square">
+          <li>Керувати віртуальною черепашкою для створення малюнків.</li>
+          <li>Використовувати координати та змінювати кольори фігур.</li>
+          <li>
+            Оптимізувати свій код за допомогою циклу
+            <span class="accent">for</span>.
+          </li>
         </ul>
       </section>
 
@@ -167,10 +174,10 @@
     <main>
       <!-- tab buttons -->
       <div class="tabs-nav">
-        <button class="tab-btn active" data-target="part-1">Part 1</button>
-        <button class="tab-btn" data-target="part-2">Part 2</button>
-        <button class="tab-btn" data-target="part-3">Part 3</button>
-        <!-- <button class="tab-btn" data-target="part-4">Homework</button> -->
+        <button class="tab-btn active" data-target="part-1">Частина 1</button>
+        <button class="tab-btn" data-target="part-2">Частина 2</button>
+        <button class="tab-btn" data-target="part-3">Частина 3</button>
+        <button class="tab-btn" data-target="part-4">Домашнє завдання</button>
       </div>
 
       <!-- 
@@ -1140,6 +1147,258 @@ for i in range(4):
             </details>
           </div>
         </details>
+      </section>
+
+      <section id="part-4" class="accordion tab-content">
+        <!-- review (table) -->
+        <details class="accordion__item" name="section4">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/score.svg" class="star" />
+              <span>Повторення</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Таблиця</h3>
+
+            <div class="tablecontainer">
+              <table>
+                <tr>
+                  <th>Поняття</th>
+                  <th>Означення</th>
+                  <th>Приклад коду</th>
+                </tr>
+
+                <tr>
+                  <td class="accent">import turtle</td>
+                  <td>
+                    Підключає бібліотеку інструментів для графіки та малювання.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">import turtle</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">turtle.Turtle()</td>
+                  <td>
+                    Створює новий об'єкт черепашки (нашого персонажа) для
+                    керування.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob = turtle.Turtle()</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">forward(n)</td>
+                  <td>
+                    Переміщує черепашку вперед на
+                    <span class="accent">n</span> пікселів.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.forward(150)</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">backward(n)</td>
+                  <td>
+                    Переміщує черепашку назад на
+                    <span class="accent">n</span> пікселів.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.backward(50)</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">left(α)</td>
+                  <td>
+                    Повертає черепашку ліворуч на вказаний кут у градусах.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.left(90)</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">right(α)</td>
+                  <td>
+                    Повертає черепашку праворуч на вказаний кут у градусах.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.right(45)</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">pensize(w)</td>
+                  <td>
+                    Встановлює товщину лінії малювання у
+                    <span class="accent">w</span> пікселів.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.pensize(5)</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">pencolor("color")</td>
+                  <td>
+                    Змінює колір лінії (назву кольору пишемо англійською в
+                    лапках).
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.pencolor("red")</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">penup()</td>
+                  <td>
+                    Піднімає ручку (черепашка рухається площиною, не залишаючи
+                    сліду).
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.penup()</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">pendown()</td>
+                  <td>
+                    Опускає ручку (черепашка знову починає малювати лінії під
+                    час руху).
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.pendown()</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">goto(x, y)</td>
+                  <td>
+                    Телепортує черепашку в точку з точними абсолютними
+                    координатами.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.goto(100, -150)</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">fillcolor("color")</td>
+                  <td>
+                    Обирає колір для внутрішнього зафарбовування (заливки)
+                    фігур.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.fillcolor("yellow")</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">begin_fill()</td>
+                  <td>
+                    Команда-маркер. Ставиться безпосередньо
+                    <span class="accent">перед</span> початком малювання фігури
+                    для заливки.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.begin_fill()</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">end_fill()</td>
+                  <td>
+                    Команда-маркер. Ставиться одразу
+                    <span class="accent">після</span> завершення малювання
+                    фігури, щоб розфарбувати її.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">bob.end_fill()</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">for i in range(n):</td>
+                  <td>
+                    Цикл <span class="accent">for</span>. Повторює всі вкладені
+                    команди (ті, що з відступом) рівно
+                    <span class="accent">n</span> разів.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">for i in range(4):</code></pre>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="accent">turtle.done()</td>
+                  <td>
+                    Пишеться в самому кінці. Залишає вікно з малюнком відкритим.
+                  </td>
+                  <td>
+                    <pre><code class="language-python nocopy">turtle.done()</code></pre>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <!-- практика -->
+        <details class="accordion__item" name="section4">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/math.svg" class="star" />
+              <span>Практика</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання: Тунель</h3>
+
+            
+
+            <img
+              src="./images/lesson2/hw_1.png"
+              alt="результат завдання"
+              class="zoomable"
+            />
+
+            <img
+              src="./images/lesson2/hw_2.png"
+              alt="результат завдання"
+              class="zoomable"
+            />
+
+            
+<p>
+              Це завдання об'єднує все, що ми вивчили: спілкування з
+              користувачем (<span class="accent">input</span>), координати
+              (<span class="accent">goto</span>), кольори, цикли <span
+                class="accent"
+                >for</span
+              > та математику.
+            </p>
+
+            <ol>
+              <li>Запитай в користувача розмір квадрата та два кольори.</li>
+              <li>Намалюй 4 квадрати, один всередині іншого, із чергуванням кольорів фону.</li>
+              <li>Розмір кожного наступного квадрата має бути на 30% меншим за попередній.</li>
+              <li>В результаті, всі квадрати мають бути розміщені рівно по центру вікна (підказка: починати малювати треба не з точки (0, 0)).</li>
+            </ol>
+
+            
+          </div>
+        </details>
+
+       
       </section>
     </main>
 
