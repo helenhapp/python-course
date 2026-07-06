@@ -156,9 +156,22 @@
 
       <!-- Короткий опис -->
       <section class="objective">
-        <p>Ти навчишся:</p>
+        <p>На цьому уроці та дізнаєшся:</p>
         <ul type="square">
-          <li>...</li>
+          <li>
+            Як порівнювати числа та текст за допомогою операторів порівняння.
+          </li>
+          <li>
+            Як навчити програму приймати власні рішення за допомогою
+            <span>if</span>, <span>elif</span> та <span>else</span>.
+          </li>
+          <li>
+            Як об'єднати кілька умов одночасно за допомогою логічних операторів.
+          </li>
+          <li>
+            Як генерувати випадкові числа за допомогою бібліотеки
+            <span>random</span>.
+          </li>
         </ul>
       </section>
 
@@ -172,6 +185,7 @@
         <button class="tab-btn active" data-target="part-1">Частина 1</button>
         <button class="tab-btn" data-target="part-2">Частина 2</button>
         <button class="tab-btn" data-target="part-3">Частина 3</button>
+        <button class="tab-btn" data-target="part-4">Д/З</button>
       </div>
 
       <!-- 🌻 PART 1 -->
@@ -893,6 +907,96 @@ while secret_number != user_guess:
                     хибною і гра завершиться!
                   </p>
                 </div>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🏖️ PART 4 -->
+      <section id="part-4" class="accordion tab-content">
+        <!-- 📝 Завдання 4 -->
+        <details class="accordion__item" name="section4">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Домашнє завдання</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання для самостійної роботи</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task4" open>
+              <summary><h4>Завдання 1: Калькулятор доставки</h4></summary>
+
+              <div>
+                <p>
+                  Напиши програму для інтернет-магазину, яка розраховує вартість
+                  доставки. Вона повинна по черзі запитувати у користувача дві
+                  речі:
+                </p>
+
+                <ol>
+                  <li>Суму замовлення (число)</li>
+                  <li>День тижня (слово)</li>
+                </ol>
+
+                <p>Правила такі:</p>
+                <ul>
+                  <li>
+                    Якщо день <i>"субота"</i> або <i>"неділя"</i>, доставка
+                    завжди коштує 100 грн (незалежно від суми).
+                  </li>
+                  <li>
+                    Якщо замовлення на суму 1000 грн і більше (і це будній
+                    день), доставка безкоштовна!
+                  </li>
+                  <li>
+                    В усіх інших випадках — стандартна доставка коштує 50 грн.
+                  </li>
+                </ul>
+
+                <img src="./images/lesson3/task4_1_1.png" alt="code result" />
+                <img src="./images/lesson3/task4_1_2.png" alt="code result" />
+                <img src="./images/lesson3/task4_1_3.png" alt="code result" />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task4">
+              <summary>
+                <h4>Завдання 2: Гра "Камінь, ножиці, папір"</h4>
+              </summary>
+
+              <div>
+                <p>Програма просить користувача обрати число:</p>
+
+                <ul>
+                  <li>1 – камінь</li>
+                  <li>2 – ножиці</li>
+                  <li>3 – папір</li>
+                </ul>
+
+                <p>
+                  Далі комп'ютер теж робить свій вибір (випадкове число від 1 до
+                  3).
+                </p>
+
+                <p>Після цього програма має:</p>
+                <ul>
+                  <li>Вивести на екран, хто що обрав (слова замість цифр).</li>
+                  <li>
+                    Порівняти вибір гравця та комп'ютера і вивести, хто переміг
+                    (або чи сталась нічия).
+                  </li>
+                </ul>
+
+                <img src="./images/lesson3/task4_2_1.png" alt="code result" />
+                <img src="./images/lesson3/task4_2_2.png" alt="code result" />
+                <img src="./images/lesson3/task4_2_3.png" alt="code result" />
               </div>
             </details>
           </div>
