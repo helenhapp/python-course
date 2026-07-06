@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Навчальні матеріали" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <!-- Назва на вкладці -->
+    <title>Python Lesson 3</title>
+
+    <!-- Скрипт перемикання теми -->
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      const hljsThemeLink =
+        savedTheme === "dark"
+          ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
+
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link id="hljs-theme" rel="stylesheet" href="${hljsThemeLink}" />`,
+      );
+    </script>
+
+    <!-- Підключення шрифтів (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Підсвітка коду (Highlight.js) -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
+    ></script>
+
+    <!-- CodeMirror -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"
+    ></script>
+
+    <!-- Власні стилі та скрипти -->
+    <link rel="stylesheet" href="./style.css?v=1.0" />
+    <script src="./main.js?v=1.0" defer></script>
+  </head>
+
+  <body>
+    <!-- "Завіса", яка плавно зникає при завантаженні сторінки -->
+    <div class="transition-curtain"></div>
+
+    <!-- top-bar -->
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            width="62"
+            height="62"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Хедер з назвою теми та посиланнями -->
+    <header>
+      <div class="title-container">
+        <a
+          href="./lesson2.html"
+          class="nav-arrow prev-arrow"
+          title="Попередній урок"
+          ><img src="./media/icons/double-alt-arrow-left.svg"
+        /></a>
+
+        <h1 id="lesson-title">Python: 03</h1>
+
+        <a href="#" class="nav-arrow next-arrow" title="Наступний урок"
+          ><img src="./media/icons/double-alt-arrow-right.svg"
+        /></a>
+      </div>
+
+      <p class="topic">Умови в Python: if, elif, else</p>
+
+      <!-- Короткий опис -->
+      <section class="objective">
+        <p>Ти навчишся:</p>
+        <ul type="square">
+          <li>...</li>
+        </ul>
+      </section>
+
+      <hr />
+    </header>
+
+    <!-- Основний контент -->
+    <main>
+      <!-- tab buttons -->
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-target="part-1">Частина 1</button>
+        <button class="tab-btn" data-target="part-2">Частина 2</button>
+        <button class="tab-btn" data-target="part-3">Частина 3</button>
+      </div>
+
+      <!-- 🌻 PART 1 -->
+      <section id="part-1" class="accordion tab-content active show">
+        <!-- 📚 Теорія 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Оператори порівняння та if/else</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p1-operators">Оператори порівняння</h3>
+
+            <p>
+              До цього уроку програма завжди виконувала всі рядки по черзі,
+              зверху донизу. Сьогодні навчимо її
+              <span class="accent">приймати рішення</span> — робити одне або
+              інше залежно від умови. Але спочатку потрібен інструмент, щоб щось
+              порівнювати.
+            </p>
+
+            <p>В Python є шість операторів порівняння:</p>
+
+            <pre><code class="language-python">5 > 3      # True  — 5 більше за 3
+5 < 3      # False — 5 не менше за 3
+5 >= 5     # True  — 5 більше або дорівнює 5
+5 <= 4     # False — 5 не менше або дорівнює 4
+5 == 5     # True  — 5 дорівнює 5
+5 != 3     # True  — 5 не дорівнює 3</code></pre>
+
+            <p>
+              Результат порівняння — це новий тип даних:
+              <span class="accent">bool</span> (логічний). Він має лише два
+              значення: <span class="accent-code">True</span> або
+              <span class="accent-code">False</span>.
+            </p>
+
+            <pre><code class="language-python">print(10 > 3)      # True
+print(10 == 3)     # False
+print(type(True))  # &lt;class 'bool'&gt;</code></pre>
+
+            <img
+              src="./images/lesson3/example1.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <p class="accent">❗️ Важлива різниця:</p>
+
+            <ul>
+              <li>
+                <span class="accent-code">=</span> — присвоєння (кладемо
+                значення у змінну): <span class="accent-code">вік = 12</span>
+              </li>
+              <li>
+                <span class="accent-code">==</span> — порівняння (перевіряємо,
+                чи рівні): <span class="accent-code">вік == 12</span>
+              </li>
+            </ul>
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+              <p>❓ <span class="accent">Питання:</span> Що виведе цей код?</p>
+              <pre><code class="language-python">x = 7
+print(x == 7)
+print(x != 7)
+print(x >= 10)</code></pre>
+            </div>
+
+            <hr />
+
+            <h3 id="p1-if-else">if / else</h3>
+
+            <p>
+              Тепер використаємо <span class="accent">порівняння</span>, щоб
+              програма могла вибирати, що робити:
+            </p>
+
+            <pre><code class="language-python">if умова:
+    # виконується, якщо умова True
+else:
+    # виконується, якщо умова False</code></pre>
+
+            <p>Наприклад:</p>
+
+            <pre><code class="language-python">number = int(input("Введи число: "))
+
+if number > 0:
+    print("Число додатне")
+else:
+    print("Число від'ємне або нуль")</code></pre>
+
+            <img
+              src="./images/lesson3/example2.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+            <img
+              src="./images/lesson3/example3.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <p>❗️ Два правила синтаксису, які легко забути:</p>
+
+            <ul>
+              <li>
+                Після <span class="accent-code">if умова</span> обов'язково
+                стоїть <span class="accent">двокрапка</span>
+                <span class="accent-code">:</span>
+              </li>
+              <li>
+                Рядки всередині
+                <span class="accent-code">if/else</span> обов'язково мають
+                <span class="accent">відступ</span> (Tab або 4 пробіли) — саме
+                по відступу Python розуміє, що належить до умови
+              </li>
+            </ul>
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+              <p class="accent">❓ Знайди помилку:</p>
+              <pre><code class="language-python">temperature = int(input("Температура: "))
+if temperature > 30
+    print("Спекотно!")
+else:
+    print("Нормально")</code></pre>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 1</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task1" open>
+              <summary>
+                <h4>Завдання 1: Квиток в кіно</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Напиши програму для кінотеатру, яка запитує вік користувача.
+                  Базова вартість квитка — 180 гривень.
+                </p>
+
+                <ul>
+                  <li>
+                    Якщо користувачу 18 років або більше — він платить повну
+                    вартість.
+                  </li>
+                  <li>Якщо менше — користувач отримує знижку 20%.</li>
+                </ul>
+
+                <img src="./images/lesson3/task1_1.png" alt="code result" />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 2: Парне чи непарне?</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Напиши програму, яка запитує ціле число і виводить, парне воно
+                  чи непарне.
+                </p>
+                <!-- <p>
+                  <i
+                    >Підказка: число парне, якщо остача від ділення на 2
+                    дорівнює нулю.
+                  </i>
+                </p> -->
+
+                <img src="./images/lesson3/task1_2.png" alt="code result" />
+
+                <p style="color: var(--text-soft)">
+                  Додатково: А як перевірити, чи ділиться число на 3?
+                </p>
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 3: Банкомат</h4>
+              </summary>
+
+              <div>
+                <p>
+                  У користувача на рахунку є 1000 гривень. Напиши програму, яка
+                  запитує його, скільки грошей він хоче зняти з рахунку.
+                </p>
+
+                <ul>
+                  <li>
+                    Якщо сума зняття менша або дорівнює балансу — програма має
+                    вивести <i>"Операція успішна"</i> і показати залишок на
+                    рахунку.
+                  </li>
+                  <li>
+                    Якщо коштів не вистачає — вивести
+                    <i> "Помилка: недостатньо коштів" </i>.
+                  </li>
+                </ul>
+
+                <!-- <img src="./images/lesson3/task1_3.png" alt="code result" /> -->
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🌷 PART 2 -->
+      <section id="part-2" class="accordion tab-content">
+        <!-- 📚 Теорія 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>elif та порівняння рядків</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p2-elif">elif — кілька варіантів</h3>
+
+            <p>
+              <span class="accent-code">if/else</span> дає лише два варіанти:
+              або/або. Якщо варіантів більше — використовуємо
+              <span class="accent-code">elif</span> (скорочення від "else if"):
+            </p>
+
+            <pre><code class="language-python">grade = int(input("Твій бал: "))
+
+if grade >= 90:
+    print("Відмінно!")
+elif grade >= 75:
+    print("Добре")
+elif grade >= 60:
+    print("Задовільно")
+else:
+    print("Треба підтягнутись")</code></pre>
+
+            <img
+              src="./images/lesson3/example4.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <p>
+              Python перевіряє умови
+              <span class="accent">по черзі зверху донизу</span> і виконує
+              перший блок, умова якого виявилась
+              <span class="accent-code">True</span>. Решта блоків пропускаються
+              — навіть якщо їхні умови теж були б правдивими.
+            </p>
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+              <p>
+                ❓ <span class="accent">Питання:</span> Що виведе програма з
+                прикладу вище, якщо ввести <span class="accent-code">85</span>?
+                А якщо ввести <span class="accent-code">90</span>?
+              </p>
+            </div>
+
+            <hr />
+
+            <h3 id="p2-strings">Порівняння рядків</h3>
+
+            <p>
+              Порівнювати можна не лише числа, а й
+              <span class="accent">рядки</span>:
+            </p>
+
+            <pre><code class="language-python">answer = input("Тобі подобається програмувати на Python? (так/ні): ")
+
+if answer == "так":
+    print("Чудово! 🐍")
+elif answer == "ні":
+    print("Дамо тобі ще один шанс...")
+else:
+    print("Будь ласка, відповідай 'так' або 'ні'")</code></pre>
+
+            <img
+              src="./images/lesson3/example5.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <p>
+              ❗️ Важливо: <span class="accent-code">"Так" != "так"</span> —
+              Python чутливий до регістру. Щоб не залежати від того, як саме
+              користувач надрукує слово, часто використовують
+              <span class="accent-code">.lower()</span>:
+            </p>
+
+            <pre><code class="language-python">answer = input("Тобі подобається програмувати на Python? (так/ні): ")
+answer = answer.lower()
+print("answer:", answer)</code></pre>
+
+            <img
+              src="./images/lesson3/example6.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <p>
+              <span class="accent-code">.lower()</span> перетворює весь введений
+              текст на малі літери — тоді "ТАК", "Так" і "так" для програми
+              будуть однаковими.
+            </p>
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+              <p>
+                ❓ <span class="accent">Питання:</span> Навіщо потрібен блок
+                <span class="accent-code">else</span> в прикладі вище — адже вже
+                є і "так", і "ні"?
+              </p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 2</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task2" open>
+              <summary>
+                <h4>Завдання 4: Cвітлофор</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Напиши програму, яка запитує колір світлофора і каже, що
+                  робити:
+                </p>
+
+                <ul>
+                  <li><i>"зелений"</i> → <i>"Можна йти!"</i></li>
+                  <li><i>"жовтий"</i> → <i>"Приготуйся!"</i></li>
+                  <li><i>"червоний"</i> → <i>"Стій!"</i></li>
+                  <li>
+                    інше слово →
+                    <i>"Світлофор зламався або такого кольору немає."</i>
+                  </li>
+                </ul>
+
+                <p>
+                  Програма має розуміти слова незалежно від того, введені вони з
+                  великої чи маленької літери.
+                </p>
+
+                <!-- <img src="./images/lesson3/task2_1.png" alt="code result" /> -->
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 5: Калькулятор</h4>
+              </summary>
+
+              <div>
+                <p>Напиши програму, яка по черзі запитує у користувача:</p>
+
+                <ul>
+                  <li>Перше число</li>
+                  <li>Друге число</li>
+                  <li>
+                    Математичну операцію, яку потрібно з ними виконати (+, -, *,
+                    або /)
+                  </li>
+                </ul>
+
+                <p>
+                  Залежно від введеного знаку, програма має порахувати і вивести
+                  результат. Якщо знак інший — вивести
+                  <i>"Невідома операція"</i>.
+                </p>
+
+                <!-- <img src="./images/lesson3/task2_2.png" alt="code result" /> -->
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 6: Стан води</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Напиши програму, яка запитує у користувача температуру води і
+                  виводить, в якому вона стані: твердому (0 і менше), рідкому чи
+                  газоподібному (100 і більше).
+                </p>
+
+                <!-- <img src="./images/lesson3/task2_3.png" alt="code result" /> -->
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🪴 PART 3 -->
+      <section id="part-3" class="accordion tab-content">
+        <!-- 📚 Теорія 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Логічні оператори: and, or, not; Бібліотека random </span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p3-logic">and, or, not</h3>
+
+            <p>
+              Іноді одного порівняння недостатньо — потрібно перевірити кілька
+              умов одразу. Для цього є
+              <span class="accent">логічні оператори</span>:
+            </p>
+
+            <p>
+              <span class="accent-code">and</span> — обидві умови мають бути
+              True:
+            </p>
+
+            <pre><code class="language-python">age = 14
+if age >= 12 and age <= 17:
+    print("Підліток")</code></pre>
+
+            <p>
+              <span class="accent-code">or</span> — достатньо, щоб хоча б одна
+              умова була True:
+            </p>
+
+            <pre><code class="language-python">day = input("День тижня: ").lower()
+if day == "субота" or day == "неділя":
+    print("Вихідний!")
+else:
+    print("Будній день")</code></pre>
+
+            <p>
+              <span class="accent-code">not</span> — перевертає результат (True
+              → False, False → True):
+            </p>
+
+            <pre><code class="language-python">online = False
+if not online:
+    print("Користувач офлайн")</code></pre>
+
+            <img
+              src="./images/lesson3/example7.png"
+              alt="результат коду з прикладу вище"
+              class="zoomable"
+            />
+
+            <p>Таблиця для запам'ятовування:</p>
+
+            <div class="tablecontainer">
+              <table>
+                <tr>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>A and B</th>
+                  <th>A or B</th>
+                  <th>not A</th>
+                </tr>
+
+                <tr>
+                  <td>True</td>
+                  <td>True</td>
+                  <td>True</td>
+                  <td>True</td>
+                  <td>False</td>
+                </tr>
+
+                <tr>
+                  <td>True</td>
+                  <td>False</td>
+                  <td>False</td>
+                  <td>True</td>
+                  <td>False</td>
+                </tr>
+
+                <tr>
+                  <td>False</td>
+                  <td>True</td>
+                  <td>False</td>
+                  <td>True</td>
+                  <td>True</td>
+                </tr>
+
+                <tr>
+                  <td>False</td>
+                  <td>False</td>
+                  <td>False</td>
+                  <td>False</td>
+                  <td>True</td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+              <p>
+                ❓ <span class="accent">Питання 1:</span> Як одним рядком
+                перевірити, чи число
+                <span class="accent-code">x</span> знаходиться поза діапазоном
+                від 1 до 10?
+              </p>
+              <p>
+                ❓ <span class="accent">Питання 2:</span> Що виведе цей код?
+              </p>
+              <pre><code class="language-python">x = 5
+print(x > 3 and x < 10)
+print(x < 3 or x > 10)
+print(not x == 5)</code></pre>
+            </div>
+
+            <hr />
+
+            <h3 id="p3-random">Бібліотека random — випадкові числа</h3>
+
+            <p>
+              Іноді програмі потрібен
+              <span class="accent">елемент випадковості</span> — наприклад, щоб
+              комп'ютер "загадав" число. Для цього є бібліотека
+              <span class="accent-code">random</span>, яку, як і
+              <span class="accent-code">math</span>, потрібно підключити на
+              початку програми:
+            </p>
+
+            <pre><code class="language-python">import random</code></pre>
+
+            <p>
+              Сьогодні нам знадобиться лише одна функція з цієї бібліотеки:
+              <span class="accent-code">random.randint(a, b)</span>. Вона
+              повертає випадкове <span class="accent">ціле</span> число від
+              <span class="accent-code">a</span> до
+              <span class="accent-code">b</span> включно:
+            </p>
+
+            <pre><code class="language-python">number = random.randint(1, 6)   # як кинути кубик: від 1 до 6
+print(number)                   # кожен раз різний результат!</code></pre>
+
+            <p>
+              ❗️ Важливо: кожен раз при запуску програми результат буде іншим —
+              це і є суть "випадковості".
+            </p>
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+              <p>❓ <span class="accent">Питання:</span> Що виведе цей код?</p>
+              <pre><code class="language-python">import random
+x = random.randint(1, 3)
+print(x)</code></pre>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 3</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task3" open>
+              <summary><h4>Завдання 7: Парк розваг</h4></summary>
+
+              <div>
+                <p>
+                  На екстремальні американські гірки пускають лише тих, кому вже
+                  є 12 років і чий зріст не менше 140 см.
+                </p>
+
+                <p>
+                  Напиши програму, яка запитує вік та зріст. Якщо обидві умови
+                  виконуються — виведи <i>"Проходь!"</i>, якщо хоча б одна ні —
+                  <i> "На жаль, на цей атракціон не можна" </i>.
+                </p>
+
+                <!-- <img src="./images/lesson3/task3_1.png" alt="code result" /> -->
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task3">
+              <summary><h4>Завдання 8: Пора року</h4></summary>
+
+              <div>
+                <p>
+                  Напиши програму, яка запитує номер місяця (від 1 до 12) і
+                  виводить пору року. Наприклад:
+                </p>
+
+                <ul>
+                  <li>12 або 1 або 2 → <i>"Зима ❄️"</i></li>
+                </ul>
+
+                <p>
+                  Якщо ввести не число від 1 до 12 →
+                  <i>"Такого місяця не існує"</i>.
+                </p>
+
+                <!-- <img src="./images/lesson3/task3_2.png" alt="code result" /> -->
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task3">
+              <summary><h4>Завдання 9: Чарівна куля</h4></summary>
+
+              <div>
+                <p>
+                  Напиши програму "Чарівна куля". Вона має просити користувача
+                  ввести будь-яке питання. Потім програма випадковим чином
+                  обирає число від 1 до 3.
+                </p>
+
+                <ul>
+                  <li>Якщо випало 1 → виводить <i>"Так, безсумнівно!"</i></li>
+                  <li>Якщо 2 → <i>"Ні, навіть не думай."</i></li>
+                  <li>Якщо 3 → <i>"Можливо, спитай пізніше..."</i></li>
+                </ul>
+
+                <!-- <img src="./images/lesson3/task3_3.png" alt="code result" /> -->
+              </div>
+            </details>
+
+            <!-- 4 -->
+            <details class="task" name="task3">
+              <summary><h4>Завдання 10: Гра "Вгадай число"</h4></summary>
+
+              <div>
+                <p>
+                  Напишемо міні-гру! Комп'ютер загадує випадкове число від 1 до
+                  10. Гравець вводить свій варіант. Програма має вивести:
+                </p>
+
+                <ul>
+                  <li><i>"Правильно! 🎉"</i> — якщо гравець вгадав.</li>
+                  <li>
+                    <i>"Спробуй менше число..."</i> — якщо гравець ввів більше
+                    число, ніж загадано.
+                  </li>
+                  <li>
+                    <i>"Спробуй більше число..."</i> — якщо гравець ввів менше
+                    число, ніж загадано.
+                  </li>
+                </ul>
+
+                <p>
+                  Використай цикл <span class="accent-code">while</span>, щоб
+                  дати користувачу багато спроб вгадати:
+                </p>
+                <pre><code class="language-python"># 1. загадай випадкове число (secret_number)
+
+user_guess = 0 # початкове значення перед циклом, щоб не було помилки
+
+while secret_number != user_guess:
+   # 2. запитай в користувача число (user_guess)
+   
+   # 3. Перевір, вгадав чи не вгадав
+    </code></pre>
+
+                <!-- <img src="./images/lesson3/task3_4.png" alt="code result" /> -->
+
+                <div class="soft-callout">
+                  <h4>Що робить while?</h4>
+                  <p>
+                    <span class="accent-code">while</span> (з англійської
+                    "поки") — це цикл. У цьому завданні він змушує код всередині
+                    (запит числа та перевірку) повторюватися знову і знову,
+                    <span class="accent">поки</span> число користувача не
+                    дорівнює (<span class="accent-code">!=</span>) загаданому
+                    числу. Як тільки гравець введе правильне число, умова стане
+                    хибною і гра завершиться!
+                  </p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <!-- Кнопка для повернення на початок сторінки -->
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Повернутися нагору"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
+
+    <dialog id="clear-confirm-dialog" class="custom-dialog">
+      <div class="dialog-content">
+        <h3>⚠️ Увага!</h3>
+        <p>Ти справді хочеш видалити ВСІ свої відповіді і почати заново?</p>
+        <div class="dialog-actions">
+          <button type="button" id="dialog-cancel-btn">Скасувати</button>
+          <button type="button" id="dialog-confirm-btn">Так, видалити</button>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>

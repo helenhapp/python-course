@@ -99,7 +99,7 @@ body.dyslexia-mode .objective {
   /* Брендові кольори */
   --brand1: #2f4858;
   --brand2: #336699;
-  --brand3: #8cd382;
+  --brand3: #7ac770;
   --brand4: #86bbd8;
   --brand5: #daf7dc;
   --brand6: #309d20;
@@ -298,6 +298,24 @@ p code {
   height: auto; /* Зберігає пропорції */
   border-radius: 8px;
 }
+
+.accent-code {
+  display: inline-block;
+  background-color: var(--soft-callout);
+  border: 1px solid var(
+    --code-border
+  );
+  padding: 0 4px;
+  border-radius: 3px;
+  /* font-family: "Fira Code", monospace; */
+  font-family: monospace;
+  font-size: 14px;
+  color: blue;
+}
+[data-theme="dark"] .accent-code {
+  color: cyan;
+}
+
 
 /* ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ */
 /* 🌸 3. АНІМАЦІЇ ПЕРЕХОДІВ */
@@ -1128,7 +1146,7 @@ details.task[open] summary::before {
 }
 .task ol,
 .task ul {
-  margin-left: 25px;
+  /* margin-left: 25px; */
   margin-top: 10px;
 }
 .task ul {
