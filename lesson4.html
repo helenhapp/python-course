@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Навчальні матеріали" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <!-- Назва на вкладці -->
+    <title>Python Lesson 4</title>
+
+    <!-- Скрипт перемикання теми -->
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      const hljsThemeLink =
+        savedTheme === "dark"
+          ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
+
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link id="hljs-theme" rel="stylesheet" href="${hljsThemeLink}" />`,
+      );
+    </script>
+
+    <!-- Підключення шрифтів (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Підсвітка коду (Highlight.js) -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
+    ></script>
+
+    <!-- CodeMirror -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"
+    ></script>
+
+    <!-- Власні стилі та скрипти -->
+    <link rel="stylesheet" href="./style.css?v=1.0" />
+    <script src="./main.js?v=1.0" defer></script>
+  </head>
+
+  <body>
+    <!-- "Завіса", яка плавно зникає при завантаженні сторінки -->
+    <div class="transition-curtain"></div>
+
+    <!-- top-bar -->
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            width="62"
+            height="62"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Хедер з назвою теми та посиланнями -->
+    <header>
+      <div class="title-container">
+        <a
+          href="./lesson3.html"
+          class="nav-arrow prev-arrow"
+          title="Попередній урок"
+          ><img src="./media/icons/double-alt-arrow-left.svg"
+        /></a>
+
+        <h1 id="lesson-title">Python: 04</h1>
+
+        <a
+          href="./lesson5.html"
+          class="nav-arrow next-arrow"
+          title="Наступний урок"
+          ><img src="./media/icons/double-alt-arrow-right.svg"
+        /></a>
+      </div>
+
+      <p class="topic">Списки (Lists)</p>
+
+      <!-- Короткий опис -->
+      <section class="objective">
+        <p>На цьому уроці ти дізнаєшся:</p>
+        <ul type="square">
+          <li>
+            Що таке списки або як зберігати багато значень в одній змінній.
+          </li>
+          <li>Що таке індекси та як звертатися до окремих елементів списку.</li>
+          <li>
+            Як змінювати елементи списку, додавати нові та видаляти непотрібні.
+          </li>
+          <li>Як поєднати списки з циклом for.</li>
+        </ul>
+      </section>
+
+      <hr />
+    </header>
+
+    <!-- Основний контент -->
+    <main>
+      <!-- tab buttons -->
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-target="part-1">Частина 1</button>
+        <button class="tab-btn" data-target="part-2">Частина 2</button>
+        <button class="tab-btn" data-target="part-3">Частина 3</button>
+      </div>
+
+      <!-- 🌻 PART 1 -->
+      <section id="part-1" class="accordion tab-content active show">
+        <!-- 📚 Теорія 1 -->
+        <details class="accordion__item" name="section1" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Що таке список та індекси</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p1-lists">Списки</h3>
+
+            <p>
+              Раніше ми зберігали в одній змінній лише одне значення, наприклад,
+              одне число або рядок тексту. Але що як потрібно зберегти одразу 10
+              чисел? Для цього існують
+              <span class="accent">списки</span> (lists).
+            </p>
+
+            <p>
+              <span class="accent">Список</span> — це впорядкована колекція
+              даних. Щоб створити список, потрібно використати квадратні дужки
+              <span class="accent-code">[]</span>, а елементи всередині списку
+              розділити комами.
+            </p>
+
+            <pre><code class="language-python"># Список чисел
+numbers = [10, 5, -2, 42]
+print(numbers)
+
+# Список рядків
+colors = ["red", "green", "blue"]
+print(colors)
+
+# Змішаний
+mix = ["red", 5, True, 3.14]
+print(mix)</code></pre>
+
+            <p>
+              Списки можуть містити будь-який тип даних: числа, рядки, логічні
+              значення <span class="accent-code">True/False</span>, або навіть
+              комбінацію із різних типів.
+            </p>
+
+            <hr />
+
+            <h3 id="p1-indexes">Індекси</h3>
+
+            <p>
+              Щоб дістати зі списку конкретне значення, використовують
+              <span class="accent">індекси</span> — порядкові номери елементів.
+            </p>
+
+            <p class="accent">
+              ❗️ Важливе правило: в програмуванні відлік завжди починається з
+              нуля!
+            </p>
+
+            <p>
+              Тобто у списку
+              <span class="accent-code">colors = ["red", "green", "blue"]</span
+              >:
+            </p>
+            <ul>
+              <li>
+                <span class="accent-code">"red"</span> має індекс
+                <span class="accent">0</span>
+              </li>
+              <li>
+                <span class="accent-code">"green"</span> має індекс
+                <span class="accent">1</span>
+              </li>
+              <li>
+                <span class="accent-code">"blue"</span> має індекс
+                <span class="accent">2</span>
+              </li>
+            </ul>
+
+            <p>
+              Щоб отримати елемент списку за його індексом, знову використовуємо
+              <span class="accent-code">[]</span>:
+            </p>
+
+            <pre><code class="language-python">colors = ["red", "green", "blue"]
+
+print(colors[0])  # Виведе "red"
+print(colors[2])  # Виведе "blue"</code></pre>
+
+            <hr />
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+              <p>
+                ❓ <span class="accent">Питання 1:</span> Що не так з цим кодом?
+              </p>
+              <p>
+                ❓ <span class="accent">Питання 2:</span> Що виведе цей код
+                (після того, як виправити помилки)?
+              </p>
+              <pre><code class="language-python">books = [
+  "І не лишилось жодного"
+  "Таємнича пригода в Стайлзі"
+  "Вбивство у Східному експресі"
+]
+print(books[1])</code></pre>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 1</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task1" open>
+              <summary>
+                <h4>Завдання 1: Кольори</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Створи список <span class="accent-code">colors</span>, який
+                  містить назви 4-х кольорів (англійською мовою).
+                </p>
+
+                <ul>
+                  <li>Виведи на екран весь список.</li>
+                  <li>Виведи окремо перший колір зі списку.</li>
+                  <li>Виведи окремо третій колір.</li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 2: Словник англійських слів</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Створи список <span class="accent-code">words</span>, який
+                  містить англійські слова, якими можна описати настрій (мінімум
+                  три).
+                </p>
+
+                <p>
+                  Напиши програму, яка генерує випадковий індекс за допомогою
+                  <span class="accent-code">random.randint(a, b)</span>,
+                  знаходить в списку слово з цим індексом, і виводить
+                  повідомлення:
+                </p>
+                <p>
+                  <i>"Слово дня: [обране слово зі списку]"</i>
+                </p>
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 3: Сума</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Створи список <span class="accent-code">numbers</span> з
+                  числами: 5, 8, -4, 0 та 3.
+                </p>
+
+                <p>
+                  З допомогою індексів порахуй і виведи суму 1-го, 2-го та
+                  останнього чисел.
+                </p>
+              </div>
+            </details>
+
+            <!-- 4 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 4: Інвентар детектива</h4>
+              </summary>
+
+              <div>
+                <p>У детектива є список речей у валізі:</p>
+                <pre><code class="language-python">inventory = ["magnifying glass", "notebook", "hat", "map"]</code></pre>
+
+                <p>
+                  Напиши програму, яка запитує:
+                  <i>"Яку річ дістати? (введи номер від 0 до 3): "</i>.
+                </p>
+
+                <ul>
+                  <li>
+                    Якщо користувач вводить число більше ніж 3 або менше ніж 0 —
+                    програма виводить <i>"Такої речі немає"</i> (використай
+                    <span class="accent-code">if/else</span> та логічний
+                    оператор <span class="accent-code">or</span>).
+                  </li>
+                  <li>Інакше — програма виводить обрану зі списку річ.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🌷 PART 2 -->
+      <section id="part-2" class="accordion tab-content">
+        <!-- 📚 Теорія 2 -->
+        <details class="accordion__item" name="section2" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Зміна елементів, додавання та видалення</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p2-len">Довжина списку (len)</h3>
+
+            <p>
+              Щоб дізнатися,
+              <span class="accent">скільки елементів</span> знаходиться у
+              списку, використовують функцію
+              <span class="accent-code">len()</span> (від англ. <i>length</i> —
+              довжина). Вона повертає ціле число.
+            </p>
+
+            <pre><code class="language-python">colors = ["red", "green", "blue"]
+length = len(colors)
+print("Кількість кольорів:", length)  # Виведе 3</code></pre>
+
+            <hr />
+
+            <h3 id="p2-modify">Зміна існуючого елемента</h3>
+
+            <p>
+              Списки можна змінювати. Якщо потрібно замінити якийсь елемент,
+              достатньо звернутися до нього за індексом і присвоїти нове
+              значення за допомогою знака <span class="accent-code">=</span>.
+            </p>
+
+            <pre><code class="language-python">colors = ["red", "green", "blue"]
+colors[1] = "yellow"  # Замінюємо "green" (індекс 1) на "yellow"
+print(colors)         # Виведе ['red', 'yellow', 'blue']</code></pre>
+
+            <hr />
+
+            <h3 id="p2-methods">Додавання та видалення (append, remove)</h3>
+
+            <p>
+              Для роботи зі списками існують спеціальні команди, які називаються
+              <span class="accent">методами списків</span>. Вони пишуться через
+              крапку після назви змінної списку:
+            </p>
+
+            <ul>
+              <li>
+                <span class="accent-code">.append(значення)</span> — додає новий
+                елемент в кінець списку.
+              </li>
+              <li>
+                <span class="accent-code">.remove(значення)</span> — шукає
+                елемент за значенням і видаляє його зі списку (якщо таких
+                елементів кілька, видалиться лише перший знайдений).
+              </li>
+            </ul>
+
+            <pre><code class="language-python">inventory = ["map", "flashlight"]
+
+# Додаємо новий предмет
+inventory.append("notebook")
+print(inventory)  # ['map', 'flashlight', 'notebook']
+
+# Видаляємо предмет
+inventory.remove("map")
+print(inventory)  # ['flashlight', 'notebook']</code></pre>
+
+            <p>
+              <span class="accent">❗️ Зверни увагу:</span>
+              Методи списків змінюють оригінальний список одразу, тому не
+              потрібно писати
+              <span class="accent-code">inventory = inventory.append(...)</span
+              >.
+            </p>
+
+            <hr />
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+              <p>❓ <span class="accent">Питання:</span> Що виведе цей код?</p>
+              <pre><code class="language-python">nums = [10, 20]
+nums.append(30)
+nums.remove(10)
+nums[0] = 100
+print(nums)
+print(len(nums))</code></pre>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 2</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task2" open>
+              <summary>
+                <h4>Завдання 1: Оновлення палітри</h4>
+              </summary>
+
+              <div>
+                <p>Створи програму для роботи з палітрою художника:</p>
+
+                <ol>
+                  <li>
+                    Створи список <span class="accent-code">colors</span> із
+                    трьох кольорів: <span class="accent-code">"red"</span>,
+                    <span class="accent-code">"blue"</span>,
+                    <span class="accent-code">"yellow"</span>.
+                  </li>
+                  <li>
+                    З допомогою індексу заміни
+                    <span class="accent-code">"yellow"</span> на
+                    <span class="accent-code">"green"</span>.
+                  </li>
+                  <li>
+                    Додай в кінець списку
+                    <span class="accent-code">"purple"</span> з допомогою методу
+                    списку.
+                  </li>
+                  <li>Виведи фінальний список на екран.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 2: Список підозрюваних</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Списки можна створювати порожніми, а потім заповнювати їх під
+                  час роботи програми.
+                </p>
+
+                <ol>
+                  <li>
+                    Створи порожній список:
+                    <span class="accent-code">suspects = []</span>.
+                  </li>
+                  <li>
+                    Використовуючи <span class="accent-code">input()</span>,
+                    запитай у користувача імена двох різних підозрюваних (по
+                    черзі) і додай їх у список за допомогою методу списку.
+                  </li>
+                  <li>
+                    Виведи на екран кількість підозрюваних, використовуючи
+                    <span class="accent-code">len()</span> (наприклад:
+                    <i>"У справі 2 підозрюваних"</i>).
+                  </li>
+                  <li>
+                    Один з них виявився невинним. Запитай ім'я невинного через
+                    <span class="accent-code">input()</span> і видали його зі
+                    списку.
+                  </li>
+                  <li>Виведи фінальний список підозрюваних.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 3: Числа</h4>
+              </summary>
+
+              <div>
+                <p>Зі списками чисел також можна робити обчислення.</p>
+                <pre><code class="language-python">numbers = [10, 50, 100, 200]</code></pre>
+
+                <ol>
+                  <li>
+                    Видали число <span class="accent-code">50</span> зі списку.
+                  </li>
+                  <li>
+                    Додай нове число <span class="accent-code">300</span> в
+                    кінець списку.
+                  </li>
+                  <li>
+                    Заміни перше число у списку на результат математичної
+                    операції: помнож його на 2.
+                  </li>
+                  <li>Виведи оновлений список та його довжину на екран.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 4 (removed for now, but don't want to delete it) -->
+            <!-- <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 4: Книжкова полиця</h4>
+              </summary>
+
+              <div>
+                <p>
+                  У тебе є список з трьох книг (назви англійською мовою). Напиши
+                  програму, яка імітує роботу бібліотеки:
+                </p>
+
+                <ul>
+                  <li>Спочатку програма виводить весь список книг.</li>
+                  <li>
+                    Потім запитує у користувача назву книги, яку він хоче взяти
+                    почитати. Програма видаляє цю книгу зі списку.
+                  </li>
+                  <li>
+                    Далі програма запитує назву нової книги, яку користувач хоче
+                    поставити на полицю замість взятої, і додає її до списку.
+                  </li>
+                  <li>Наприкінці виводиться оновлений список книг.</li>
+                </ul>
+              </div>
+            </details> -->
+          </div>
+        </details>
+      </section>
+
+      <!-- 🪴 PART 3 -->
+      <section id="part-3" class="accordion tab-content">
+        <!-- 📚 Теорія 3 -->
+        <details class="accordion__item" name="section3" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Списки та цикл for</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p3-for-loop">Обхід списку циклом for</h3>
+
+            <p>
+              Цикл <span class="accent-code">for</span> ідеально підходить для
+              роботи зі списками. Замість того, щоб звертатися до кожного
+              елемента за індексом окремо, ми можемо попросити цикл "пройтися"
+              по всьому списку від початку до кінця.
+            </p>
+
+            <pre><code class="language-python">colors = ["red", "yellow", "blue"]
+
+# Читається так: "Для кожного кольору у списку кольорів..."
+for color in colors:
+    print("Колір:", color)</code></pre>
+
+            <p>
+              У цьому прикладі змінна <span class="accent-code">color</span> на
+              кожному кроці циклу автоматично приймає значення наступного
+              елемента зі списку.
+            </p>
+
+            <hr />
+
+            <h3 id="p3-math">Математика в списках</h3>
+
+            <p>
+              Цикл <span class="accent-code">for</span> часто використовують для
+              обчислень. Наприклад, якщо дано список чисел, можна знайти їх
+              суму. Для цього спершу перед циклом створюють змінну з початковим
+              значенням <span class="accent-code">0</span>, а тоді всередині
+              циклу до неї по черзі додають кожен елемент:
+            </p>
+
+            <pre><code class="language-python">numbers = [10, 20, 30]
+sum = 0  
+
+for num in numbers:
+    sum += num 
+
+print(f"Сума = {sum}")</code></pre>
+
+            <hr />
+
+            <h3 id="p3-conditions">Умови всередині циклу</h3>
+
+            <p>
+              Ми можемо об'єднати цикл <span class="accent-code">for</span> та
+              умову <span class="accent-code">if/else</span>. Це корисно, коли
+              нам потрібно перевірити кожен елемент списку і виконати дію лише з
+              певними даними (наприклад, знайти лише парні числа).
+            </p>
+
+            <pre><code class="language-python">math_list = [5, -2, 8, -1, 4]
+
+for num in math_list:
+    if num % 2 == 0:
+        print(num)</code></pre>
+
+            <hr />
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+              <p>
+                ❓ <span class="accent">Питання 1:</span> Які дві помилки
+                допущено в цьому коді?
+              </p>
+              <p>
+                ❓ <span class="accent">Питання 2:</span> Що виведе цей код
+                (якщо виправити помилки)?
+              </p>
+              <pre><code class="language-python">nums = [1, 2, 3]
+for n of nums
+    print(n * 10)</code></pre>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 3</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task3" open>
+              <summary>
+                <h4>Завдання 1: Список покупок</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Створи список
+                  <span class="accent-code">shopping_list</span> із 4-5 назвами
+                  продуктів (англійською мовою).
+                </p>
+
+                <p>
+                  Використай цикл <span class="accent-code">for</span>, щоб
+                  пройтися по цьому списку, і для кожного продукту виведи
+                  повідомлення формату:
+                </p>
+
+                <p><i>"Треба купити: [назва продукту]"</i>.</p>
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 2: Злом сейфа</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Детектив знайшов сейф, на якому написаний список
+                  чисел-підказок:
+                  <span class="accent-code"
+                    >codes = [15, -8, 42, 11, -24, -5, 2]</span
+                  >.
+                </p>
+                <p>
+                  Щоб відкрити сейф, потрібно знайти суму всіх
+                  <strong>додатніх</strong> чисел у цьому списку, а потім
+                  результат <strong>помножити на 2</strong>.
+                </p>
+
+                <p>Порахуй і виведи код до сейфу, використавши цикл.</p>
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 3: Фільтр парних чисел</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Дано список з різними числами:
+                  <span class="accent-code">data = [13, 22, 7, 44, 9, 10]</span
+                  >.
+                </p>
+
+                <p>
+                  Напиши програму, яка через цикл перевіряє кожне число зі
+                  списку. Якщо число ділиться без остачі одночасно на
+                  <span class="accent-code">3</span> і на
+                  <span class="accent-code">5</span>, програма виводить це
+                  число, інакше – ігнорує.
+                </p>
+              </div>
+            </details>
+
+            <!-- 4 -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 4: Аналіз тексту</h4>
+              </summary>
+
+              <div>
+                <p>У нас є зашифроване повідомлення, розбите на слова:</p>
+                <pre><code class="language-python">message = ["The", "suspect", "is", "in", "London"]</code></pre>
+
+                <p>
+                  Напиши програму, яка за допомогою циклу
+                  <span class="accent-code">for</span> обходить цей список і для
+                  кожного слова виводить його довжину.
+                </p>
+
+                <p>
+                  Наприклад:
+                  <i>"Слово The має 3 літери"</i>.
+                </p>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <!-- Кнопка для повернення на початок сторінки -->
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Повернутися нагору"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
+
+    <dialog id="clear-confirm-dialog" class="custom-dialog">
+      <div class="dialog-content">
+        <h3>⚠️ Увага!</h3>
+        <p>Ти справді хочеш видалити ВСІ свої відповіді і почати заново?</p>
+        <div class="dialog-actions">
+          <button type="button" id="dialog-cancel-btn">Скасувати</button>
+          <button type="button" id="dialog-confirm-btn">Так, видалити</button>
+        </div>
+      </div>
+    </dialog>
+  </body>
+</html>
