@@ -182,6 +182,7 @@
         <button class="tab-btn active" data-target="part-1">Частина 1</button>
         <button class="tab-btn" data-target="part-2">Частина 2</button>
         <button class="tab-btn" data-target="part-3">Частина 3</button>
+        <button class="tab-btn" data-target="part-4">Д/З</button>
       </div>
 
       <!-- 🌻 PART 1 -->
@@ -622,24 +623,15 @@ print(len(nums))</code></pre>
                 </p>
 
                 <p>
-                  Але відвідувач почав вагатися і змінювати думку. Онови
-                  список за допомогою методів списку та індексів:
+                  Але відвідувач почав вагатися і змінювати думку. Онови список
+                  за допомогою методів списку та індексів:
                 </p>
 
                 <ol>
-                  <li>
-                     Видали
-                    морозиво.
-                  </li>
-                  <li>
-                    Додай торт.
-                  </li>
-                  <li>
-                    Заміни сік на чай.
-                  </li>
-                  <li>
-                    Виведи фінальний список замовлення на екран.
-                  </li>
+                  <li>Видали морозиво.</li>
+                  <li>Додай торт.</li>
+                  <li>Заміни сік на чай.</li>
+                  <li>Виведи фінальний список замовлення на екран.</li>
                 </ol>
               </div>
             </details>
@@ -806,7 +798,8 @@ for n of nums
               <div>
                 <p>
                   Дано список з різними числами:
-                  <span class="accent-code">data = [15, 22, 7, 44, 90, 30, 1]</span
+                  <span class="accent-code"
+                    >data = [15, 22, 7, 44, 90, 30, 1]</span
                   >.
                 </p>
 
@@ -842,6 +835,92 @@ for n of nums
                 </p>
               </div>
             </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🏖️ PART 4 -->
+      <section id="part-4" class="accordion tab-content">
+        <!-- 📝 Завдання 4 -->
+        <details class="accordion__item" name="section4" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Домашнє завдання</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Гра "Квест-кімната"</h3>
+
+            <p>
+              Сьогодні ти розробник текстової гри "Escape Room". Гравцю потрібно
+              пройти 5 різних кімнат і спробувати зберегти максимум балів, не
+              потрапивши у пастки.
+            </p>
+
+            <p><strong>Що потрібно зробити:</strong></p>
+            <ol>
+              <li>
+                Створити список <span class="accent-code">rooms</span> з назвами
+                5-ти кімнат. Наприклад: <i>"Темний коридор"</i>,
+                <i>"Закинута бібліотека"</i>, <i>"Галерея портретів"</i>,
+                <i>"Кімната з дзеркалами"</i>, <i>"Таємний сад"</i>.
+              </li>
+              <li>
+                Створити змінні для підрахунку: балів гравця (<span
+                  class="accent-code"
+                  >points</span
+                >, спочатку 100) та пасток, в які він потрапив (<span
+                  class="accent-code"
+                  >traps</span
+                >, спочатку 0).
+              </li>
+
+              <li>
+                Використати цикл щоб для кожної кімнати зі списку:
+                <ul>
+                  <li>
+                    Вивести повідомлення:
+                    <i>"Ти знаходишся в: [назва кімнати]"</i>.
+                  </li>
+                  <li>
+                    Запитати в користувача:
+                    <i>"Куди підеш? 1 - наліво, 2 - направо: "</i>.
+                  </li>
+                  <li>
+                    Згенерувати правильну відповідь з
+                    <span class="accent-code">random.randint</span>.
+                  </li>
+                  <li>
+                    Перевірити вибір гравця за допомогою
+                    <span class="accent-code">if/else</span>:
+                    <ul>
+                      <li>
+                        Якщо він вгадав — вивести
+                        <i>"Ти на правильному шляху!"</i>.
+                      </li>
+                      <li>
+                        Якщо ні — вивести <i>"Ти натрапив на пастку!"</i>,
+                        збільшити кількість пасток на 1 і зменшити бали на 20.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Після завершення циклу вивести фінальні результати: повідомлення
+                <i>"Гру завершено!"</i>, кількість зібраних пасток та залишок
+                балів.
+              </li>
+            </ol>
+
+            <img
+              src="./images/lesson4/hw1.png"
+              alt="task result"
+              class="zoomable"
+            />
           </div>
         </details>
       </section>
