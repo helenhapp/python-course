@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Навчальні матеріали" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <!-- Назва на вкладці -->
+    <title>Python Lesson 5</title>
+
+    <!-- Скрипт перемикання теми -->
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      const hljsThemeLink =
+        savedTheme === "dark"
+          ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
+
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link id="hljs-theme" rel="stylesheet" href="${hljsThemeLink}" />`,
+      );
+    </script>
+
+    <!-- Підключення шрифтів (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Підсвітка коду (Highlight.js) -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
+    ></script>
+
+    <!-- CodeMirror -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"
+    ></script>
+
+    <!-- Власні стилі та скрипти -->
+    <link rel="stylesheet" href="./style.css?v=1.0" />
+    <script src="./main.js?v=1.0" defer></script>
+  </head>
+
+  <body>
+    <div class="transition-curtain"></div>
+
+    <!-- top-bar -->
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            width="62"
+            height="62"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <header>
+      <div class="title-container">
+        <a
+          href="./lesson4.html"
+          class="nav-arrow prev-arrow"
+          title="Попередній урок"
+          ><img src="./media/icons/double-alt-arrow-left.svg"
+        /></a>
+
+        <h1 id="lesson-title">Python: 05</h1>
+
+        <a href="#" class="nav-arrow next-arrow" title="Наступний урок"
+          ><img src="./media/icons/double-alt-arrow-right.svg"
+        /></a>
+      </div>
+
+      <p class="topic">Функції (частина 1)</p>
+
+      <section class="objective">
+        <p>На цьому уроці ти дізнаєшся:</p>
+        <ul type="square">
+          <li>
+            Що таке функції в Python (<span class="accent-code">def</span>) і
+            навіщо вони потрібні.
+          </li>
+          <li>Як створити власну функцію та як її викликати.</li>
+          <li>Що таке параметри і як передавати дані всередину функції.</li>
+          <li>Як використовувати значення за замовчуванням для параметрів.</li>
+        </ul>
+      </section>
+
+      <hr />
+    </header>
+
+    <main>
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-target="part-1">Частина 1</button>
+        <button class="tab-btn" data-target="part-2">Частина 2</button>
+        <button class="tab-btn" data-target="part-3">Частина 3</button>
+      </div>
+
+      <!-- 🌻 PART 1 -->
+      <section id="part-1" class="accordion tab-content active show">
+        <!-- 🍰 Theory 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 1 — def: що таке функція</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p1-problem">Для чого потрібні функції</h3>
+
+            <p>
+              Уяви ситуацію: тобі потрібно вивести красиве привітання в кількох
+              різних місцях програми. Твій код виглядатиме приблизно так:
+            </p>
+
+            <pre><code class="language-python">print("=" * 24)
+print("   Ласкаво просимо!   ")
+print("=" * 24)
+print()
+
+# ... тут працює якийсь інший код ...
+
+print("=" * 24)
+print("   Ласкаво просимо!   ")
+print("=" * 24)
+print()</code></pre>
+
+            <p>
+              Замість трьох рядків коду ми написали вже шість. А що, якщо ти
+              захочеш змінити текст привітання? Доведеться вручну шукати і
+              переписувати цей блок коду усюди, де він зустрічається. Подібну
+              проблему можна вирішити за допомогою функцій — вони дозволяють
+              написати блок коду один раз, дати йому назву, і використовувати
+              його далі вже за цією назвою.
+            </p>
+
+            <p>
+              Насправді, ти вже постійно користуєшся функціями, просто досі це
+              були готові команди. <span class="accent-code">print()</span>,
+              <span class="accent-code">input()</span>,
+              <span class="accent-code">len()</span>,
+              <span class="accent-code">random.randint()</span>,
+              <span class="accent-code">math.sqrt()</span> — усе це функції, які
+              вже вбудовані в Python. Сьогодні ж ми навчимося створювати
+              <span class="accent">свої власні</span> інструменти.
+            </p>
+
+            <hr />
+
+            <h3 id="p1-create">Як створити функцію</h3>
+
+            <pre><code class="language-python">def greet():
+    print("=" * 24)
+    print("   Ласкаво просимо!   ")
+    print("=" * 24)
+    print()</code></pre>
+
+            <p>Розберемо кожен елемент:</p>
+            <ul>
+              <li>
+                <span class="accent-code">def</span> — ключове слово (від англ.
+                <i>define</i> — визначити). Каже Python: "зараз я описую нову
+                команду".
+              </li>
+              <li>
+                <span class="accent-code">greet</span> — назва функції. Ті самі
+                правила що й для змінних: малі літери, без пробілів, можна
+                <span class="accent-code">_</span>.
+              </li>
+              <li>
+                <span class="accent-code">()</span> — дужки обов'язкові, навіть
+                якщо вони порожні.
+              </li>
+              <li>
+                <span class="accent-code">:</span> — двокрапка, як в
+                <span class="accent-code">if</span> та
+                <span class="accent-code">for</span>.
+              </li>
+              <li>рядки всередині — з відступом (Tab).</li>
+            </ul>
+
+            <hr />
+
+            <h3 id="p1-execution">Визначення ≠ виконання</h3>
+            <p>
+              Написати <span class="accent-code">def</span> — це як записати
+              рецепт. Рецепт сам по собі нічого не готує. Щоб функція
+              <span class="accent">виконалась</span> — її треба
+              <span class="accent">викликати</span>:
+            </p>
+
+            <pre><code class="language-python">def greet():
+    print("=" * 24)
+    print("   Ласкаво просимо!   ")
+    print("=" * 24)
+    print()
+
+greet()   # ← виклик: тут функція виконується
+greet()   # ← і ще раз
+greet()   # ← і ще</code></pre>
+
+            <p>
+              Тепер замість 9 рядків — 3 виклики. І щоб змінити текст привітання
+              — переписуємо лише один рядок коду.
+            </p>
+
+            <p>
+              <strong>Важливо:</strong> функцію потрібно спочатку
+              <span class="accent">визначити</span> (<span class="accent-code"
+                >def</span
+              >), і лише потім <span class="accent">викликати</span>. Якщо
+              виклик стоїть вище за <span class="accent-code">def</span> —
+              Python видасть помилку, бо ще не знає про цю функцію.
+            </p>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 1</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task1" open>
+              <summary>
+                <h4>Завдання 1.1: Привітання</h4>
+              </summary>
+              <div>
+                <ul>
+                  <li>
+                    Створи функцію <span class="accent-code">say_hello</span>,
+                    яка виводить текст:
+                    <span class="italic">Hello! Nice to meet you!</span>
+                  </li>
+                  <li>Виклич цю функцію три рази.</li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 1.2: Спрости цей код</h4>
+              </summary>
+              <div>
+                <p>
+                  Одне із правил хорошої програми – уникати повторюваного коду.
+                  Подивись на цю програму, яка малює два однакові квадрати:
+                </p>
+                <pre><code class="language-python">import turtle
+t = turtle.Turtle()
+
+# Малюємо перший квадрат
+for i in range(4):
+    t.forward(50)
+    t.left(90)
+
+t.penup()
+t.forward(100)
+t.pendown()
+
+# Малюємо другий квадрат
+for i in range(4):
+    t.forward(50)
+    t.left(90)
+
+turtle.done()</code></pre>
+
+                <p>
+                  Створи функцію
+                  <span class="accent-code">draw_square</span>, яка малює
+                  квадрат, і відредагуй код вище так, щоб прибрати повторення.
+                </p>
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 1.3: Вивчення слів</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">get_random_word</span>. Всередині
+                  цієї функції:
+                </p>
+                <ol>
+                  <li>Створи список із 5 назв фруктів англійською мовою.</li>
+                  <li>
+                    Використай
+                    <span class="accent-code">random.choice(список)</span>, щоб
+                    обрати випадкове слово зі списку.
+                  </li>
+                  <li>
+                    Виведи на екран повідомлення:
+                    <span class="italic"
+                      >"Word to practice: [вибране слово]"</span
+                    >.
+                  </li>
+                </ol>
+                <p>Використай цю функцію, щоб отримати два випадкові слова.</p>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🌷 PART 2 -->
+      <section id="part-2" class="accordion tab-content">
+        <!-- 🍰 Theory 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 2 — Параметри: функції з вхідними даними</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p2-why-params">Параметри та аргументи</h3>
+            <p>
+              Функція <span class="accent-code">greet()</span> з попередньої
+              частини завжди виводила однаковий текст. А що як нам треба
+              привітати різних людей на імʼя? Для цього використовують
+              параметри:
+            </p>
+            <pre><code class="language-python">def greet(name):
+    print("=" * 24)
+    print(f"   Привіт, {name}!   ")
+    print("=" * 24)
+
+greet("Яна")
+greet("Олена")
+greet("Вінстон")</code></pre>
+
+            <p>
+              <span class="accent-code">name</span> — це
+              <span class="accent">параметр</span>: тимчасова змінна, яка існує
+              лише всередині функції і отримує нове значення при кожному
+              виклику.
+            </p>
+
+            <p>
+              А конкретні значення, які ми передаємо функції вже при виклику
+              (наприклад, "Олена") – це <span class="accent">аргументи</span>.
+            </p>
+
+            <hr />
+
+            <h3 id="p2-multi-params">Кілька параметрів</h3>
+
+            <p>
+              Функція може приймати більше одного параметра — їх перераховують
+              через кому.
+            </p>
+
+            <p>
+              При цьому важливий порядок: перший аргумент при виклику → перший
+              параметр...
+            </p>
+
+            <pre><code class="language-python">def happy_birthday(name, age):
+    print(f"Happy birthday, {name}!")
+    print(f"You are {age} years old!\n")
+ 
+happy_birthday("Sam", 10) # good
+happy_birthday(10, "Sam") # weird</code></pre>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 2</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task2" open>
+              <summary>
+                <h4>Завдання 2.1: Рамка для тексту</h4>
+              </summary>
+
+              <div>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">frame</span>, яка автоматично
+                  вираховує розмір тексту і малює навколо нього рамку із
+                  заданого символу.
+                </p>
+
+                <p>Приклад виклику функції:</p>
+                <pre><code class="language-python">frame("Привіт", "*")</code></pre>
+
+                <img src="./images/lesson5/task2_1.png" alt="task result" />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 2.2: Розумне привітання</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію <span class="accent-code">greet</span>, яка
+                  вітається по-різному залежно від часу доби.
+                </p>
+
+                <ul>
+                  <li>
+                    Якщо час менший за 12 –
+                    <span class="italic">"Good morning, [name]!"</span>.
+                  </li>
+                  <li>
+                    Інакше, якщо час менший за 17 –
+                    <span class="italic">"Good afternoon, [name]!"</span>.
+                  </li>
+                  <li>
+                    Інакше, якщо час менший за 24 –
+                    <span class="italic">"Good evening, [name]!"</span>.
+                  </li>
+                </ul>
+
+                <p>Приклад виклику функції:</p>
+                <pre><code class="language-python">greet("Max", 5)
+greet("Nick", 16)
+greet("Emily", 21)</code></pre>
+
+                <img src="./images/lesson5/task2_2.png" alt="task result" />
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 2.3: Універсальна фігура</h4>
+              </summary>
+              <div>
+                <p>
+                  Замість того, щоб писати окремий код для трикутника, квадрата
+                  і п'ятикутника, створимо одну універсальну функцію
+                  <span class="accent-code">draw(sides, length, color)</span>.
+                </p>
+
+                <p>Ця функція:</p>
+
+                <ul>
+                  <li>
+                    Змінює колір черепашки на
+                    <span class="accent-code">color</span>.
+                  </li>
+                  <li>
+                    Рахує кут повороту залежно від кількості сторін (<span
+                      class="accent-code"
+                      >360 / sides</span
+                    >).
+                  </li>
+                  <li>
+                    Використовує цикл
+                    <span class="accent-code">for i in range</span> щоб
+                    намалювати правильну фігуру зі сторонами довжиною
+                    <span class="accent-code">length</span>.
+                  </li>
+                </ul>
+
+                <p>
+                  Використай цю функцію щоб намалювати трикутник, квадрат та
+                  пʼятикутник.
+                </p>
+
+                <img src="./images/lesson5/task2_3.png" alt="task result" />
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🪴 PART 3 -->
+      <section id="part-3" class="accordion tab-content">
+        <!-- 🍰 Theory 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 3 — Значення за замовчуванням</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p3-default">Необов'язкові параметри</h3>
+
+            <p>
+              Іноді зручно, щоб параметр мав "типове" значення — яке
+              використовується, якщо його не передали при виклику:
+            </p>
+
+            <pre><code class="language-python">def divider(symbol="*"):
+    print(symbol * 10)
+    
+divider()
+divider("#")</code></pre>
+            <img src="./images/lesson5/ex3_1.png" alt="code result" />
+
+            <p>
+              Параметри зі значенням за замовчуванням завжди йдуть
+              <span class="accent">після</span> звичайних параметрів — інакше
+              Python не зможе зрозуміти, який аргумент до якого параметра
+              відноситься.
+            </p>
+            <pre><code class="language-python"># ✅ Правильно:
+def greet(name, age=20, lang="ukrainian"):
+    ...
+
+# ❌ Помилка:
+def greet(lang="ukrainian", age=20, name):
+    ...</code></pre>
+
+            <hr />
+
+            <h3 id="p3-why-default">Навіщо це потрібно?</h3>
+            <p>
+              Значення за замовчуванням — це спосіб зробити функцію зручною для
+              простих випадків і гнучкою для складних. У вбудованих функціях це
+              теж використовується. Наприклад:
+            </p>
+
+            <pre><code class="language-python">print("Привіт")          # end="\n" за замовчуванням
+print("Привіт", end=" ") # змінюємо за потреби</code></pre>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 3</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task3" open>
+              <summary>
+                <h4>Завдання 3.1: Лінія-роздільник</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію <span class="accent-code">divider</span>, яка
+                  малює лінію з 10 символів. За замовчуванням зроби символ
+                  <span class="accent-code">"*"</span>.
+                </p>
+
+                <pre><code class="language-python">divider()
+divider("o")</code></pre>
+
+                <img src="./images/lesson5/task3_1.png" alt="task result" />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 3.2: Повторювач тексту</h4>
+              </summary>
+              <div>
+                <p>
+                  Створи функцію
+                  <span class="accent-code">repeat</span>, яка зліплює слово
+                  кілька разів підряд. Зробимо так, щоб стандартна кількість
+                  повторень дорівнювала <span class="accent-code">3</span>.
+                </p>
+
+                <pre><code class="language-python">repeat("Python!")
+repeat("Hello", 5)</code></pre>
+
+                <img src="./images/lesson5/task3_2.png" alt="task result" />
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 3.3: Сніжинка</h4>
+              </summary>
+              <div>
+                <p>
+                  Створимо функцію
+                  <span class="accent-code">snowflake</span> для малювання
+                  сніжинок. Зазвичай ми уявляємо їх блакитними (<span
+                    class="accent-code"
+                    >lightblue</span
+                  >) та з <span class="accent-code">6</span>
+                  промінчиками — тому встанови це як параметри за замовчуванням.
+                </p>
+
+                <img src="./images/lesson5/task3_3.png" alt="task result" />
+
+                <hr />
+
+                <p>Підказка:</p>
+                <ol>
+                  <li>
+                    Кількість променів сніжинки – це кількість повторень циклу
+                    <span class="accent-code">for</span>.
+                  </li>
+                  <li>
+                    При кожному повторенні:
+                    <ul>
+                      <li>Малюємо лінію (наприклад, 50 пікселів).</li>
+                      <li>Повертаємось назад на ту саму кількість пікселів.</li>
+                      <li>
+                        Робимо поворот вліво на
+                        <span class="accent-code"
+                          >кут = 360 / кількість променів</span
+                        >.
+                      </li>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Повернутися нагору"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
+  </body>
+</html>

@@ -302,9 +302,7 @@ p code {
 .accent-code {
   display: inline-block;
   background-color: var(--soft-callout);
-  border: 1px solid var(
-    --code-border
-  );
+  border: 1px solid var(--code-border);
   padding: 0 4px;
   border-radius: 3px;
   /* font-family: "Fira Code", monospace; */
@@ -315,7 +313,6 @@ p code {
 [data-theme="dark"] .accent-code {
   color: cyan;
 }
-
 
 /* ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ */
 /* 🌸 3. АНІМАЦІЇ ПЕРЕХОДІВ */
@@ -525,6 +522,11 @@ img.tiny-image {
 a:hover img.tiny-image {
   transform: scale(1.05) translateY(-2px);
   border-color: var(--accent-pop);
+}
+
+.italic {
+  font-style: italic;
+  color: var(--text-soft);
 }
 
 /* ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ */
