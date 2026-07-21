@@ -173,6 +173,7 @@
         <button class="tab-btn active" data-target="part-1">Частина 1</button>
         <button class="tab-btn" data-target="part-2">Частина 2</button>
         <button class="tab-btn" data-target="part-3">Частина 3</button>
+        <button class="tab-btn" data-target="part-4">Д/З</button>
       </div>
 
       <!-- 🌻 PART 1 -->
@@ -676,7 +677,7 @@ divider("o")</code></pre>
 
                 <p>
                   Крім того, використай метод
-                  <span class="accent-code">text.trim()</span>, щоб прибрати
+                  <span class="accent-code">text.strip()</span>, щоб прибрати
                   порожні відступи до та після слова.
                 </p>
 
@@ -727,6 +728,129 @@ repeat("  Hello", 5)</code></pre>
                     </ul>
                   </li>
                 </ol>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🏖️ PART 4 -->
+      <section id="part-4" class="accordion tab-content">
+        <!-- 🍰 Theory 4 -->
+        <details class="accordion__item" name="section4">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Домашнє завдання: Методи рядків</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="strip">Метод .strip()</h3>
+            <p>
+              Цей метод "очищає" краї тексту (початок і кінець) від зайвих
+              символів. Якщо викликати його без аргументів, він видалить усі
+              пробіли:
+            </p>
+            <pre><code class="language-python">text = "   hello   "
+result = text.strip()
+print(result)  # Виведе: "hello"</code></pre>
+            <p>
+              Якщо ж передати йому в дужках рядок із певними символами, він
+              видалить всі ці символи (це зручно для очищення від пунктуації):
+            </p>
+            <pre><code class="language-python">word = "   ... Python?!   "
+result = word.strip(" .!?")
+print(result)  # Виведе: "Python"</code></pre>
+
+            <p>
+              Зверни увагу, що щоб крім пунктуації також видалити зайві пробіли,
+              в рядку <span class="accent-code">" .!?"</span> потрібно вказати
+              пробіл.
+            </p>
+
+            <hr />
+
+            <h3 id="l_u">Методи .lower() та .upper()</h3>
+            <p>
+              Ці методи змінюють регістр літер (роблять їх всі маленькими або
+              великими):
+            </p>
+            <pre><code class="language-python">print("HEllo".lower())  # Виведе: "hello"
+print("hello".upper())  # Виведе: "HELLO"</code></pre>
+
+            <hr />
+
+            <h3 id="chain">Ланцюжок методів (Method chaining)</h3>
+            <p>
+              У Python можна викликати кілька методів підряд в одному рядку
+              коду! Вони будуть виконуватися по черзі (зліва направо):
+            </p>
+            <pre><code class="language-python">text = "   WoRld!  "
+# Спершу видаляємо пробіли, а потім робимо літери маленькими:
+result = text.strip().lower() 
+print(result)  # Виведе: "world!"</code></pre>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 4 -->
+        <details class="accordion__item" name="section4">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Домашнє завдання: Практика</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task4" open>
+              <summary>
+                <h4>Завдання 1: Очищення слова</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">clean_word</span>, яка приймає слово
+                  і:
+                </p>
+                <ol>
+                  <li>
+                    Прибирає з його країв всі пробіли та знаки пунктуації.
+                  </li>
+                  <li>Перетворює всі літери на маленькі.</li>
+                  <li>Виводить результат на екран.</li>
+                </ol>
+                <p>Перевір роботу функції на цьому коді:</p>
+                <pre><code class="language-python">clean_word("         Hello!  ") 
+clean_word("world,") 
+clean_word("(Python?)")
+clean_word("[GREAT...]  ")
+clean_word(":;already")
+clean_word(" ok -")</code></pre>
+                <img src="./images/lesson5/hw_1.png" alt="code result" />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task4">
+              <summary>
+                <h4>Завдання 2: Крик</h4>
+              </summary>
+              <div>
+                <p>
+                  Створи функцію <span class="accent-code">scream</span>, яка
+                  перетворює звичайний текст на емоційний вигук.
+                </p>
+
+                <p>Перевірка:</p>
+                <pre><code class="language-python">scream("   ok   ")
+scream(" Congratulations   ")</code></pre>
+                <img src="./images/lesson5/hw_2.png" alt="code result" />
               </div>
             </details>
           </div>
