@@ -1047,119 +1047,68 @@ demo()</textarea
           </summary>
 
           <div class="accordion__content">
-            <!-- 3.1 Алгебра -->
+            <!-- 3.1 -->
             <details class="task" name="task3" open>
               <summary>
-                <h4>Завдання 3.1: Безпечне ділення (Алгебра)</h4>
+                <h4>Завдання 3.1: Безпечний квадратний корінь</h4>
               </summary>
               <div>
                 <p>
-                  Як відомо з математики, на нуль ділити не можна! Якщо
-                  спробувати це зробити в Python, програма зламається.
+                  <span class="accent-code">math.sqrt</span> не вміє рахувати
+                  корінь з від'ємного числа — програма зламається.
                 </p>
+
                 <p>
-                  Напиши функцію
-                  <span class="accent-code">safe_divide(a, b)</span>. На самому
-                  початку (першим рядком) додай перевірку: якщо
-                  <span class="accent-code">b == 0</span>, одразу роби
-                  <span class="accent-code"
-                    >return "Ділення на нуль неможливе!"</span
-                  >. Під цією умовою напиши звичайний
-                  <span class="accent-code">return a / b</span>. Перевір функцію
-                  з нулем та зі звичайними числами.
+                  Напиши функцію <span class="accent-code">safe_sqrt(x)</span>:
                 </p>
+                <ul>
+                  <li>
+                    Якщо x < 0 — одразу поверни рядок
+                    <i>"Помилка: корінь з від'ємного числа"</i>
+                  </li>
+                  <li>Інакше — поверни math.sqrt(x)</li>
+                </ul>
               </div>
             </details>
 
-            <!-- 3.2 Текст -->
+            <!-- 3.2  -->
             <details class="task" name="task3">
               <summary>
-                <h4>Завдання 3.2: Суворий пароль (Текст)</h4>
+                <h4>Завдання 3.2: Валідатор трикутника</h4>
               </summary>
               <div>
                 <p>
                   Напиши функцію
-                  <span class="accent-code">check_password(password)</span>, яка
-                  перевіряє пароль на надійність, використовуючи ранній вихід:
+                  <span class="accent-code">triangle_type(a, b, c)</span>, яка:
                 </p>
+
                 <ol>
                   <li>
-                    Якщо пароль містить пробіл (<span class="accent-code"
-                      >" " in password</span
-                    >) — одразу повертай
-                    <span class="accent-code">"Пробіли заборонені!"</span>.
+                    Якщо будь-яка сторона &lt;= 0 — повертає
+                    <i> "Помилка: сторони мають бути додатними" </i>
                   </li>
                   <li>
-                    Якщо довжина пароля менша за 8 символів — одразу повертай
-                    <span class="accent-code">"Пароль надто короткий"</span>.
+                    Якщо сума двох будь-яких сторін не більша за третю —
+                    повертає <i>"Такого трикутника не існує"</i>
                   </li>
                   <li>
-                    Якщо код успішно пройшов усі перевірки і не зупинився, в
-                    самому кінці поверни
-                    <span class="accent-code">"Пароль надійний!"</span>.
+                    Інакше визначає тип:
+                    <ul>
+                      <li><i>"Рівносторонній"</i> – всі сторони рівні</li>
+                      <li>
+                        <i>"Рівнобедрений"</i> – будь-які дві сторони рівні
+                      </li>
+                      <li><i>"Різносторонній"</i> – всі сторони різні</li>
+                    </ul>
                   </li>
                 </ol>
-              </div>
-            </details>
 
-            <!-- 3.3 Випадковості -->
-            <details class="task" name="task3">
-              <summary>
-                <h4>Завдання 3.3: Ігровий автомат (Random)</h4>
-              </summary>
-              <div>
-                <p>
-                  Напиши функцію
-                  <span class="accent-code">play_game(coins)</span>, яка
-                  "з'їдає" 10 монет за спробу щось виграти.
-                </p>
-                <ul>
-                  <li>
-                    <strong>Early Return:</strong> Якщо
-                    <span class="accent-code">coins < 10</span>, одразу повертай
-                    текст <span class="accent-code">"Недостатньо монет"</span>.
-                  </li>
-                  <li>
-                    Якщо монет вистачає, функція вибирає випадковий приз:
-                    <span class="accent-code"
-                      >return random.choice(["Яблуко", "Вишня",
-                      "Джекпот!"])</span
-                    >.
-                  </li>
-                </ul>
-              </div>
-            </details>
-
-            <!-- 3.4 Геометрія -->
-            <details class="task" name="task3">
-              <summary>
-                <h4>Завдання 3.4: Чи існує трикутник? (Геометрія)</h4>
-              </summary>
-              <div>
-                <p>
-                  З геометрії ми знаємо, що сума двох будь-яких сторін
-                  трикутника завжди має бути більшою за третю сторону. Крім
-                  того, сторони не можуть бути від'ємними чи нульовими!
-                </p>
-                <p>
-                  Напиши функцію
-                  <span class="accent-code">is_valid_triangle(a, b, c)</span>.
-                </p>
-                <ul>
-                  <li>
-                    Якщо будь-яка зі сторін менша або дорівнює нулю (<span
-                      class="accent-code"
-                      >a <= 0 or b <= 0 or c <= 0</span
-                    >), зроби ранній вихід:
-                    <span class="accent-code">return False</span>.
-                  </li>
-                  <li>
-                    Інакше перевір головне правило трикутника і поверни
-                    <span class="accent-code">True</span>, якщо воно
-                    виконується, або <span class="accent-code">False</span>,
-                    якщо ні.
-                  </li>
-                </ul>
+                <p>Перевірка:</p>
+                <pre><code class="language-python">print(triangle_type(0, 3, 4))     # Помилка: сторони мають бути додатними
+print(triangle_type(1, 2, 10))    # Такого трикутника не існує
+print(triangle_type(5, 5, 5))     # Рівносторонній
+print(triangle_type(5, 5, 3))     # Рівнобедрений
+print(triangle_type(3, 4, 5))     # Різносторонній</code></pre>
               </div>
             </details>
           </div>
