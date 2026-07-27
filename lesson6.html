@@ -743,114 +743,113 @@ print(square(perimeter(5)))</textarea
           </summary>
 
           <div class="accordion__content">
-            <!-- 2.1 Алгебра -->
+            <!-- 2.1 -->
             <details class="task" name="task2" open>
               <summary>
-                <h4>Завдання 2.1: Функція f(x) (Алгебра)</h4>
+                <h4>Завдання 2.1: Математична функція f(x)</h4>
               </summary>
               <div>
                 <p>
-                  На уроках математики ти часто бачиш запис функції на кшталт
-                  <strong>f(x) = 2x - 5</strong>. Давай перетворимо це на код!
+                  На уроках математики ти могла бачити такий запис:
+                  <span class="accent-code">f(x) = x<sup>2</sup> − 3x + 2</span
+                  >. Це і є функція — правило, яке перетворює
+                  <span class="accent-code">x</span> на результат. В Python це
+                  записується буквально так само.
                 </p>
-                <ol>
-                  <li>
-                    Напиши функцію <span class="accent-code">f(x)</span>, яка
-                    повертає результат виразу
-                    <span class="accent-code">2 * x - 5</span>.
-                  </li>
-                  <li>
-                    Давай перевіримо, чи працює з нею математика: надрукуй суму
-                    двох викликів цієї функції:
-                    <span class="accent-code">print(f(10) + f(5))</span>.
-                  </li>
-                </ol>
+                <p>
+                  Напиши функцію <span class="accent-code">f(x)</span> яка
+                  повертає результа обчислення
+                  <span class="accent-code">x<sup>2</sup> − 3x + 2</span>.
+                </p>
+
+                <p>
+                  Використай цикл
+                  <span class="accent-code">for i in range(...):</span>, щоб
+                  знайти результат функції для
+                  <span class="accent-code">x = 0, 1, 2, 3, 4, 5</span>:
+                </p>
+                <img src="./images/lesson6/6_1.png" alt="code result" />
               </div>
             </details>
 
-            <!-- 2.2 Текст -->
+            <!-- 2.2 -->
             <details class="task" name="task2">
               <summary>
-                <h4>Завдання 2.2: Генератор логінів (Текст)</h4>
+                <h4>Завдання 2.2: Ланцюжок функцій: аналіз слова</h4>
               </summary>
               <div>
-                <p>Зробимо конвеєр із двох функцій!</p>
-                <ol>
+                <p>Напиши дві функції:</p>
+                <ul>
                   <li>
-                    Напиши функцію
-                    <span class="accent-code">clean_word(word)</span>, яка
-                    просто повертає слово маленькими літерами і без пробілів по
-                    краях (використай
-                    <span class="accent-code">.strip().lower()</span>).
+                    <span class="accent-code">clean(word)</span> — повертає
+                    слово без пунктуації по краях і в нижньому регістрі (<span
+                      class="accent-code"
+                      >.strip(".,!?;:()[] ").lower()</span
+                    >)
                   </li>
                   <li>
-                    Напиши другу функцію
-                    <span class="accent-code">make_login(name)</span>. Вона має
-                    викликати <span class="accent-code">clean_word(name)</span>,
-                    додати до результату рядок
-                    <span class="accent-code">"@school.com"</span> і повернути
-                    фінальний емейл.
+                    <span class="accent-code">first_letter(word)</span> —
+                    повертає першу літеру слова
                   </li>
-                  <li>
-                    Надрукуй результат для
-                    <span class="accent-code">make_login(" OlenKA ")</span>.
-                  </li>
-                </ol>
+                </ul>
+
+                <p>
+                  Потім використай їх разом. Для кожного слова зі списку
+                  надрукуй:
+                  <i
+                    >"The word [clean word] starts with [first letter] and has
+                    [x] letters in total"</i
+                  >
+                </p>
+                <pre><code class="language-python">test_words = ["Hello!", " cat,", "Python.", "(easy?)"]</code></pre>
               </div>
             </details>
 
-            <!-- 2.3 Геометрія -->
+            <!-- 2.3 -->
             <details class="task" name="task2">
               <summary>
-                <h4>Завдання 2.3: Площа складної фігури (Геометрія)</h4>
+                <h4>Завдання 2.3: Формула Герона</h4>
               </summary>
               <div>
                 <p>
-                  Напиши функцію
-                  <span class="accent-code">triangle_area(base, height)</span>,
-                  яка повертає площу трикутника. Формула: основа помножена на
-                  висоту і поділена на 2.
-                </p>
-                <p>
-                  Уяви, що ми малюємо зірку, яка складається з
-                  <strong>п'яти однакових трикутників</strong> (з основою 10 і
-                  висотою 8). Замість того, щоб рахувати все вручну, використай
-                  функцію:
-                  <span class="accent-code"
-                    >total_area = triangle_area(10, 8) * 5</span
-                  >. Надрукуй загальну площу!
-                </p>
-              </div>
-            </details>
-
-            <!-- 2.4 Випадковості -->
-            <details class="task" name="task2">
-              <summary>
-                <h4>Завдання 2.4: Критичний удар (Random)</h4>
-              </summary>
-              <div>
-                <p>
-                  У відеоіграх персонаж іноді наносить "критичний удар" —
-                  подвійну шкоду. Давай це запрограмуємо!
+                  З геометрії: площу трикутника можна знайти лише за довжиною
+                  трьох сторін — без висоти — за формулою Герона.
                 </p>
                 <ul>
                   <li>
-                    Напиши функцію
-                    <span class="accent-code">get_damage(base_damage)</span>.
-                  </li>
-                  <li>Всередині згенеруй випадкове число від 1 до 100.</li>
-                  <li>
-                    Якщо число <strong>більше за 80</strong> (це шанс 20%),
-                    поверни <span class="accent-code">base_damage * 2</span>.
-                    Якщо ні — поверни звичайний
-                    <span class="accent-code">base_damage</span>.
+                    <span class="accent-code">s = (a + b + c) / 2</span> -
+                    напівпериметр
                   </li>
                   <li>
-                    Виклич цю функцію 3 рази у
-                    <span class="accent-code">print()</span> з базовою шкодою
-                    50, щоб перевірити, чи випаде критичний удар!
+                    <span class="accent-code">area = √(s(s-a)(s-b)(s-c))</span>
+                    - площа
                   </li>
                 </ul>
+
+                <p>Напиши дві функції:</p>
+                <ul>
+                  <li>
+                    <span class="accent-code">perimeter(a, b, c)</span> – шукає
+                    периметр трикутника
+                  </li>
+                  <li>
+                    <span class="accent-code">heron(a, b, c)</span> – шукає
+                    площу трикутника (використовує
+                    <span class="accent-code">perimeter</span> щоб знайти
+                    напівпериметр)
+                  </li>
+                </ul>
+
+                <p>Перевірка роботи:</p>
+                <pre><code class="language-python">print(heron(3, 4, 5))    # 6.0
+print(heron(5, 5, 5))    # ≈ 10.83
+print(heron(6, 8, 10))   # 24.0</code></pre>
+
+                <p>
+                  Для трикутника зі сторонами
+                  <span class="accent-code">(3, 4, 5)</span> знайди, що більше –
+                  його площа чи периметр? (> та if/else)
+                </p>
               </div>
             </details>
           </div>
