@@ -424,104 +424,119 @@ print(f)</textarea
           </summary>
 
           <div class="accordion__content">
-            <!-- 1.1 Алгебра -->
+            <!-- 1.1 -->
             <details class="task" name="task1" open>
               <summary>
-                <h4>Завдання 1.1: Математичний куб (Алгебра)</h4>
+                <h4>Завдання 1.1: Перетворення температур</h4>
               </summary>
               <div>
                 <p>
-                  Напиши функцію <span class="accent-code">cube(x)</span>, яка
-                  приймає число і <strong>повертає</strong> його в кубі (тобто
-                  <span class="accent-code">x ** 3</span>).
+                  Напиши функцію
+                  <span class="accent-code">celsius_to_fahrenheit(c)</span>, яка
+                  повертає температуру у Фаренгейтах. Формула:
+                  <span class="accent-code">F = C × 9/5 + 32</span>.
                 </p>
+
+                <p>Використай цю функцію двома способами:</p>
                 <ol>
+                  <li>Одразу передай результат в print().</li>
                   <li>
-                    Не використовуй
-                    <span class="accent-code">print()</span> всередині функції!
-                    Тільки <span class="accent-code">return</span>.
-                  </li>
-                  <li>
-                    Після функції створи змінну
-                    <span class="accent-code">result = cube(4)</span>.
-                  </li>
-                  <li>
-                    Надрукуй цю змінну, щоб перевірити результат (має вийти 64).
+                    Спершу збережи результат у змінній, а тоді вже надрукуй.
                   </li>
                 </ol>
               </div>
             </details>
 
-            <!-- 1.2 Випадковості -->
+            <!-- 1.2 -->
             <details class="task" name="task1">
               <summary>
-                <h4>Завдання 1.2: Кидок кубика (Random)</h4>
+                <h4>Завдання 1.2: Ім'я та ініціали</h4>
               </summary>
               <div>
-                <p>
-                  Напиши функцію
-                  <span class="accent-code">roll_dice()</span> (ця функція не
-                  потребує параметрів у дужках).
-                </p>
+                <p>Напиши дві функції:</p>
                 <ul>
                   <li>
-                    Підключи бібліотеку
-                    <span class="accent-code">import random</span> на початку
-                    файлу.
+                    <span class="accent-code">make_full_name(first, last)</span>
+                    — повертає повне ім'я: "Анна Коваленко"
                   </li>
                   <li>
-                    Всередині функції згенеруй випадкове число від 1 до 6 за
-                    допомогою
-                    <span class="accent-code">random.randint(1, 6)</span> і
-                    одразу поверни його через
-                    <span class="accent-code">return</span>.
-                  </li>
-                  <li>
-                    Виклич функцію і збережи результат у змінну
-                    <span class="accent-code">my_roll</span>. Надрукуй:
-                    <i>"Випало число: [my_roll]"</i>.
+                    <span class="accent-code">make_initials(first, last)</span>
+                    — повертає ініціали: "А. К."
                   </li>
                 </ul>
+
+                <p>Використання:</p>
+                <pre><code class="language-python">f = "Анна"
+l = "Коваленко"
+
+name = ...
+initials = ...
+
+print(name)      # Анна Коваленко
+print(initials)  # А. К.
+print(f"Підпис: {name} ({initials})")</code></pre>
               </div>
             </details>
 
-            <!-- 1.3 Текст -->
+            <!-- 1.3 -->
             <details class="task" name="task1">
               <summary>
-                <h4>Завдання 1.3: Секретний агент (Текст)</h4>
-              </summary>
-              <div>
-                <p>
-                  У фільмах агентів часто називають за схемою: "Прізвище. Ім'я
-                  Прізвище". Наприклад: "Бонд. Джеймс Бонд".
-                </p>
-                <p>
-                  Напиши функцію
-                  <span class="accent-code">agent_name(first, last)</span>, яка
-                  приймає ім'я та прізвище, і
-                  <strong>повертає</strong> зліплений рядок у стилі секретного
-                  агента. Перевір її на своєму імені!
-                </p>
-              </div>
-            </details>
-
-            <!-- 1.4 Геометрія -->
-            <details class="task" name="task1">
-              <summary>
-                <h4>Завдання 1.4: Периметр прямокутника (Геометрія)</h4>
+                <h4>Завдання 1.3: Скільки секунд?</h4>
               </summary>
               <div>
                 <p>
                   Напиши функцію
-                  <span class="accent-code">perimeter(a, b)</span>, яка
-                  вираховує периметр прямокутника за формулою: сума сторін,
-                  помножена на два.
+                  <span class="accent-code"
+                    >to_seconds(hours, minutes, seconds)</span
+                  >, яка повертає загальну кількість секунд.
                 </p>
+
+                <p>Перевірка роботи:</p>
+                <pre><code class="language-python">print(to_seconds(1, 0, 0))    # 3600
+print(to_seconds(0, 30, 0))   # 1800
+print(to_seconds(1, 30, 45))  # 5445</code></pre>
+
+                <p>Далі використай цю функцію, щоб дізнатися:</p>
+                <ul>
+                  <li>Скільки секунд в добі?</li>
+                  <li>Скільки секунд в тижні?</li>
+                </ul>
+
+                <pre><code class="language-python">day = ...
+week = ...
+
+print(f"У добі: {day} секунд")
+print(f"У тижні: {week} секунд")</code></pre>
+              </div>
+            </details>
+
+            <!-- 1.4 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 1.4: Що повертає ця функція?</h4>
+              </summary>
+              <div>
                 <p>
-                  Функція повинна повертати результат. Виклич її для
-                  прямокутника зі сторонами 5 та 10, збережи результат у змінну
-                  <span class="accent-code">p</span> і надрукуй її.
+                  Cпробуй пояснити, що робить кожен рядок, і передбачити
+                  результат цього коду:
                 </p>
+
+                <pre><code class="language-python">def double(x):
+    return x * 2
+
+def message(text):
+    return f"[{text}]"
+
+a = double(5)
+b = double(a)
+c = message("Python")
+d = message(double(3))
+
+print(a)
+print(b)
+print(c)
+print(d)
+print(double(double(double(2))))</code></pre>
               </div>
             </details>
           </div>
