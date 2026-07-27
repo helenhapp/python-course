@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Навчальні матеріали" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <!-- Назва на вкладці -->
+    <title>Python Lesson 6</title>
+
+    <!-- Скрипт перемикання теми -->
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      const hljsThemeLink =
+        savedTheme === "dark"
+          ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
+
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link id="hljs-theme" rel="stylesheet" href="${hljsThemeLink}" />`,
+      );
+    </script>
+
+    <!-- Підключення шрифтів (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Підсвітка коду (Highlight.js) -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
+    ></script>
+
+    <!-- CodeMirror -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"
+    ></script>
+
+    <!-- Власні стилі та скрипти -->
+    <link rel="stylesheet" href="./style.css?v=1.0" />
+    <script src="./main.js?v=1.0" defer></script>
+  </head>
+
+  <body>
+    <div class="transition-curtain"></div>
+
+    <!-- top-bar -->
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            width="62"
+            height="62"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <header>
+      <div class="title-container">
+        <a
+          href="./lesson5.html"
+          class="nav-arrow prev-arrow"
+          title="Попередній урок"
+          ><img src="./media/icons/double-alt-arrow-left.svg"
+        /></a>
+
+        <h1 id="lesson-title">Python: 06</h1>
+
+        <a href="#" class="nav-arrow next-arrow" title="Наступний урок"
+          ><img src="./media/icons/double-alt-arrow-right.svg"
+        /></a>
+      </div>
+
+      <p class="topic">Функції (частина 2)</p>
+
+      <section class="objective">
+        <p>На цьому уроці ти дізнаєшся:</p>
+        <ul type="square">
+          <li>
+            У чому різниця між <span class="accent-code">print()</span> та
+            <span class="accent-code">return</span>.
+          </li>
+          <li>Як "зловити" результат функції та зберегти його у змінну.</li>
+          <li>Як передавати дані між функціями та будувати формули.</li>
+          <li>Що таке Early Return.</li>
+        </ul>
+      </section>
+
+      <hr />
+    </header>
+
+    <main>
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-target="part-1">Частина 1</button>
+        <button class="tab-btn" data-target="part-2">Частина 2</button>
+        <button class="tab-btn" data-target="part-3">Частина 3</button>
+      </div>
+
+      <!-- 🌻 PART 1 -->
+      <section id="part-1" class="accordion tab-content active show">
+        <!-- 🍰 Theory 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 1 — Що таке return і навіщо він потрібен</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p1-review">Повторення</h3>
+
+            <div class="soft-callout">
+              <ol>
+                <li>Що пропущено на місці ❓?</li>
+                <li>
+                  Як викликати функцію, щоб вона вивела <i>"Hello, Alice"</i>?
+                </li>
+              </ol>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-0"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_0"
+                >
+❓ greet(name):
+    print("Hello,", name)
+
+# виклич функцію тут</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+            </div>
+
+            <hr />
+
+            <h3 id="p1-diff">Різниця між print() та return</h3>
+
+            <p>
+              До цього уроку ми писали функції, які просто виконували якусь дію
+              на екрані. Щоб комп'ютер показав нам числа чи текст, ми
+              використовували <span class="accent-code">print()</span>.
+            </p>
+            <p>
+              Але <span class="accent-code">print()</span> може лише
+              <span class="accent">показати</span> результат обчислень, але ніде
+              його <span class="accent">не зберігає</span> для подальшої роботи.
+              Щоб функція створила результат, який комп'ютер зможе запам'ятати,
+              існує команда
+              <span class="accent-code">return</span> ("повернути").
+            </p>
+
+            <div
+              class="soft-callout"
+              style="background-color: var(--panel-alt)"
+            >
+              <p>🍕 <strong>Аналогія з піцою:</strong></p>
+              <ul style="margin: 5px 20px">
+                <li>
+                  <span class="accent">print()</span> — це коли кур'єр просто
+                  показує тобі піцу через вікно і йде геть. Ти її побачила, але
+                  з'їсти не можеш.
+                </li>
+                <li>
+                  <span class="accent">return</span> — це коли кур'єр віддає
+                  піцу тобі прямо в руки. Тепер ти можеш з'їсти її, покласти в
+                  холодильник, тощо.
+                </li>
+              </ul>
+            </div>
+
+            <pre><code class="language-python"># Функція, яка просто виконує дію
+def square(x):
+    print(x * x)
+
+square(5)</code></pre>
+
+            <pre><code class="language-python"># Функція, яка повертає результат
+def square(x):
+    return x * x
+
+print(square(5))</code></pre>
+
+            <p>
+              Функція з <span class="accent-code">return</span>
+              буквально перетворюється на те значення, яке повертає. Це значення
+              можна використати одназу (наприклад, передати в print()), або ж
+              зберегти у змінну:
+            </p>
+
+            <pre><code class="language-python"># Викликаємо функцію і зберігаємо те, що вона повернула, у змінну result
+result = square(5)
+
+# Тепер можемо робити з цим числом що завгодно
+print(f"5 squared is {result}")</code></pre>
+
+            <p>Код виконується справа наліво:</p>
+            <pre><code class="language-python">result = square(5)
+
+↓
+
+права частина: square(5) → return 5*5 → 25
+
+↓
+
+result = 25</code></pre>
+
+            <p>Ще один приклад:</p>
+
+            <pre><code class="language-python">def hello():
+    return "Hello"
+
+print(hello() + "!!!")</code></pre>
+
+            <p>
+              Функція поводиться так, ніби замість неї вже стоїть рядок
+              <i>"Hello"</i>.
+            </p>
+
+            <hr />
+
+            <h3 id="p1-test">Тест</h3>
+
+            <!-- МІНІ-ВПРАВА ДЛЯ ЧАСТИНИ 1 -->
+            <div class="soft-callout">
+              <p>
+                ✍️ Заміни фунцію
+                <span class="accent-code">get_bonus</span>, щоб змінна
+                <span class="accent-code">answer</span> змогла зберегти
+                результат і успішно вивести 100.
+              </p>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-1-1"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_1_1"
+                >
+def get_bonus():
+    print(100)
+    
+answer = get_bonus()
+print("Твій бонус:", answer)</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+
+              <p>
+                ✍️ <strong>Міні-вправа:</strong> Знайди і виправ помилку в коді.
+              </p>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-1-2"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_1_2"
+                >
+def f():
+    return 10
+
+print(f)</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 1</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <!-- 1.1 Алгебра -->
+            <details class="task" name="task1" open>
+              <summary>
+                <h4>Завдання 1.1: Математичний куб (Алгебра)</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію <span class="accent-code">cube(x)</span>, яка
+                  приймає число і <strong>повертає</strong> його в кубі (тобто
+                  <span class="accent-code">x ** 3</span>).
+                </p>
+                <ol>
+                  <li>
+                    Не використовуй
+                    <span class="accent-code">print()</span> всередині функції!
+                    Тільки <span class="accent-code">return</span>.
+                  </li>
+                  <li>
+                    Після функції створи змінну
+                    <span class="accent-code">result = cube(4)</span>.
+                  </li>
+                  <li>
+                    Надрукуй цю змінну, щоб перевірити результат (має вийти 64).
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 1.2 Випадковості -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 1.2: Кидок кубика (Random)</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">roll_dice()</span> (ця функція не
+                  потребує параметрів у дужках).
+                </p>
+                <ul>
+                  <li>
+                    Підключи бібліотеку
+                    <span class="accent-code">import random</span> на початку
+                    файлу.
+                  </li>
+                  <li>
+                    Всередині функції згенеруй випадкове число від 1 до 6 за
+                    допомогою
+                    <span class="accent-code">random.randint(1, 6)</span> і
+                    одразу поверни його через
+                    <span class="accent-code">return</span>.
+                  </li>
+                  <li>
+                    Виклич функцію і збережи результат у змінну
+                    <span class="accent-code">my_roll</span>. Надрукуй:
+                    <i>"Випало число: [my_roll]"</i>.
+                  </li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- 1.3 Текст -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 1.3: Секретний агент (Текст)</h4>
+              </summary>
+              <div>
+                <p>
+                  У фільмах агентів часто називають за схемою: "Прізвище. Ім'я
+                  Прізвище". Наприклад: "Бонд. Джеймс Бонд".
+                </p>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">agent_name(first, last)</span>, яка
+                  приймає ім'я та прізвище, і
+                  <strong>повертає</strong> зліплений рядок у стилі секретного
+                  агента. Перевір її на своєму імені!
+                </p>
+              </div>
+            </details>
+
+            <!-- 1.4 Геометрія -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 1.4: Периметр прямокутника (Геометрія)</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">perimeter(a, b)</span>, яка
+                  вираховує периметр прямокутника за формулою: сума сторін,
+                  помножена на два.
+                </p>
+                <p>
+                  Функція повинна повертати результат. Виклич її для
+                  прямокутника зі сторонами 5 та 10, збережи результат у змінну
+                  <span class="accent-code">p</span> і надрукуй її.
+                </p>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🌷 PART 2 -->
+      <section id="part-2" class="accordion tab-content">
+        <!-- 🍰 Theory 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 2 — Як використовувати результат функції</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p2-value">Функція перетворюється на своє значення</h3>
+
+            <p>
+              Як ми вже визначили, сила
+              <span class="accent-code">return</span> полягає в тому, що під час
+              виконання програми виклик функції
+              <span class="accent">буквально замінюється на її результат</span>.
+              Якщо твоя функція повертає число
+              <span class="accent-code">10</span>, ти можеш ставитись до виклику
+              цієї функції так, ніби це і є число
+              <span class="accent-code">10</span>.
+            </p>
+
+            <p>Ось два способи як можна використати цей результат:</p>
+
+            <pre><code class="language-python">def get_points():
+    return 50
+
+# 1. Одразу надрукувати 
+print(f"У тебе {get_points()} балів!") 
+
+# 2. Зберегти у змінну 
+points = get_points()
+print(f"У тебе {points} балів!")</code></pre>
+
+            <hr />
+
+            <h3 id="p2-math">Функція як частина формули</h3>
+
+            <p>
+              Оскільки функція з
+              <span class="accent-code">return</span> поводиться як звичайне
+              число (або рядок), ми можемо додавати, множити або віднімати від
+              неї інші значення.
+            </p>
+
+            <pre><code class="language-python">def double(x):
+    return x * 2
+
+# Додаємо число до результату функції
+print(double(5) + 3)
+
+# Або використовуємо результат у формулі
+total_score = double(8) + double(2)
+print("Загальний рахунок:", total_score)</code></pre>
+
+            <hr />
+
+            <h3 id="p2-chain">Естафета: з однієї функції в іншу</h3>
+
+            <p>
+              Можна передати результат роботи однієї функції як
+              <span class="accent">вхідні дані</span> для іншої.
+            </p>
+
+            <pre><code class="language-python">def centimeters_to_meters(cm):
+    return cm / 100
+
+def meters_to_kilometers(m):
+    return m / 1000
+
+meters = centimeters_to_meters(350)
+km = meters_to_kilometers(meters)</code></pre>
+
+            <p>Або:</p>
+
+            <pre><code class="language-python">km = meters_to_kilometers(centimeters_to_meters(350))</code></pre>
+
+            <p>
+              Саме так будуються справжні великі програми: з маленьких, простих
+              функцій, які легко перевірити і які обмінюються даними між собою
+              завдяки <span class="accent-code">return</span>.
+            </p>
+
+            <hr />
+
+            <h3 id="p2-practice">Тест</h3>
+
+            <!-- МІНІ-ВПРАВА ДЛЯ ЧАСТИНИ 2 -->
+            <div class="soft-callout">
+              <p>
+                ✍️ Допиши код так, щоб результат роботи першої функції (<span
+                  class="accent-code"
+                  >double</span
+                >) передавався у другу функцію (<span class="accent-code"
+                  >add_five</span
+                >).
+              </p>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-2"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_2"
+                >
+def double(x):
+    return x * 2
+
+def add_five(x):
+    return x + 5
+
+num = 10
+# double the num and then add 5
+result =❓
+
+print("Фінальний результат:", result)</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+
+              <p>✍️ Яким буде результат цього коду?</p>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-2-2"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_2_2"
+                >
+def square(x):
+    return x * x
+
+def perimeter(side):
+    return side * 4
+
+print(square(perimeter(5)))</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 2</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <!-- 2.1 Алгебра -->
+            <details class="task" name="task2" open>
+              <summary>
+                <h4>Завдання 2.1: Функція f(x) (Алгебра)</h4>
+              </summary>
+              <div>
+                <p>
+                  На уроках математики ти часто бачиш запис функції на кшталт
+                  <strong>f(x) = 2x - 5</strong>. Давай перетворимо це на код!
+                </p>
+                <ol>
+                  <li>
+                    Напиши функцію <span class="accent-code">f(x)</span>, яка
+                    повертає результат виразу
+                    <span class="accent-code">2 * x - 5</span>.
+                  </li>
+                  <li>
+                    Давай перевіримо, чи працює з нею математика: надрукуй суму
+                    двох викликів цієї функції:
+                    <span class="accent-code">print(f(10) + f(5))</span>.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 2.2 Текст -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 2.2: Генератор логінів (Текст)</h4>
+              </summary>
+              <div>
+                <p>Зробимо конвеєр із двох функцій!</p>
+                <ol>
+                  <li>
+                    Напиши функцію
+                    <span class="accent-code">clean_word(word)</span>, яка
+                    просто повертає слово маленькими літерами і без пробілів по
+                    краях (використай
+                    <span class="accent-code">.strip().lower()</span>).
+                  </li>
+                  <li>
+                    Напиши другу функцію
+                    <span class="accent-code">make_login(name)</span>. Вона має
+                    викликати <span class="accent-code">clean_word(name)</span>,
+                    додати до результату рядок
+                    <span class="accent-code">"@school.com"</span> і повернути
+                    фінальний емейл.
+                  </li>
+                  <li>
+                    Надрукуй результат для
+                    <span class="accent-code">make_login(" OlenKA ")</span>.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 2.3 Геометрія -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 2.3: Площа складної фігури (Геометрія)</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">triangle_area(base, height)</span>,
+                  яка повертає площу трикутника. Формула: основа помножена на
+                  висоту і поділена на 2.
+                </p>
+                <p>
+                  Уяви, що ми малюємо зірку, яка складається з
+                  <strong>п'яти однакових трикутників</strong> (з основою 10 і
+                  висотою 8). Замість того, щоб рахувати все вручну, використай
+                  функцію:
+                  <span class="accent-code"
+                    >total_area = triangle_area(10, 8) * 5</span
+                  >. Надрукуй загальну площу!
+                </p>
+              </div>
+            </details>
+
+            <!-- 2.4 Випадковості -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 2.4: Критичний удар (Random)</h4>
+              </summary>
+              <div>
+                <p>
+                  У відеоіграх персонаж іноді наносить "критичний удар" —
+                  подвійну шкоду. Давай це запрограмуємо!
+                </p>
+                <ul>
+                  <li>
+                    Напиши функцію
+                    <span class="accent-code">get_damage(base_damage)</span>.
+                  </li>
+                  <li>Всередині згенеруй випадкове число від 1 до 100.</li>
+                  <li>
+                    Якщо число <strong>більше за 80</strong> (це шанс 20%),
+                    поверни <span class="accent-code">base_damage * 2</span>.
+                    Якщо ні — поверни звичайний
+                    <span class="accent-code">base_damage</span>.
+                  </li>
+                  <li>
+                    Виклич цю функцію 3 рази у
+                    <span class="accent-code">print()</span> з базовою шкодою
+                    50, щоб перевірити, чи випаде критичний удар!
+                  </li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🪴 PART 3 -->
+      <section id="part-3" class="accordion tab-content">
+        <!-- 🍰 Theory 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 3 — Early Return (Ранній вихід)</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p3-stop">Return — це кнопка "Стоп"</h3>
+
+            <p>
+              Команда <span class="accent-code">return</span> робить дві речі
+              одночасно: вона віддає результат і
+              <span class="accent">миттєво зупиняє роботу функції</span>. Щойно
+              комп'ютер натрапляє на <span class="accent-code">return</span>,
+              він виходить із функції. Будь-який код, написаний нижче, просто
+              ніколи не виконається.
+            </p>
+
+            <pre><code class="language-python">def test_function():
+    return "Готово!"
+    print("Цей текст ніколи не з'явиться на екрані")
+    return "Інший результат"
+
+# Функція зупиниться на першому ж return
+print(test_function()) # Виведе лише "Готово!"</code></pre>
+
+            <hr />
+
+            <h3 id="p3-clean">Суперсила: позбуваємося зайвих else</h3>
+
+            <p>
+              Оскільки <span class="accent-code">return</span> зупиняє функцію,
+              ми можемо використовувати це, щоб уникнути складних конструкцій з
+              <span class="accent-code">if/elif/else</span>. Такий підхід
+              називається <span class="accent">Early Return</span> (ранній
+              вихід).
+            </p>
+
+            <pre><code class="language-python"># ❌ Довгий варіант:
+def check_age_old(age):
+    if age < 18:
+        result = "Дитина"
+    else:
+        result = "Дорослий"
+    return result</code></pre>
+
+            <pre><code class="language-python"># ✅ Early Return:
+def check_age_pro(age):
+    if age < 18:
+        return "Дитина" 
+    return "Дорослий" </code></pre>
+
+            <hr />
+
+            <h3 id="p3-guard">Захист від помилок (Guard Clauses)</h3>
+
+            <p>
+              Early Return ідеально підходить для того, щоб перевіряти дані на
+              наявність помилок на самому початку функції. Якщо дані погані
+              (наприклад, спроба зняти в банкоматі більше грошей, ніж є на
+              рахунку) — ми одразу робимо
+              <span class="accent-code">return</span> з повідомленням про
+              помилку. А якщо все добре — функція продовжує свою роботу.
+            </p>
+
+            <pre><code class="language-python">def withdraw_money(balance, amount):
+    # Охоронна перевірка на самому початку
+    if amount > balance:
+        return "Помилка! Недостатньо коштів на рахунку."
+        
+    # Якщо грошей вистачає, код спокійно дійде сюди
+    new_balance = balance - amount
+    return f"Успішно знято {amount} грн. Залишок: {new_balance} грн."
+
+print(withdraw_money(1000, 1500)) # Виведе "Помилка! Недостатньо коштів..."
+print(withdraw_money(1000, 200))  # Виведе "Успішно знято 200 грн..."</code></pre>
+
+            <hr />
+
+            <h3 id="p3-test">Тест</h3>
+
+            <!-- МІНІ-ВПРАВА ДЛЯ ЧАСТИНИ 3 -->
+            <div class="soft-callout">
+              <p>
+                ✍️ Додай перевірку: якщо вік менший за 0, одразу поверни текст
+                <span class="accent-code">"Помилка"</span>.
+              </p>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-3"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_3"
+                >
+def check_age(age):
+    # Допиши ранній вихід тут
+    ❓
+        
+    return "Вік прийнято!"
+
+print(check_age(-5))
+print(check_age(15))</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+
+              <p>
+                ✍️ Як думаєш, чому
+                <span class="accent-code">"В"</span> не друкується?
+              </p>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-3-2"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_3_2"
+                >
+def demo():
+    print("A")
+    return
+    print("B")
+    
+demo()</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 3</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <!-- 3.1 Алгебра -->
+            <details class="task" name="task3" open>
+              <summary>
+                <h4>Завдання 3.1: Безпечне ділення (Алгебра)</h4>
+              </summary>
+              <div>
+                <p>
+                  Як відомо з математики, на нуль ділити не можна! Якщо
+                  спробувати це зробити в Python, програма зламається.
+                </p>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">safe_divide(a, b)</span>. На самому
+                  початку (першим рядком) додай перевірку: якщо
+                  <span class="accent-code">b == 0</span>, одразу роби
+                  <span class="accent-code"
+                    >return "Ділення на нуль неможливе!"</span
+                  >. Під цією умовою напиши звичайний
+                  <span class="accent-code">return a / b</span>. Перевір функцію
+                  з нулем та зі звичайними числами.
+                </p>
+              </div>
+            </details>
+
+            <!-- 3.2 Текст -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 3.2: Суворий пароль (Текст)</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">check_password(password)</span>, яка
+                  перевіряє пароль на надійність, використовуючи ранній вихід:
+                </p>
+                <ol>
+                  <li>
+                    Якщо пароль містить пробіл (<span class="accent-code"
+                      >" " in password</span
+                    >) — одразу повертай
+                    <span class="accent-code">"Пробіли заборонені!"</span>.
+                  </li>
+                  <li>
+                    Якщо довжина пароля менша за 8 символів — одразу повертай
+                    <span class="accent-code">"Пароль надто короткий"</span>.
+                  </li>
+                  <li>
+                    Якщо код успішно пройшов усі перевірки і не зупинився, в
+                    самому кінці поверни
+                    <span class="accent-code">"Пароль надійний!"</span>.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 3.3 Випадковості -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 3.3: Ігровий автомат (Random)</h4>
+              </summary>
+              <div>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">play_game(coins)</span>, яка
+                  "з'їдає" 10 монет за спробу щось виграти.
+                </p>
+                <ul>
+                  <li>
+                    <strong>Early Return:</strong> Якщо
+                    <span class="accent-code">coins < 10</span>, одразу повертай
+                    текст <span class="accent-code">"Недостатньо монет"</span>.
+                  </li>
+                  <li>
+                    Якщо монет вистачає, функція вибирає випадковий приз:
+                    <span class="accent-code"
+                      >return random.choice(["Яблуко", "Вишня",
+                      "Джекпот!"])</span
+                    >.
+                  </li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- 3.4 Геометрія -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 3.4: Чи існує трикутник? (Геометрія)</h4>
+              </summary>
+              <div>
+                <p>
+                  З геометрії ми знаємо, що сума двох будь-яких сторін
+                  трикутника завжди має бути більшою за третю сторону. Крім
+                  того, сторони не можуть бути від'ємними чи нульовими!
+                </p>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">is_valid_triangle(a, b, c)</span>.
+                </p>
+                <ul>
+                  <li>
+                    Якщо будь-яка зі сторін менша або дорівнює нулю (<span
+                      class="accent-code"
+                      >a <= 0 or b <= 0 or c <= 0</span
+                    >), зроби ранній вихід:
+                    <span class="accent-code">return False</span>.
+                  </li>
+                  <li>
+                    Інакше перевір головне правило трикутника і поверни
+                    <span class="accent-code">True</span>, якщо воно
+                    виконується, або <span class="accent-code">False</span>,
+                    якщо ні.
+                  </li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Повернутися нагору"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
+  </body>
+</html>
