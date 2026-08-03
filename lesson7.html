@@ -1,0 +1,1169 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Навчальні матеріали" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <!-- Назва на вкладці -->
+    <title>Python Lesson 7</title>
+
+    <!-- Скрипт перемикання теми -->
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      const hljsThemeLink =
+        savedTheme === "dark"
+          ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
+
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link id="hljs-theme" rel="stylesheet" href="${hljsThemeLink}" />`,
+      );
+    </script>
+
+    <!-- Підключення шрифтів (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Підсвітка коду (Highlight.js) -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
+    ></script>
+
+    <!-- CodeMirror -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"
+    ></script>
+
+    <!-- Власні стилі та скрипти -->
+    <link rel="stylesheet" href="./style.css?v=1.0" />
+    <script src="./main.js?v=1.0" defer></script>
+  </head>
+
+  <body>
+    <div class="transition-curtain"></div>
+
+    <!-- top-bar -->
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            width="62"
+            height="62"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <header>
+      <div class="title-container">
+        <a
+          href="./lesson6.html"
+          class="nav-arrow prev-arrow"
+          title="Попередній урок"
+          ><img src="./media/icons/double-alt-arrow-left.svg"
+        /></a>
+
+        <h1 id="lesson-title">Python: 07</h1>
+
+        <a href="#" class="nav-arrow next-arrow" title="Наступний урок"
+          ><img src="./media/icons/double-alt-arrow-right.svg"
+        /></a>
+      </div>
+
+      <p class="topic">Словники (Dictionaries)</p>
+
+      <section class="objective">
+        <p>На цьому уроці ти дізнаєшся:</p>
+        <ul type="square">
+          <li>
+            Що таке словники (<span class="accent-code">dict</span>) і чим вони
+            кращі за списки.
+          </li>
+          <li>
+            Як знаходити інформацію не за індексом (0, 1, 2), а за
+            <strong>іменем</strong> (ключем).
+          </li>
+          <li>
+            Як безпечно діставати дані за допомогою
+            <span class="accent-code">.get()</span>.
+          </li>
+          <li>
+            Як обробляти словники за допомогою циклу
+            <span class="accent-code">for</span>.
+          </li>
+        </ul>
+      </section>
+
+      <hr />
+    </header>
+
+    <main>
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-target="part-1">Частина 1</button>
+        <button class="tab-btn" data-target="part-2">Частина 2</button>
+        <button class="tab-btn" data-target="part-3">Частина 3</button>
+        <button class="tab-btn" data-target="part-4">Частина 4</button>
+      </div>
+
+      <!-- 🌻 PART 1 -->
+      <section id="part-1" class="accordion tab-content active show">
+        <!-- 🐍 Теорія 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 1 — Створення та Читання</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p1-problem">Проблема зі списками</h3>
+
+            <p>
+              Ми вже вміємо зберігати багато даних у списках (<span
+                class="accent-code"
+                >list</span
+              >). Але іноді списки бувають дуже незручними. Уяви, що потрібно
+              зберегти оцінки за шкільні предмети. Можна зробити це з допомогою
+              двох списків:
+            </p>
+
+            <pre><code class="language-python">subjects = ["Math", "English", "Art"]
+grades = [95, 88, 92]
+
+print(grades[1])  # 88 </code></pre>
+
+            <p>
+              Щоб знайти оцінку з Англійської, треба вручну рахувати її індекс.
+              Це незручно. А що, якби ми могли просто сказати комп'ютеру:
+              <span class="italic">"Дай мені оцінку з Англійської"</span>? Саме
+              для цього існують <span class="accent">словники</span> (<span
+                class="accent-code"
+                >dictionary</span
+              >).
+            </p>
+
+            <hr />
+
+            <h3 id="p1-solution">Що таке словник?</h3>
+
+            <p>
+              У словнику дані зберігаються парами:
+              <span class="accent">ключ</span> і
+              <span class="accent">значення</span> (key: value). Це працює як
+              справжній словник (слово → переклад) або телефонна книга (ім'я →
+              номер телефону).
+            </p>
+
+            <p class="soft-callout">
+              Список шукає дані за позицією (індексом), а словник – за ім'ям
+              (ключем).
+            </p>
+
+            <p>
+              Словники створюються за допомогою фігурних дужок
+              <span class="accent-code">{}</span>:
+            </p>
+
+            <pre><code class="language-python">grades = {"Math": 95, "English": 88, "Art": 92}
+
+print(grades["English"]) # 88</code></pre>
+
+            <p>Також словник можна створити порожнім, а потім наповнити:</p>
+
+            <pre><code class="language-python">student = {}          # порожній словник
+
+student["name"] = "Sofia"
+student["age"] = 12
+student["grade"] = 6
+
+print(student)</code></pre>
+
+            <img src="./images/lesson7/7_1.png" alt="code result" />
+
+            <hr />
+
+            <h3 id="p1-reading">Читання даних: [] проти .get()</h3>
+
+            <p>
+              Щоб дістати значення зі словника, можна використати квадратні
+              дужки з ключем:
+            </p>
+
+            <pre><code class="language-python">print(student["name"])  # Виведе "Sofia"</code></pre>
+
+            <p>
+              Але є проблема! Що буде, якщо ми спитаємо про ключ, якого не
+              існує? Програма <strong>зламається</strong> з помилкою
+              <span class="accent-code">KeyError</span>:
+            </p>
+
+            <pre><code class="language-python">print(student["city"])</code></pre>
+
+            <img src="./images/lesson7/7_2.png" alt="key error" />
+
+            <p>
+              Щоб цього уникнути, використовують безпечний метод
+              <span class="accent-code">.get()</span>. Якщо ключа немає, він
+              поверне <span class="accent-code">None</span> , а не помилку. А ще
+              в ньому можна задати
+              <span class="accent">значення за замовчуванням</span>.
+            </p>
+
+            <pre><code class="language-python"># Безпечне читання
+print(student.get("age"))       # 12
+print(student.get("city"))      # None (без помилки)
+ 
+# Безпечне читання з підстраховкою
+print(student.get("city", "City is unknown"))  # "City is unknown</code></pre>
+
+            <img src="./images/lesson7/7_3.png" alt="code result" />
+
+            <hr />
+
+            <!-- МІНІ-ВПРАВА ДЛЯ ЧАСТИНИ 1 -->
+            <div class="soft-callout">
+              <p>
+                ✍️ <strong>Міні-вправа:</strong> Зараз цей код видає помилку.
+                Використай метод <span class="accent-code">.get()</span> і зроби
+                так, щоб натомість виводився текст:
+                <span class="italic">"Улюбленець: Немає"</span>.
+              </p>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-1"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_1"
+                >
+info = {"name": "Alex", "age": 14}
+
+# ✨ Виправ цей рядок:
+pet = info["pet"]
+
+print("Улюбленець:", pet)</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 1 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 1</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <!-- 1.1 -->
+            <details class="task" name="task1" open>
+              <summary>
+                <h4>Завдання 1.1: Мій словник (Warm-up)</h4>
+              </summary>
+              <div>
+                <p>
+                  Створи словник <span class="accent-code">my_info</span>, який
+                  містить інформацію про тебе. Використай ключі:
+                  <span class="accent-code">name</span>,
+                  <span class="accent-code">age</span> та
+                  <span class="accent-code">hobby</span>.
+                </p>
+
+                <p>
+                  Потім використай
+
+                  <span class="accent-code">.get()</span>, щоб по черзі вивести
+                  на екран кожне значення.
+                </p>
+
+                <p>
+                  А наостанок спробуй дістати ключ
+                  <span class="accent-code">favorite_food</span>, встановивши
+                  значення за замовчуванням
+                  <span class="accent-code">"Pizza"</span>.
+                </p>
+              </div>
+            </details>
+
+            <!-- 1.2 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 1.2: Міні-перекладач (English)</h4>
+              </summary>
+              <div>
+                <p>
+                  Створи словник <span class="accent-code">words</span> з
+                  англійськими словами та їх перекладами:
+                </p>
+
+                <ul>
+                  <li>dragon – дракон</li>
+                  <li>wizard – чарівник</li>
+                  <li>treasure – скарб</li>
+                </ul>
+
+                <p>Далі:</p>
+
+                <ol>
+                  <li>
+                    Запитай у користувача англійське слово. Збережи його у
+                    змінну.
+                  </li>
+                  <li>
+                    Спробуй знайти у словнику переклад введеного слова. Якщо
+                    такого слова немає, виведи
+                    <span class="italic"
+                      >"Цього слова ще немає в словнику."</span
+                    >.
+                  </li>
+                </ol>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🌷 PART 2 -->
+      <section id="part-2" class="accordion tab-content">
+        <!-- 🐍 Теорія 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 2 — Зміна даних та Перевірки</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p2-add-update">Додавання та оновлення</h3>
+
+            <p>
+              Словники легко змінювати. Щоб додати нову пару "ключ-значення"
+              (або оновити існуючу), ми використовуємо квадратні дужки та знак
+              дорівнює <span class="accent-code">=</span>.
+            </p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12}
+
+student["city"] = "Lviv"  # Додає новий ключ "city"
+student["age"] = 13       # Оновлює значення для існуючого ключа "age"
+
+print(student)</code></pre>
+
+            <img src="./images/lesson7/7_4.png" alt="code result" />
+
+            <p class="soft-callout">
+              <strong>Важливо:</strong> Кожен ключ у словнику може зустрічатися
+              <span class="accent">лише один раз</span>! Якщо ти спробуєш додати
+              ключ, який вже існує, старе значення просто зітреться і заміниться
+              на нове.
+            </p>
+
+            <hr />
+
+            <h3 id="p2-remove">Видалення даних (del та pop)</h3>
+
+            <p>Щоб видалити ключ зі словника, є дві команди:</p>
+
+            <h4>1) Команда del</h4>
+
+            <p>
+              Команда <span class="accent-code">del</span> просто видаляє
+              значення зі словника:
+            </p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12, "city": "Lviv"}
+print(student)
+
+del student["age"]
+print(student)</code></pre>
+
+            <img src="./images/lesson7/7_5.png" alt="code result" />
+
+            <h4>2) Метод .pop()</h4>
+
+            <p>
+              Метод <span class="accent-code">.pop()</span> видаляє та повертає
+              видалене значення (тоді його можна зберегти у змінну):
+            </p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12, "city": "Lviv"}
+print(student)
+
+deleted_value = student.pop("city")
+print(student)
+print(f"We deleted the city: {deleted_value}")</code></pre>
+
+            <img src="./images/lesson7/7_6.png" alt="code result" />
+
+            <hr />
+
+            <h3 id="p2-in">Перевірка наявності ключа (in)</h3>
+
+            <p>
+              Іноді потрібно дізнатися, чи взагалі існує такий ключ у словнику,
+              перш ніж щось з ним робити. Для цьго використовують умову
+              <span class="accent-code">if</span> з оператором
+              <span class="accent-code">in</span>:
+            </p>
+
+            <pre><code class="language-python">if "name" in student:
+    print(student.get("name"))
+else:
+    print("Ім'я учня невідоме.")</code></pre>
+
+            <hr />
+
+            <!-- МІНІ-ВПРАВА ДЛЯ ЧАСТИНИ 2 -->
+            <div class="soft-callout">
+              <p>
+                ✍️ <strong>Міні-вправа:</strong> Словник
+                <span class="accent-code">inventory</span> зберігає дані про
+                інвентар гравця у форматі
+                <span class="italic">"предмет": "кількість"</span>:
+              </p>
+
+              <ol>
+                <li>
+                  Онови кількість яблук на <span class="accent-code">5</span>.
+                </li>
+                <li>Додай в інвентар один меч (sword).</li>
+              </ol>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-2"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_2"
+                >
+inventory = {"apple": 2, "potion": 3}
+
+# ✨ Напиши оновлення тут:
+# ...
+
+print(inventory)</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 2 -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 2</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <!-- 2.1 -->
+            <details class="task" name="task2" open>
+              <summary>
+                <h4>Завдання 2.1: Міні-книга контактів (Practical)</h4>
+              </summary>
+              <div>
+                <ol>
+                  <li>
+                    Створи порожній словник
+                    <span class="accent-code">contacts</span>.
+                  </li>
+                  <li>
+                    Запитай у користувача ім'я контакту (<span class="italic"
+                      >"Введіть ім'я: "</span
+                    >).
+                  </li>
+                  <li>
+                    Запитай номер: (<span class="italic"
+                      >"Введіть номер телефону: "</span
+                    >).
+                  </li>
+                  <li>
+                    Додай новий запис у словник
+                    <span class="accent-code">contacts</span>.
+                  </li>
+                  <li>Надрукуй оновлену телефонну книгу.</li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 2.2 -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 2.2: Інвентар (Видалення)</h4>
+              </summary>
+              <div>
+                <p>Дано інвентар персонажа у грі:</p>
+                <pre><code class="language-python">inventory = {
+    "sword": 2, 
+    "pizza": 1, 
+    "map": 1,
+}</code></pre>
+                <ol>
+                  <li>
+                    Гравець зʼїв піцу. Видали її зі словника за допомогою
+                    команди
+                    <span class="accent-code">del</span>.
+                  </li>
+                  <li>
+                    Гравець загубив мапу. Використай метод
+                    <span class="accent-code">pop</span>, щоб видалити її та
+                    зберегти видалене значення у змінну
+                    <span class="accent-code">lost_item</span>.
+                  </li>
+                  <li>
+                    Надрукуй оновлений інвентар та змінну
+                    <span class="accent-code">lost_item</span>.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 2.3 -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 2.3: Бібліотека (in)</h4>
+              </summary>
+              <div>
+                <p>
+                  Маємо словник із книгами та їхніми кодовими номерами в
+                  бібліотеці:
+                </p>
+                <pre><code class="language-python">books = {
+    "A7": "Гобіт, або Туди і звідти", 
+    "D5": "Локвуд і Ко: Сходи, що кричать", 
+    "M10": "Пуаро веде слідство",
+}</code></pre>
+                <ol>
+                  <li>
+                    Запитай у користувача код книги (<span class="italic"
+                      >"Введіть код книги: "</span
+                    >).
+                  </li>
+                  <li>
+                    Перевір, чи є цей код у словнику
+                    <span class="accent-code">books</span>.
+                  </li>
+                  <li>
+                    Якщо є — виведи
+                    <span class="italic">"Книгу [назва книги] знайдено!"</span>.
+                  </li>
+                  <li>
+                    Якщо немає — виведи
+                    <span class="italic">"Такої книги немає!"</span>.
+                  </li>
+                </ol>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🌷 PART 3 -->
+      <section id="part-3" class="accordion tab-content">
+        <!-- 🐍 Теорія 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 3 — Ключі, Значення та Списки</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p3-keys-values">Ключі та значення (.keys та .values)</h3>
+
+            <p>
+              Іноді нам не потрібен весь словник, а лише його ключі або лише
+              значення. Для цього існують спеціальні методи:
+            </p>
+
+            <h4>Метод .keys()</h4>
+            <p>Повертає всі ключі, які є у словнику:</p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12, "city": "Lviv"}
+keys = student.keys()
+print(keys)</code></pre>
+
+            <img src="./images/lesson7/7_7.png" alt="code result" />
+
+            <h4>Метод .values()</h4>
+            <p>Повертає всі значення зі словника:</p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12, "city": "Lviv"}
+values = student.values()
+print(values)</code></pre>
+
+            <img src="./images/lesson7/7_8.png" alt="code result" />
+
+            <hr />
+
+            <h3 id="p3-list-func">Функція list()</h3>
+
+            <p>
+              Ти могла помітити, що результат роботи
+              <span class="accent-code">.keys()</span> та
+              <span class="accent-code">.values()</span> виглядає трохи незвично
+              (з приставкою <span class="accent-code">dict_keys</span> або
+              <span class="accent-code">dict_values</span>). Це тому, що вони
+              повертають не зовсім звичайні списки.
+            </p>
+
+            <p>
+              Щоб перетворити їх на справжній, звичайний список (який ми знаємо
+              і з яким вміємо працювати), існує вбудована функція
+              <span class="accent-code">list()</span>:
+            </p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12, "city": "Lviv"}
+ 
+# Перетворюємо ключі на звичайний список
+normal_list = list(student.keys())
+ 
+print(normal_list)    # ['name', 'age', 'city']
+print(normal_list[1]) # age</code></pre>
+
+            <img src="./images/lesson7/7_9.png" alt="code result" />
+
+            <p>
+              Це дуже корисно, коли, наприклад, потрібно обрати випадковий ключ
+              зі словника за допомогою
+              <span class="accent-code">random.choice()</span>.
+            </p>
+
+            <hr />
+
+            <!-- МІНІ-ВПРАВА ДЛЯ ЧАСТИНИ 3 -->
+            <div class="soft-callout">
+              <p>
+                ✍️ <strong>Міні-вправа:</strong> Заміни знаки
+                <span class="accent-code">❓</span>, щоб перетворити ключі
+                словника на справжній список.
+              </p>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-3"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_3"
+                >
+my_dict = {"a": 1, "b": 2, "c": 3}
+
+# Дістаємо ключі та робимо з них список
+my_list = ❓(my_dict.❓())
+
+print(my_list)</textarea
+                >
+
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 3 -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 3</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <!-- 3.1 -->
+            <details class="task" name="task3" open>
+              <summary>
+                <h4>Завдання 3.1: Класний журнал (Math)</h4>
+              </summary>
+              <div>
+                <p>Маємо словник з оцінками:</p>
+
+                <pre><code class="language-python">marks = {
+    "English": 11,
+    "Math": 12,
+    "Art": 10,
+    "History": 9,
+}</code></pre>
+
+                <p>Знайди і виведи:</p>
+                <ul>
+                  <li>Суму всіх оцінок.</li>
+                  <li>Середнє арифметичне оцінок.</li>
+                  <li>Найвищу оцінку.</li>
+                </ul>
+
+                <div class="soft-callout">
+                  <p style="margin-top: 0">Корисні команди:</p>
+                  <ul>
+                    <li>
+                      <span class="accent-code">sum(marks.values())</span> –
+                      знаходить суму всіх оцінок у словнику.
+                    </li>
+                    <li>
+                      <span class="accent-code">len(marks)</span> – знаходить
+                      кількість предметів (ключів).
+                    </li>
+                    <li>
+                      <span class="accent-code">max(marks.values())</span> –
+                      знаходить найвищу оцінку.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+
+            <!-- 3.2 -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 3.2: Столиці світу (Random Quiz)</h4>
+              </summary>
+              <div>
+                <p>Створимо вікторину! Дано словник:</p>
+
+                <pre><code class="language-python">capitals = {
+    "Україна": "Київ",
+    "Франція": "Париж",
+    "Японія": "Токіо",
+    "Італія": "Рим",
+    "Німеччина": "Берлін",
+    "Канада": "Оттава",
+    "Австралія": "Канберра",
+    "Єгипет": "Каїр",
+}</code></pre>
+
+                <ol>
+                  <li>
+                    Створи змінну
+                    <span class="accent-code">random_country</span>. Збережи в
+                    ній випадкову назву країни зі словника (<span
+                      class="accent-code"
+                      >random.choice(список ключів)</span
+                    >).
+                  </li>
+                  <li>
+                    Запитай у користувача:
+                    <span class="italic"
+                      >"Яка столиця країни [random_country]?"</span
+                    >
+                  </li>
+                  <li>
+                    Якщо введена відповідь дорівнює значенню зі словника для
+                    цієї країни — виведи
+                    <span class="italic">"Правильно!"</span>. Інакше виведи
+                    <span class="italic">"Неправильно!"</span>.
+                  </li>
+                </ol>
+              </div>
+            </details>
+
+            <!-- 3.3 -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 3.3: Камінь-Ножиці-Папір (Game)</h4>
+              </summary>
+              <div>
+                <p>
+                  Словники ідеально підходять для ігрової логіки! Словник нижче
+                  показує, <span class="accent">що кого перемагає</span>:
+                </p>
+                <pre><code class="language-python">beats = {
+    "камінь": "ножиці",
+    "ножиці": "папір",
+    "папір": "камінь"
+}</code></pre>
+
+                <ol>
+                  <li>
+                    Запитай у гравця його хід (<span class="accent-code"
+                      >player_choice</span
+                    >).
+                  </li>
+                  <li>
+                    Комп'ютер обирає випадковий ключ зі словника (<span
+                      class="accent-code"
+                      >computer_choice</span
+                    >).
+                  </li>
+                  <li>Виведи на екран, що обрав комп'ютер.</li>
+                  <li>
+                    Логіка перемоги (
+                    <span class="accent-code">if/elif/else</span>):
+                    <ul>
+                      <li>
+                        Якщо
+                        <span class="accent-code">player_choice</span> та
+                        <span class="accent-code">computer_choice</span>
+                        однакові →
+                        <span class="italic">"Нічия!"</span>
+                      </li>
+                      <li>
+                        Якщо
+                        <span class="accent-code">beats[❓] == ❓</span>
+                        →
+                        <span class="italic">"Комп'ютер переміг!"</span>
+                        (подумай, чим треба замінити ❓)
+                      </li>
+                      <li>
+                        Інакше → <span class="italic">"Ти переміг!"</span>
+                      </li>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🪴 PART 4 -->
+      <section id="part-4" class="accordion tab-content">
+        <!-- 🐍 Теорія 4 -->
+        <details class="accordion__item" name="section4">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Частина 4 — Цикли та List vs Dict</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p4-loops">Як перебрати словник циклом for?</h3>
+
+            <p>
+              Якщо ми просто запустимо цикл
+              <span class="accent-code">for</span> по словнику, він пройдеться
+              <span class="accent">лише по його ключах</span>:
+            </p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12}
+ 
+for key in student:
+    print("Ключ:", key)
+    print("Значення:", student[key], "\n")</code></pre>
+
+            <img src="./images/lesson7/7_10.png" alt="code result" />
+
+            <p>
+              Але існує кращий спосіб. Метод
+              <span class="accent-code">.items()</span> ("елементи") повертає
+              одразу і ключ, і значення <span class="accent">в парі</span>:
+            </p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12, "grade": 6}
+                
+for key, value in student.items():
+    print(f"{key}: {value}")</code></pre>
+
+            <img src="./images/lesson7/7_11.png" alt="code result" />
+
+            <hr />
+
+            <h3 id="p4-vs">Що обрати: Список чи Словник?</h3>
+
+            <p>У тебе може виникнути питання: коли що використовувати?</p>
+
+            <ul style="margin: 15px 30px">
+              <li>
+                <strong>Список (List) </strong>
+                <span class="accent-code">[]</span> — коли тобі важливий
+                <span class="accent">ПОРЯДОК</span>. Наприклад: список
+                переможців у грі (перше місце, друге, третє), або список справ
+                на день.
+              </li>
+              <li>
+                <strong>Словник (Dict) </strong>
+                <span class="accent-code">{}</span> — коли тобі важливе
+                <span class="accent">ІМ'Я</span> (ключ). Наприклад: переклад
+                слів (dog - собака), налаштування персонажа (energy - 100).
+              </li>
+            </ul>
+
+            <hr />
+
+            <!-- МІНІ-ВПРАВА ДЛЯ ЧАСТИНИ 4 -->
+            <div class="soft-callout">
+              <p>
+                ✍️ <strong>Міні-вправа:</strong> Заверши цикл так, щоб він вивів
+                на екран назву та ціну кожного фрукта:
+              </p>
+
+              <!-- code-editor -->
+              <div
+                class="custom-editor-wrapper python-editor-wrapper"
+                id="mini-editor-4"
+              >
+                <div class="editor-header">
+                  <span class="editor-title">Python 3</span>
+                  <div class="editor-actions">
+                    <button
+                      type="button"
+                      class="reset-btn"
+                      title="Повернути початковий код"
+                    >
+                      <img src="./media/icons/refresh.svg" />
+                    </button>
+                    <button type="button" class="run-btn" title="Запустити код">
+                      <img src="./media/icons/play-green.svg" />
+                    </button>
+                  </div>
+                </div>
+
+                <textarea
+                  aria-label="Редактор Python коду"
+                  class="custom-editor-input"
+                  spellcheck="false"
+                  name="mini_python_code_4"
+                >
+prices = {"Яблуко": 15, "Банан": 20, "Ківі": 35}
+
+for ❓, ❓ in prices.items():
+    print(f"Фрукт: {fruit}, Ціна: {price} грн")</textarea
+                >
+                <pre class="custom-editor-output">Очікування запуску...</pre>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 4 -->
+        <details class="accordion__item" name="section4">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 4</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <!-- 4.1 -->
+            <details class="task" name="task4" open>
+              <summary>
+                <h4>Завдання 4.1: Меню кафе (items)</h4>
+              </summary>
+              <div>
+                <p>Ось словник із цінами на напої:</p>
+                <pre><code class="language-python">menu = {"Чай": 35, "Кава": 45, "Какао": 50, "Лимонад": 25}</code></pre>
+                <p>
+                  Запусти цикл <span class="accent-code">for</span> з методом
+                  <span class="accent-code">.items()</span>, щоб красиво вивести
+                  меню на екран у такому форматі:
+                </p>
+                <ul>
+                  <li><i>Напій: Чай — 35 грн</i></li>
+                  <li><i>Напій: Кава — 45 грн</i></li>
+                  <li>...і так далі.</li>
+                </ul>
+              </div>
+            </details>
+
+            <!-- 4.2 -->
+            <details class="task" name="task4">
+              <summary>
+                <h4>Завдання 4.2: Хто здав тест? (Фільтрація)</h4>
+              </summary>
+              <div>
+                <p>Маємо словник з балами учнів за тест (максимум 12):</p>
+                <pre><code class="language-python">scores = {"Анна": 11, "Максим": 7, "Олег": 10, "Яна": 12, "Денис": 5}</code></pre>
+                <p>
+                  Тест вважається успішно складеним, якщо бал
+                  <span class="accent">більший або дорівнює 9</span>.
+                </p>
+
+                <p>
+                  Запусти цикл <span class="accent-code">for</span>. Всередині
+                  циклу перевір:
+                </p>
+
+                <ol>
+                  <li>
+                    Якщо бал
+                    <span class="accent-code">&gt;= 9</span>, виведи
+                    <span class="italic">"[Ім'я] склав(ла) тест на [Бал]!"</span
+                    >.
+                  </li>
+                  <li>
+                    Інакше, виведи
+                    <span class="italic">"[Ім'я] має пройти тест ще раз."</span
+                    >.
+                  </li>
+                </ol>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Повернутися нагору"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
+  </body>
+</html>
