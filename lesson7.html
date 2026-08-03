@@ -183,6 +183,7 @@
         <button class="tab-btn" data-target="part-2">Частина 2</button>
         <button class="tab-btn" data-target="part-3">Частина 3</button>
         <button class="tab-btn" data-target="part-4">Частина 4</button>
+        <button class="tab-btn" data-target="part-5">Д/З</button>
       </div>
 
       <!-- 🌻 PART 1 -->
@@ -1208,6 +1209,128 @@ for ❓, ❓ in prices.items():
                     >.
                   </li>
                 </ol>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🏖️ PART 5 -->
+      <section id="part-5" class="accordion tab-content">
+        <!-- 🐍 Теорія 5 -->
+        <details class="accordion__item" name="section5" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Домашнє завдання: Функції та Словники</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p5-hint1">Словник як результат функції</h3>
+            <p>
+              Функції можуть створювати порожні словники, наповнювати їх даними
+              і повертати як готовий результат:
+            </p>
+            <pre><code class="language-python">def make_profile(n, a):
+    profile = {} # 1. Створюємо порожній словник
+    
+    # 2. Додаємо дані:
+    profile["name"] = n    
+    profile["age"] = a
+    
+    return profile  # 3. Повертаємо готовий словник
+ 
+my_profile = make_profile("Olena", 22)
+print(my_profile) # {'name': 'Olena', 'age': 22}</code></pre>
+
+            <hr />
+
+            <h3 id="p5-hint2">Лічильник у циклі</h3>
+            <p>
+              Щоб рахувати елементи по порядку (1, 2, 3...), можна створити
+              змінну-лічильник із початковим значенням
+              <span class="accent-code">1</span>, а тоді всередині циклу
+              <span class="accent-code">for</span> збільшувати її значення за
+              допомогою <span class="accent-code">+= 1</span>:
+            </p>
+            <pre><code class="language-python">fruits = ["apple", "pear", "orange"]
+counter = 1
+
+for fruit in fruits:
+    print(f"Fruit number {counter} is: {fruit}")
+    counter += 1 # Збільшуємо номер на 1</code></pre>
+
+            <img src="./images/lesson7/7_16.png" alt="code result" />
+
+            <hr />
+
+            <p class="soft-callout">
+              Щоб виконати домашнє завдання, тобі потрібно
+              <span class="accent">поєднати</span> ці дві ідеї.
+            </p>
+          </div>
+        </details>
+
+        <!-- 📝 Завдання 5 -->
+        <details class="accordion__item" name="section5">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Домашнє завдання: Практика</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <details class="task" name="task5" open>
+              <summary>
+                <h4>Завдання 5.1: Функція number_words(word_list)</h4>
+              </summary>
+              <div>
+                <p>
+                  З домашнього завдання до уроку 6 в тебе вже є функція
+                  <span class="accent-code">get_words</span>, яка перетворює
+                  текстовий рядок на список слів:
+                </p>
+                <pre><code class="language-python">text = "Hello, world! Python is fun..."
+
+words = get_words(text)
+# result: ['hello', 'world', 'python', 'is', 'fun']</code></pre>
+
+                <p>
+                  Напиши функцію
+                  <span class="accent-code">number_words(word_list)</span>, яка
+                  приймає список слів і
+                  <span class="accent">повертає словник</span> із
+                  пронумерованими словами.
+                </p>
+
+                <ul>
+                  <li>
+                    Ключами у словнику мають бути
+                    <span class="accent">числа</span>, починаючи з
+                    <span class="accent-code">1</span>.
+                  </li>
+                  <li>Значеннями — слова з переданого списку.</li>
+                </ul>
+
+                <p>Перевір свою функцію на цьому коді:</p>
+                <pre><code class="language-python">text = "Hello, world! Python is fun..."
+words = get_words(text) # ['hello', 'world', 'python', 'is', 'fun']
+
+numbered = number_words(words)
+print(numbered)</code></pre>
+
+                <img src="./images/lesson7/hw.png" alt="homework result" />
+
+                <p>
+                  ❗️ Щоб цей код спрацював, у файлі має бути створена функція
+                  <span class="accent-code">get_words</span>. Або скопіюй
+                  потрібні функції з домашнього завдання до уроку 6, або
+                  продовжуй писати код в тому ж файлі.
+                </p>
               </div>
             </details>
           </div>
