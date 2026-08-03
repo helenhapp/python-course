@@ -156,7 +156,7 @@
         <p>На цьому уроці ти дізнаєшся:</p>
         <ul type="square">
           <li>
-            Що таке словники (<span class="accent-code">dict</span>) і чим вони
+            Що таке словники (<span class="accent-code">dict</span>) і в яких випадках вони
             кращі за списки.
           </li>
           <li>
@@ -215,7 +215,7 @@ grades = [95, 88, 92]
 print(grades[1])  # 88 </code></pre>
 
             <p>
-              Щоб знайти оцінку з Англійської, треба вручну рахувати її індекс.
+              Щоб знайти оцінку з Англійської, треба знати або знайти її індекс.
               Це незручно. А що, якби ми могли просто сказати комп'ютеру:
               <span class="italic">"Дай мені оцінку з Англійської"</span>? Саме
               для цього існують <span class="accent">словники</span> (<span
@@ -238,7 +238,8 @@ print(grades[1])  # 88 </code></pre>
 
             <p class="soft-callout">
               Список шукає дані за позицією (індексом), а словник – за ім'ям
-              (ключем).
+              (ключем). Тому в словнику головне — не позиція елемента, а його
+              ключ.
             </p>
 
             <p>
@@ -249,6 +250,10 @@ print(grades[1])  # 88 </code></pre>
             <pre><code class="language-python">grades = {"Math": 95, "English": 88, "Art": 92}
 
 print(grades["English"]) # 88</code></pre>
+
+            <pre class="soft-callout">Math ---------> 95
+English ------> 88
+Art ----------> 92</pre>
 
             <p>Також словник можна створити порожнім, а потім наповнити:</p>
 
@@ -468,6 +473,15 @@ print(student)</code></pre>
               на нове.
             </p>
 
+            <pre><code class="language-python">grades = {
+    "Math": 10,
+    "Math": 12,
+}
+
+print(grades) # Python залишить лише останнє значення</code></pre>
+
+            <img src="./images/lesson7/7_12.png" alt="code result" />
+
             <hr />
 
             <h3 id="p2-remove">Видалення даних (del та pop)</h3>
@@ -504,6 +518,33 @@ print(student)
 print(f"Deleted the city: {deleted_value}")</code></pre>
 
             <img src="./images/lesson7/7_6.png" alt="code result" />
+
+            <p>
+              Крім того, в цьому методі можна задати
+              <span class="accent">значення за замовчуваннями</span>, щоб при
+              спробі видалити ключ, якого немає в словнику, програма не видавала
+              помилку:
+            </p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12}
+del student["city"]</code></pre>
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12}
+del_value = student.pop("city")</code></pre>
+
+            <img src="./images/lesson7/7_13.png" alt="code result" />
+
+            <p>
+              І <span class="accent-code">del</span>, і
+              <span class="accent-code">.pop()</span> без значення за
+              замовчуванням видають <span class="accent-code">KeyError</span>,
+              якщо ключа не існує. Ось як можна уникнути помилки:
+            </p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12}
+del_value = student.pop("city", None)
+print("del_value =", del_value)</code></pre>
+
+            <img src="./images/lesson7/7_14.png" alt="code result" />
 
             <hr />
 
@@ -738,15 +779,16 @@ print(values)</code></pre>
             <p>
               Ти могла помітити, що результат роботи
               <span class="accent-code">.keys()</span> та
-              <span class="accent-code">.values()</span> виглядає трохи незвично
-              (з приставкою <span class="accent-code">dict_keys</span> або
-              <span class="accent-code">dict_values</span>). Це тому, що вони
-              повертають не зовсім звичайні списки.
+              <span class="accent-code">.values()</span> виглядає трохи
+              незвично. Це тому, що вони повертають не звичайні списки, а
+              спеціальні об'єкти <span class="accent-code">dict_keys</span> та
+              <span class="accent-code">dict_values</span>, які схожі на списки,
+              але ними не є.
             </p>
 
             <p>
-              Щоб перетворити їх на справжній, звичайний список (який ми знаємо
-              і з яким вміємо працювати), існує вбудована функція
+              Щоб перетворити їх на звичайний список (який ми знаємо і з яким
+              вміємо працювати), існує вбудована функція
               <span class="accent-code">list()</span>:
             </p>
 
@@ -1010,10 +1052,29 @@ for key in student:
 
             <pre><code class="language-python">student = {"name": "Sofia", "age": 12, "grade": 6}
                 
+for item in student.items():
+    print(item)</code></pre>
+
+            <img src="./images/lesson7/7_15.png" alt="code result" />
+
+            <p>
+              Ми можемо використати такий запис, щоб автоматично розділити
+              <span class="accent-code">item</span> на
+              <span class="accent-code">key</span> та
+              <span class="accent-code">value</span>:
+            </p>
+
+            <pre><code class="language-python">student = {"name": "Sofia", "age": 12, "grade": 6}
+                
 for key, value in student.items():
     print(f"{key}: {value}")</code></pre>
 
             <img src="./images/lesson7/7_11.png" alt="code result" />
+
+            <p>
+              Замість key та value можна задати інакші назви змінних, наприклад,
+              subject та grade, тощо.
+            </p>
 
             <hr />
 
