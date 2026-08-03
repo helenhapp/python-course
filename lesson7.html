@@ -168,7 +168,7 @@
             <span class="accent-code">.get()</span>.
           </li>
           <li>
-            Як обробляти словники за допомогою циклу
+            Як перебирати словники за допомогою циклу
             <span class="accent-code">for</span>.
           </li>
         </ul>
@@ -296,7 +296,7 @@ print(student.get("age"))       # 12
 print(student.get("city"))      # None (без помилки)
  
 # Безпечне читання з підстраховкою
-print(student.get("city", "City is unknown"))  # "City is unknown</code></pre>
+print(student.get("city", "City is unknown"))  # City is unknown</code></pre>
 
             <img src="./images/lesson7/7_3.png" alt="code result" />
 
@@ -501,7 +501,7 @@ print(student)
 
 deleted_value = student.pop("city")
 print(student)
-print(f"We deleted the city: {deleted_value}")</code></pre>
+print(f"Deleted the city: {deleted_value}")</code></pre>
 
             <img src="./images/lesson7/7_6.png" alt="code result" />
 
@@ -511,7 +511,7 @@ print(f"We deleted the city: {deleted_value}")</code></pre>
 
             <p>
               Іноді потрібно дізнатися, чи взагалі існує такий ключ у словнику,
-              перш ніж щось з ним робити. Для цьго використовують умову
+              перш ніж щось з ним робити. Для цього використовують умову
               <span class="accent-code">if</span> з оператором
               <span class="accent-code">in</span>:
             </p>
