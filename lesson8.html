@@ -179,7 +179,7 @@
             <h3>Математика, input та f-рядки</h3>
 
             <!-- math -->
-            <details class="task" name="p1">
+            <details class="task" name="p1" open>
               <summary><h4>Математика</h4></summary>
 
               <div>
@@ -255,7 +255,8 @@ print(f"The new price is: {new_price:.2f}.")</code></pre>
                 <p>
                   Запитай в користувача радіус кола і збережи у змінну. Порахуй
                   і виведи у консоль площу кола (π x r^2), заокругливши
-                  результат до двох знаків після крапки.
+                  результат до двох знаків після крапки. Для обчислень
+                  використай бібліотеку <span class="accent-code">math</span>.
                 </p>
                 <div
                   class="custom-editor-wrapper python-editor-wrapper"
@@ -304,17 +305,17 @@ print(f"The new price is: {new_price:.2f}.")</code></pre>
             <h3>Оператори (порівняння, логічні) та умови if/elif/else</h3>
 
             <!-- operators -->
-            <details class="task" name="p2">
+            <details class="task" name="p2" open>
               <summary><h4>Оператори</h4></summary>
 
               <div>
-                <pre><code class="language-python">print(10 <= 10)
-print(10 > (25 - 14))
+                <pre><code class="language-python">print(10 &lt;= 10)
+print(10 &gt; (25 - 14))
 print("a" == "A".lower())
 
 age = 25
-print(age >= 25 and age < 30)
-print(age > 100 or age != 0 or age < -100)
+print(age &gt;= 25 and age &lt; 30)
+print(age &gt; 90 or age &lt; 30)
 print(not age == 25)</code></pre>
 
                 <ol>
@@ -345,11 +346,11 @@ print(not age == 25)</code></pre>
               <div>
                 <pre><code class="language-python">age = int(input("Enter your age: "))
 
-if age > 0 and age <= 12:
+if age &gt; 0 and age &lt;= 12:
     print("Kid")
-elif age > 12 and age < 18:
+elif age &gt; 12 and age &lt; 18:
     print("Teen")
-elif age >= 18:
+elif age &gt;= 18:
     print("Adult")
 else:
     print("Invalid age!")</code></pre>
@@ -440,7 +441,7 @@ has_adult = None
             <h3>Створення та редагування списків, та цикли по них</h3>
 
             <!-- create and edit lists -->
-            <details class="task" name="p3">
+            <details class="task" name="p3" open>
               <summary><h4>Списки: створення, індекси, зміни</h4></summary>
               <div>
                 <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
@@ -576,7 +577,7 @@ print(products)
             <h3>Словники</h3>
 
             <!-- create and edit dicts -->
-            <details class="task" name="p4">
+            <details class="task" name="p4" open>
               <summary><h4>Створення, .get(), .pop()</h4></summary>
               <div>
                 <pre><code class="language-python">scores = {"Alice": 90, "Bob": 85}
@@ -716,7 +717,7 @@ phonebook = {"Віка": "0681234567", "Олег": "0679876543", "Оля": "0671
             <h3>Функції</h3>
 
             <!-- functions -->
-            <details class="task" name="p5">
+            <details class="task" name="p5" open>
               <summary>
                 <h4>def, параметри, значення за замовчуванням</h4>
               </summary>
