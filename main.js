@@ -77,6 +77,9 @@
       this.initAccordions();
       this.initMediaZoom();
 
+      this.initGlobalTextareas();
+      new StandaloneExerciseManager();
+
       // Page visibility transitions
       document.fonts.ready.then(() => document.body.classList.add("is-loaded"));
       window.addEventListener("pageshow", (e) => {
@@ -334,6 +337,39 @@
         link.style.opacity = "1";
         link.style.pointerEvents = "auto";
       }
+    }
+
+    initGlobalTextareas() {
+      const textareas = document.querySelectorAll(".test-textarea");
+
+      textareas.forEach((textarea) => {
+        // Примусово робимо висоту в 1 рядок за замовчуванням
+        textarea.setAttribute("rows", "1");
+
+        const autoResize = () => {
+          if (textarea.offsetParent === null) return; // Захист для прихованих елементів
+          textarea.style.height = "auto";
+          textarea.style.height = textarea.scrollHeight + 2 + "px";
+        };
+
+        // Викликаємо відразу
+        setTimeout(autoResize, 0);
+
+        // Викликаємо при кожному введенні символу
+        textarea.addEventListener("input", autoResize);
+
+        // Перераховуємо висоту ЛИШЕ ПЕРШИЙ РАЗ, коли блок стає видимим на екрані
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              autoResize();
+              obs.unobserve(entry.target); // ВАЖЛИВО: Припиняємо спостереження після першого ресайзу
+            }
+          });
+        });
+
+        observer.observe(textarea);
+      });
     }
   }
 
@@ -605,6 +641,103 @@
         console.log = originalLog;
         console.error = originalError;
       }
+    }
+  }
+
+  // -----------------------------------------
+  // 📝 3.5 STANDALONE EXERCISE MANAGER
+  // -----------------------------------------
+  class StandaloneExerciseManager {
+    constructor() {
+      this.pageId = window.location.pathname.replace(/[^a-zA-Z0-9]/g, "_");
+      this.clearBtns = document.querySelectorAll(".clear-section-btn");
+      this.textareas = document.querySelectorAll(
+        "section .test-textarea:not(.homework-form .test-textarea)",
+      );
+      this.sectionToClear = null; // Keeps track of which section's button was clicked
+
+      this.init();
+    }
+
+    init() {
+      this.loadSavedData();
+      this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+      // Save data automatically when typing
+      this.textareas.forEach((textarea) => {
+        textarea.addEventListener("input", (e) => this.saveData(e.target));
+      });
+
+      // Hook up the Clear buttons to the dialog
+      this.clearBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          this.sectionToClear = e.target.getAttribute("data-section");
+
+          const clearDialog = document.getElementById("clear-confirm-dialog");
+          if (clearDialog) {
+            clearDialog.querySelector("p").textContent =
+              "Are you sure you want to clear your answers in this section?";
+            clearDialog.showModal();
+          }
+        });
+      });
+
+      // Hook up the Dialog "Confirm" button specifically for these standalone sections
+      const dialogConfirmBtn = document.getElementById("dialog-confirm-btn");
+      if (dialogConfirmBtn) {
+        dialogConfirmBtn.addEventListener("click", () => {
+          if (this.sectionToClear) {
+            this.clearSectionData(this.sectionToClear);
+            this.sectionToClear = null; // reset
+          }
+        });
+      }
+    }
+
+    saveData(textarea) {
+      if (!textarea.id) return; // Must have an ID to save
+      const storageKey = `lms_standalone_${this.pageId}_${textarea.id}`;
+      localStorage.setItem(storageKey, textarea.value);
+    }
+
+    loadSavedData() {
+      this.textareas.forEach((textarea) => {
+        if (!textarea.id) return;
+        const storageKey = `lms_standalone_${this.pageId}_${textarea.id}`;
+        const savedValue = localStorage.getItem(storageKey);
+
+        if (savedValue) {
+          textarea.value = savedValue;
+          // Trigger the auto-resize logic so it expands to fit the loaded text
+          const event = new Event("input", { bubbles: true });
+          textarea.dispatchEvent(event);
+        }
+      });
+    }
+
+    clearSectionData(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+
+      const textareasInSection = section.querySelectorAll(
+        ".test-textarea:not(.homework-form .test-textarea)",
+      );
+
+      textareasInSection.forEach((textarea) => {
+        if (textarea.id) {
+          // Remove from local storage
+          localStorage.removeItem(
+            `lms_standalone_${this.pageId}_${textarea.id}`,
+          );
+        }
+        // Clear visually
+        textarea.value = "";
+
+        // Reset height
+        textarea.style.height = "auto";
+      });
     }
   }
 

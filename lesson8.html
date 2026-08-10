@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Навчальні матеріали" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <title>Python Lesson 8</title>
+
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      const hljsThemeLink =
+        savedTheme === "dark"
+          ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
+
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link id="hljs-theme" rel="stylesheet" href="${hljsThemeLink}" />`,
+      );
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"
+    ></script>
+
+    <link rel="stylesheet" href="./style.css?v=1.0" />
+    <script src="./main.js?v=1.0" defer></script>
+  </head>
+
+  <body>
+    <div class="transition-curtain"></div>
+
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            width="62"
+            height="62"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <header>
+      <div class="title-container">
+        <a
+          href="./lesson7.html"
+          class="nav-arrow prev-arrow"
+          title="Попередній урок"
+          ><img src="./media/icons/double-alt-arrow-left.svg"
+        /></a>
+
+        <h1 id="lesson-title">Python: 08</h1>
+
+        <!-- <a href="#" class="nav-arrow next-arrow" title="Наступний урок"
+          ><img src="./media/icons/double-alt-arrow-right.svg"
+        /></a> -->
+      </div>
+
+      <p class="topic">Повторення та Проєкт</p>
+
+      <section class="objective">
+        <p>Мета цього уроку:</p>
+        <ul type="square">
+          <li>Закріпити теми з уроків 1-7.</li>
+          <li>Використати всі знання разом у реальному проєкті.</li>
+          <li>Навчитися планувати програму перед тим, як її писати.</li>
+        </ul>
+      </section>
+
+      <hr />
+    </header>
+
+    <main>
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-target="part-1">Повторення</button>
+        <button class="tab-btn" data-target="part-2">Проєкт</button>
+      </div>
+
+      <!-- 🌻 PART 1 -->
+      <section id="part-1" class="accordion tab-content active show">
+        <!-- 1 -->
+        <details class="accordion__item" name="section1" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span> <span>Частина 1</span> </span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Математика, input та f-рядки</h3>
+
+            <!-- math -->
+            <details class="task" name="p1">
+              <summary><h4>Математика</h4></summary>
+
+              <div>
+                <pre><code class="language-python">print(20 + 10 * 2 - 5 / 5)
+
+print(3**2) 
+print(10 // 3) 
+print(10 % 3) 
+
+print(math.sqrt(25))  
+print(math.pi)</code></pre>
+
+                <ol>
+                  <li>
+                    Щоб цей код спрацював, не вистачає одного рядка. Якого?
+                  </li>
+                  <li>
+                    Що виведеться в консоль після виконання цього коду (якщо
+                    дописати відсутній рядок)?
+                  </li>
+                </ol>
+
+                <textarea
+                  id="l8-p1-1"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- input and f-strings -->
+            <details class="task" name="p1">
+              <summary><h4>input та f-strings</h4></summary>
+
+              <div>
+                <pre><code class="language-python">age = int(input("How old are you? "))
+next_year = age + 1
+
+price = 100.50
+discount = float(input("What's the discount? "))
+new_price = price - discount
+
+print(f"Next year you will be {next_year}yo.")
+print(f"The new price is: {new_price:.2f}.")</code></pre>
+
+                <ol>
+                  <li>
+                    Який тип даних завжди повертає
+                    <span class="accent-code">input()</span>? Для чого потрібні
+                    <span class="accent-code">int()/float()</span>?
+                  </li>
+                  <li>
+                    Поясни, що означає <span class="accent-code">:.2f</span> в
+                    <span class="accent-code">{new_price:.2f}</span>.
+                  </li>
+                </ol>
+
+                <textarea
+                  id="l8-p1-2"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- pratice 1 -->
+            <details class="task" name="p1">
+              <summary><h4>✍️ Завдання 1</h4></summary>
+
+              <div>
+                <p>
+                  Запитай в користувача радіус кола і збережи у змінну. Порахуй
+                  і виведи у консоль площу кола (π x r^2), заокругливши
+                  результат до двох знаків після крапки.
+                </p>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="ed1"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code1"
+                  >
+# write your solution here:
+
+
+
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- 2 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span> <span>Частина 2</span> </span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Оператори (порівняння, логічні) та умови if/elif/else</h3>
+
+            <!-- operators -->
+            <details class="task" name="p2">
+              <summary><h4>Оператори</h4></summary>
+
+              <div>
+                <pre><code class="language-python">print(10 <= 10)
+print(10 > (25 - 14))
+print("a" == "A".lower())
+
+age = 25
+print(age >= 25 and age < 30)
+print(age > 100 or age != 0 or age < -100)
+print(not age == 25)</code></pre>
+
+                <ol>
+                  <li>
+                    Яка різниця між <span class="accent-code">=</span> та
+                    <span class="accent-code">==</span>?
+                  </li>
+                  <li>
+                    Яка різниця між <span class="accent-code">and</span> та
+                    <span class="accent-code">or</span>?
+                  </li>
+                  <li>Що виведеться в консоль після виконання цього коду?</li>
+                </ol>
+
+                <textarea
+                  id="l8-p2-1"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- conditionals -->
+            <details class="task" name="p2">
+              <summary><h4>Умови</h4></summary>
+
+              <div>
+                <pre><code class="language-python">age = int(input("Enter your age: "))
+
+if age > 0 and age <= 12:
+    print("Kid")
+elif age > 12 and age < 18:
+    print("Teen")
+elif age >= 18:
+    print("Adult")
+else:
+    print("Invalid age!")</code></pre>
+
+                <ol>
+                  <li>
+                    Що виведеться в консоль, якщо
+                    <span class="accent-code">age = 12</span>? А якщо
+                    <span class="accent-code">age = 55</span>?
+                  </li>
+                  <li>
+                    Що буде, якщо користувач введе
+                    <span class="accent-code">-100</span>? А якщо введе
+                    <span class="accent-code">abcd</span>?
+                  </li>
+                  <li>
+                    Чому після <span class="accent-code">else</span> немає
+                    ніякої умови?
+                  </li>
+                </ol>
+
+                <textarea
+                  id="l8-p2-2"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- practice 2 -->
+            <details class="task" name="p2">
+              <summary><h4>✍️ Завдання 2</h4></summary>
+              <div>
+                <p>
+                  У кінотеатр на фільм "16+" пускають глядачів віком від 16
+                  років,
+                  <span class="accent">АБО</span> молодших — якщо поруч є
+                  дорослий. <br />Запитай вік користувача. Якщо вік менший за
+                  16, запитай чи є поруч дорослий (відповідь "так"/"ні").
+                  <br />Виведи "Можна дивитись!" або "Обери інший фільм" залежно
+                  від відповідей.
+                </p>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="ed2"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code2"
+                  >
+age = int(input("Скільки тобі років? "))
+has_adult = None
+
+# твій код тут...
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- 3 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span> <span>Частина 3</span> </span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Створення та редагування списків, та цикли по них</h3>
+
+            <!-- create and edit lists -->
+            <details class="task" name="p3">
+              <summary><h4>Списки: створення, індекси, зміни</h4></summary>
+              <div>
+                <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+
+print(fruits[0])
+print(fruits[2])
+print(len(fruits))
+
+fruits.append("mango")
+fruits.remove("banana")
+fruits[1] = "kiwi"
+print(fruits)
+
+print("cherry" in fruits)
+print("banana" in fruits)</code></pre>
+                <ol>
+                  <li>
+                    Що таке індекси? Який індекс у першого елемента списку?
+                  </li>
+                  <li>
+                    Що станеться, якщо додати рядок
+                    <span class="accent-code">print(fruits[10])</span>?
+                  </li>
+                  <li>
+                    Що виведеться в консоль внаслідок виконання цього коду?
+                  </li>
+                </ol>
+                <textarea
+                  id="l8-p3-1"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- loops for lists -->
+            <details class="task" name="p3">
+              <summary>
+                <h4>for item in list vs. for i in range(len(list))</h4>
+              </summary>
+              <div>
+                <pre><code class="language-python">colors = ["red", "green", "blue"]
+
+# Цикл 1
+for color in colors:
+    print(f"Color: {color}")
+
+print("-" * 15)
+
+# Цикл 2
+n = len(colors)
+for i in range(n):
+    print(f"Color {i+1}: {colors[i]}")</code></pre>
+                <ol>
+                  <li>В чому різниця між циклами 1 та 2?</li>
+                  <li>
+                    Чому в коді використано
+                    <span class="accent-code">{i+1}:</span>, але
+                    <span class="accent-code">{colors[i]}</span> без +1?
+                  </li>
+                  <li>
+                    Як думаєш, який результат поверне вираз:
+                    <span class="accent-code">list(range(3))</span>?
+                  </li>
+                </ol>
+                <textarea
+                  id="l8-p3-2"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- practice 3 -->
+            <details class="task" name="p3">
+              <summary><h4>✍️ Завдання 3</h4></summary>
+              <div>
+                <p>
+                  Запитай в користувача назву продукту, перетвори всі літери та
+                  маленькі, і додай його у список.<br />
+                  Запитай, який продукт видалити, перевір, чи він є в списку;
+                  якщо є, видали його, якщо немає — виведи відповідне
+                  повідомлення. <br />В кінці виведи всі елементи списку по
+                  черзі з допомогою циклу в форматі
+                  <span class="italic">"1. bread..."</span>.
+                </p>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="ed3"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code3"
+                  >
+products = ["bread", "butter", "cheese"]
+print(products)
+
+# твій код тут...
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- 4 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span> <span>Частина 4</span> </span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Частина 4: словники</h3>
+
+            <!-- create and edit dicts -->
+            <details class="task" name="p4">
+              <summary><h4>Створення, .get(), .pop()</h4></summary>
+              <div>
+                <pre><code class="language-python">scores = {"Alice": 90, "Bob": 85}
+
+scores["Charlie"] = 78     
+scores["Alice"] = 95   
+
+print(scores.get("Bob"))
+print(scores.get("Nick", "немає такого учня"))
+
+removed = scores.pop("Bob", None)
+
+print(scores)</code></pre>
+                <ol>
+                  <li>
+                    Поглянь на рядки 3 та 4. Чи виконують вони одну й ту саму
+                    дію?
+                  </li>
+                  <li>
+                    Чому
+                    <span class="accent-code">scores.get("Nick", ...)</span> не
+                    викликав помилку, хоча ключа "Nick" немає у словнику?
+                  </li>
+                  <li>
+                    Яким буде фінальний словник
+                    <span class="accent-code">scores</span> після усіх змін?
+                  </li>
+                </ol>
+                <textarea
+                  id="l8-p4-1"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- keys, values and items -->
+            <details class="task" name="p4">
+              <summary><h4>keys(), values(), items(), in</h4></summary>
+              <div>
+                <pre><code class="language-python">capitals = {
+    "Україна": "Київ", 
+    "Франція": "Париж", 
+    "Японія": "Токіо",
+}
+
+print(list(capitals.keys()))
+print(list(capitals.values()))
+
+if "Україна" in capitals:
+    print("Знаємо столицю України!")
+
+for country, capital in capitals:
+    print(f"{country} — {capital}")
+</code></pre>
+                <ol>
+                  <li>
+                    Чим відрізняється
+                    <span class="accent-code">capitals.keys()</span> від
+                    <span class="accent-code">list(capitals.keys())</span>?
+                  </li>
+                  <li>
+                    Що перевіряє
+                    <span class="accent-code">"Україна" in capitals</span> —
+                    ключі чи значення?
+                  </li>
+                  <li>
+                    Чому цикл <span class="accent-code">for</span> використаний
+                    неправильно і програма видасть помилку?
+                  </li>
+                </ol>
+                <textarea
+                  id="l8-p4-2"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- practice 4 -->
+            <details class="task" name="p4">
+              <summary><h4>✍️ Завдання 4</h4></summary>
+              <div>
+                <p>
+                  Запитай у користувача ім'я. Перевір, чи є така людина в
+                  телефонній книзі — якщо є, виведи її номер; якщо немає —
+                  виведи "Такого контакту немає". Потім за допомогою циклу
+                  виведи всю телефонну книгу в форматі
+                  <span class="italic">"Ім'я: номер"</span>, додавши перед
+                  номером <span class="accent">+38</span>.
+                </p>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="ed4"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code4"
+                  >
+phonebook = {"Віка": "0681234567", "Олег": "0679876543", "Оля": "0671112233"}
+
+# твій код тут...
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+          </div>
+        </details>
+
+        <!-- 5 -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span> <span>Частина 5</span> </span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <!-- functions -->
+            <details class="task" name="p5">
+              <summary>
+                <h4>def, параметри, значення за замовчуванням</h4>
+              </summary>
+              <div>
+                <pre><code class="language-python">def greet(name, greeting="Привіт"):
+    print(f"{greeting}, {name}!")
+
+greet("Соня")
+greet("Макс", "Вітаю")</code></pre>
+                <ol>
+                  <li>
+                    Що таке параметр і чим він відрізняється від аргументу?
+                  </li>
+                  <li>
+                    Що виведе <span class="accent-code">greet("Яна")</span>?
+                    Звідки береться слово "Привіт", якщо ми його не передавали?
+                  </li>
+                </ol>
+                <textarea
+                  id="l8-p5-1"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- return -->
+            <details class="task" name="p5">
+              <summary><h4>return та ранній return</h4></summary>
+              <div>
+                <pre><code class="language-python">def f(x):
+    return x**2 - 2*x + 5
+ 
+for i in range(1, 6):
+    print(f"f({i}) = {f(i)}")</code></pre>
+
+                <ol>
+                  <li>
+                    Чому функція з <span class="accent-code">return</span> тут
+                    підходить краще, ніж функція, яка одразу друкує значення?
+                  </li>
+                  <li>
+                    Як треба змінити цикл <span class="accent-code">for</span>,
+                    щоб знайти значення
+                    <span class="accent-code">f(x)</span> для
+                    <span class="accent-code">x = 1, 2,..., 10</span>?
+                  </li>
+                </ol>
+
+                <pre><code class="language-python">def ask_name():
+    name = input("What is your name? ")
+    clean_name = name.strip(" .,?!").capitalize()
+    
+    if not clean_name: 
+        return "Unknown"
+    
+    return clean_name.capitalize()
+ 
+user_name = ask_name()
+print(f"Hello, {user_name}!")
+</code></pre>
+
+                <ol start="3">
+                  <li>
+                    Чому в функції вище слово
+                    <span class="accent-code">return</span> використане двічі?
+                    Що трапиться, якщо користувач не введе імʼя, а одразу
+                    натисне Enter?
+                  </li>
+                  <li>
+                    Що поверне функція, якщо користувач введе
+                    <span class="accent-code">" oleNa.. , "</span>?
+                  </li>
+                </ol>
+                <textarea
+                  id="l8-p5-2"
+                  class="test-textarea"
+                  rows="1"
+                  placeholder="..."
+                ></textarea>
+              </div>
+            </details>
+
+            <!-- practice 5 -->
+            <details class="task" name="p5">
+              <summary><h4>✍️ Завдання 5</h4></summary>
+              <div>
+                <p>
+                  Напиши функцію
+                  <span class="accent-code"
+                    >apply_discount(price, discount)</span
+                  >, яка приймає поточну ціну товару та розмір знижки у
+                  відсотках, і повертає нову знижену ціну. <br />Додай "Early
+                  return": якщо знижка менша за 0, поверни ціну товару без змін.
+                  <br />Перевір функцію на кількох прикладах (один вже даний,
+                  один треба дописати).<br />
+                  Запитай ціну і знижку у користувача через
+                  <span class="accent-code">input()</span> і виведи результат,
+                  заокруглений до двох знаків після крапки.
+                </p>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="ed5"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code5"
+                  >
+# твій код тут
+# ...
+
+# перевірка на прикладах:
+print(apply_discount(100, 20)) # має бути 80.0
+# напиши перевірку для відʼємної знижки
+
+# тепер запитай користувача:
+# ...</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🪴 PART 2 -->
+      <section id="part-2" class="accordion tab-content">
+        <details class="accordion__item" name="section2" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Завдання: Вікторина</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Постановка завдання</h3>
+
+            <p>Дано 5 питань:</p>
+
+            <ul>
+              <li>
+                <em>Яке наступне число: 1, 1, 2, 3, 5, 8, ...?</em> →
+                <strong>13</strong>
+              </li>
+              <li>
+                <em>Яке число пропущене: 1, 4, 9, 16, __, 36?</em> →
+                <strong>25</strong>
+              </li>
+              <li>
+                <em> "Яке наступне число: 2, 4, 8, 16, 32, ...?"</em> →
+                <strong>64</strong>
+              </li>
+              <li>
+                <em>"Яка літера наступна: П, В, С, Ч, П, С, ...?"</em> →
+                <strong>Н</strong>
+              </li>
+              <li>
+                <em>"Яке наступне число: 10, 9, 7, 4, 0, ...?"</em> →
+                <strong>-5</strong>
+              </li>
+            </ul>
+
+            <p>
+              Напиши програму-вікторину, яка по черзі задає користувачу питання,
+              наведені вище. Тоді перевіряє його відповідь і виводить
+              <i class="accent">"Правильно!"</i> або
+              <i class="accent"
+                >"Неправильно! Правильна відповідь: [відповідь]."</i
+              >
+              Після завершення усіх питань виводиться повідомлення із загальним
+              результатом, наприклад:
+              <i class="accent"
+                >"Ви відповіли правильно на 4/5 питань. Це 80%!"</i
+              >
+              Код має бути добре структурований (наприклад, без повторів) та
+              враховувати можливі помилки користувача (ввід "н" замість "Н",
+              зайві пробіли).
+            </p>
+
+            <img class="zoomable" src="./images/8.png" alt="task result" />
+
+            <hr />
+
+            <h3>Рекомендовані правила роботи над проєктом:</h3>
+
+            <ol style="line-height: 1.7">
+              <li style="margin-bottom: 15px">
+                <strong>Розбий проєкт на менші частини.</strong>
+                Наприклад, замість "створити гру камінь-ножиці-папір", такі
+                кроки:
+                <ul style="margin-top: 5px">
+                  <li>Зберегти переможні комбінації у словнику.</li>
+                  <li>Навчити компʼютер робити випадковий вибір.</li>
+                  <li>
+                    Порівняти вибір гравця і комп'ютера та вивести результат.
+                  </li>
+                </ul>
+              </li>
+
+              <li style="margin-bottom: 15px">
+                <strong
+                  >Тестуй програму з
+                  <span class="accent-code">print()</span>.</strong
+                >
+                Використовуй його не лише щоб побачити фінальний результат, а
+                виводь проміжні значення змінних та тестуй функції і цикли, щоб
+                переконатися, що програма робить саме те, що ти від неї очікуєш.
+              </li>
+
+              <li>
+                <strong>Фокус на одній частині за раз.</strong> Не намагайся
+                написати все одразу без зупинок. Переходь до наступного етапу,
+                <em
+                  >лише коли поточна частина повністю написана і
+                  протестована</em
+                >.
+              </li>
+            </ol>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Повернутися нагору"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
+  </body>
+</html>

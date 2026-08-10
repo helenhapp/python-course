@@ -1733,7 +1733,7 @@ pre::-webkit-scrollbar-thumb,
   }
 }
 
-.test-textarea {
+/* .test-textarea {
   width: 100%;
   padding: 12px 15px;
   margin-top: 10px;
@@ -1760,6 +1760,43 @@ pre::-webkit-scrollbar-thumb,
 .test-textarea:focus {
   outline: none;
   border-color: var(--brand2);
+} */
+
+.test-textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-top: 15px; /* Більший відступ від тексту завдання */
+  min-height: 48px; /* Рівно на 1 рядок тексту */
+  background-color: var(
+    --panel
+  ); /* Робимо фон білим (або темним у dark mode) замість фону callout */
+  border: 2px dashed var(--accent); /* Пунктирна рамка, як місце для вписування */
+  border-radius: 6px;
+  color: var(--text-main);
+  font-family: inherit; /* Використовуємо звичайний шрифт, а не моноширинний */
+  font-size: 16px;
+  line-height: 1.5;
+  resize: none; /* Забороняємо ручне розтягування кутика */
+  overflow-y: hidden; /* Ховаємо вертикальний скрол */
+  overflow-x: hidden; /* Ховаємо горизонтальний скрол */
+  white-space: pre-wrap; /* Змушуємо текст переноситися на новий рядок */
+  word-wrap: break-word; /* Розбиваємо довгі слова, щоб вони не вилазили за рамки */
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.test-textarea::placeholder {
+  color: var(--text-soft);
+  opacity: 0.6;
+}
+
+.test-textarea:focus {
+  outline: none;
+  border-color: var(--brand2);
+  border-style: solid; /* При кліку пунктир стає суцільною лінією */
+  /* box-shadow: 0 0 0 3px rgba(255, 159, 28, 0.2);  */
 }
 
 .student-info {
