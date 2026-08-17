@@ -213,11 +213,7 @@
           });
           sessionStorage.setItem("openAccordions", JSON.stringify(openIndices));
 
-          if (
-            detail.open &&
-            (detail.classList.contains("accordion__item") ||
-              detail.classList.contains("task"))
-          ) {
+          if (detail.open && detail.classList.contains("accordion__item")) {
             setTimeout(() => {
               const y =
                 detail.getBoundingClientRect().top + window.scrollY - 75;
