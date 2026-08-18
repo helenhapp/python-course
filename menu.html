@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Main Menu - English Lessons" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <title>Python Menu</title>
+
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./style.css?v=1.1" />
+    <script src="./main.js?v=1.1" defer></script>
+
+    <!-- Custom styles just for the menu grid cards -->
+    <style>
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        padding: 15px 0;
+      }
+      .menu-card {
+        display: block;
+        background-color: var(--panel-alt);
+        border: 2px solid var(--accent);
+        border-radius: 8px;
+        padding: 25px 20px;
+        text-decoration: none;
+        color: var(--text-main);
+        transition: all 0.3s ease;
+        box-shadow: var(--btn-shadow);
+        text-align: center;
+      }
+      .menu-card:hover {
+        transform: translateY(-5px);
+        background-color: var(--hover-bg);
+        border-color: var(--accent-pop);
+        box-shadow: 0 8px 15px var(--shadow-accent);
+      }
+      .menu-card h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+        transition: color 0.3s ease;
+      }
+      .menu-card:hover h3 {
+        color: var(--accent-pop);
+      }
+      .menu-card p {
+        margin: 0;
+        color: var(--text-soft);
+        font-size: 15px;
+        font-weight: 500;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="transition-curtain"></div>
+
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <header>
+      <div class="title-container">
+        <!-- Arrow removed to keep the title centered on the menu -->
+        <div style="grid-column: 1"></div>
+        <h1 id="lesson-title">Python</h1>
+        <div style="grid-column: 3"></div>
+      </div>
+      <p class="topic">Всі теми</p>
+      <hr />
+    </header>
+
+    <main>
+      <!-- Menu Section -->
+      <section class="accordion active show">
+        <details class="accordion__item" name="section1" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/stars.svg" class="star" alt="icon" />
+              <span>Course Curriculum</span>
+            </h2>
+
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <div class="menu-grid">
+              <a href="./lesson1.html" class="menu-card">
+                <h3>Тема 01</h3>
+                <p>Основи</p>
+              </a>
+
+              <a href="./lesson2.html" class="menu-card">
+                <h3>Тема 02</h3>
+                <p>Бібліотека turtle</p>
+              </a>
+
+              <a href="./lesson3.html" class="menu-card">
+                <h3>Тема 03</h3>
+                <p>Умови: if, elif, else</p>
+              </a>
+
+              <a href="./lesson4.html" class="menu-card">
+                <h3>Тема 04</h3>
+                <p>Списки (Lists)</p>
+              </a>
+
+              <a href="./lesson5.html" class="menu-card">
+                <h3>Тема 05</h3>
+                <p>Функції (частина 1)</p>
+              </a>
+
+              <a href="./lesson6.html" class="menu-card">
+                <h3>Тема 06</h3>
+                <p>Функції (частина 2)</p>
+              </a>
+
+              <a href="./lesson7.html" class="menu-card">
+                <h3>Тема 07</h3>
+                <p>Словники (Dictionaries)</p>
+              </a>
+
+              <a href="./lesson8.html" class="menu-card">
+                <h3>Тема 08</h3>
+                <p>Повторення</p>
+              </a>
+
+              <a href="./lesson9.html" class="menu-card">
+                <h3>Тема 09</h3>
+                <p>Цикли for та while</p>
+              </a>
+
+              <a href="./lesson10.html" class="menu-card">
+                <h3>Тема 10</h3>
+                <p>VS Code та робота з файлами</p>
+              </a>
+
+              <a href="./lesson11.html" class="menu-card">
+                <h3>Тема 11</h3>
+                <p>API</p>
+              </a>
+
+              <a href="./lesson12.html" class="menu-card">
+                <h3>Тема 12</h3>
+                <p>Фінальний проєкт</p>
+              </a>
+            </div>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Scroll to top"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
+  </body>
+</html>
