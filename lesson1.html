@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Навчальні матеріали" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <title>Python Lesson 1</title>
+
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      const hljsThemeLink =
+        savedTheme === "dark"
+          ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
+
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link id="hljs-theme" rel="stylesheet" href="${hljsThemeLink}" />`,
+      );
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"
+    ></script>
+
+    <link rel="stylesheet" href="./style.css?v=1.0" />
+    <script src="./main.js?v=1.0" defer></script>
+  </head>
+
+  <body>
+    <div class="transition-curtain"></div>
+
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            width="62"
+            height="62"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <header>
+      <div class="title-container">
+        <h1 id="lesson-title">Python: 01</h1>
+
+        <a
+          href="./lesson2.html"
+          class="nav-arrow next-arrow"
+          title="Наступний урок"
+        >
+          <img src="./media/icons/double-alt-arrow-right.svg" />
+        </a>
+      </div>
+
+      <p class="topic">Змінні. Типи даних. Ввід/Вивід. f-рядки. Модуль Math</p>
+
+      <section class="objective">
+        <p>Мета цього уроку:</p>
+        <ul type="square">
+          <li>
+            Навчитися працювати зі змінними, типами даних та математичними
+            операторами.
+          </li>
+          <li>
+            Навчитися зручно обʼєднувати текст та формули за допомогою f-рядків.
+          </li>
+          <li>
+            Навчитися підключати і використовувати бібліотеки (на прикладі
+            модуля <span class="accent">math</span>).
+          </li>
+        </ul>
+      </section>
+
+      <hr />
+    </header>
+
+    <main>
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-target="part-1">Теорія</button>
+        <button class="tab-btn" data-target="part-2">Практика</button>
+      </div>
+
+      <!-- 🌻 PART 1: ТЕОРІЯ -->
+      <section id="part-1" class="accordion tab-content active show">
+        <!-- Змінні та типи даних -->
+        <details class="accordion__item" name="section1" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Змінні та типи даних (Повторення)</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Variables (змінні)</h3>
+            <p>
+              Змінну в Python найзручніше уявити як ярлик, що вказує на певне
+              значення. Це позбавляє нас необхідності щоразу дублювати самі
+              дані: ми просто “привʼязуємо” до них ім'я і далі використовуємо
+              його у коді. Для створення такого зв’язку слугує знак
+              <span class="accent-code">=</span>, що виконує роль команди
+              присвоєння, а не рівності.
+            </p>
+            <p>
+              Цей ярлик можна багаторазово переміщувати на інші значення. При
+              цьому діють чіткі правила: назва змінної не може мати пробілів і
+              починатися з цифри.
+            </p>
+
+            <pre><code class="language-python">age = 22
+name = "Олена"
+height = 161.5
+
+print(name)
+
+age = 23  # зміна значення
+print(age)</code></pre>
+
+            <hr class="soft-hr" />
+
+            <h3>Data types (типи даних)</h3>
+            <p>
+              Python автоматично визначає, який тип даних зберігається у
+              змінній. Текст завжди береться в лапки!
+            </p>
+
+            <div class="tablecontainer">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Тип</th>
+                    <th>Що це</th>
+                    <th>Приклад</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>int</code></td>
+                    <td>ціле число</td>
+                    <td>5, -10, 100</td>
+                  </tr>
+                  <tr>
+                    <td><code>float</code></td>
+                    <td>дробове число</td>
+                    <td>3.14, -0.5</td>
+                  </tr>
+                  <tr>
+                    <td><code>str</code></td>
+                    <td>текст (рядок)</td>
+                    <td>"привіт", 'Python'</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <pre><code class="language-python">score = 95       # int
+price = 19.99    # float
+city = "Львів"   # str
+
+print(type(score)) # перевірка типу</code></pre>
+          </div>
+        </details>
+
+        <!-- Математичні оператори -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Математичні оператори</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <div class="tablecontainer">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Оператор</th>
+                    <th>Дія</th>
+                    <th>Приклад</th>
+                    <th>Результат</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>+</code></td>
+                    <td>додавання</td>
+                    <td>5 + 3</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <td><code>-</code></td>
+                    <td>віднімання</td>
+                    <td>5 - 3</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td><code>*</code></td>
+                    <td>множення</td>
+                    <td>5 * 3</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td><code>/</code></td>
+                    <td>ділення</td>
+                    <td>5 / 2</td>
+                    <td>2.5</td>
+                  </tr>
+                  <tr>
+                    <td><code>**</code></td>
+                    <td>степінь</td>
+                    <td>2 ** 3</td>
+                    <td>8</td>
+                  </tr>
+                  <tr>
+                    <td><code>%</code></td>
+                    <td>залишок від ділення</td>
+                    <td>7 % 2</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><code>//</code></td>
+                    <td>ціла частина від ділення</td>
+                    <td>7 // 2</td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <pre><code class="language-python">a = 10
+b = 3
+
+print(a + b)  # 13
+print(a / b)  # 3.3333...
+print(a ** 2) # 100</code></pre>
+          </div>
+        </details>
+
+        <!-- Ввід та Вивід -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>print() та input()</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <p>
+              <span class="accent-code">print</span> та
+              <span class="accent-code">input</span> — це готові функції,
+              вбудовані в Python. Функція — це наче кнопка з готовою дією: ми
+              просто “натискаємо” на неї, а вона виконує свою роботу. Нам не
+              треба знати, як вона працює всередині — головне знати, що вона
+              робить і як її викликати.
+            </p>
+            <p>
+              Щоб викликати функцію, пишемо її назву, а після — круглі дужки
+              <span class="accent-code">()</span>. Усе, що ми хочемо "передати"
+              функції для роботи, пишеться всередині цих дужок. Це називається
+              аргумент.
+            </p>
+
+            <div class="tablecontainer">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Дія</th>
+                    <th>Код</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Вивести текст</td>
+                    <td>
+                      <pre><code class="language-python">print("текст")</code></pre>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Вивести число</td>
+                    <td>
+                      <pre><code class="language-python">print(5)</code></pre>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Вивести декілька значень</td>
+                    <td>
+                      <pre><code class="language-python">print(name, age, "років")</code></pre>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Запитати текст</td>
+                    <td>
+                      <pre><code class="language-python">name = input("Підказка: ")</code></pre>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Запитати ціле число</td>
+                    <td>
+                      <pre><code class="language-python">age = int(input("Підказка: "))</code></pre>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Запитати дробове число</td>
+                    <td>
+                      <pre><code class="language-python">weight = float(input("Підказка: "))</code></pre>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <hr class="soft-hr" />
+
+            <h3>Функція print()</h3>
+            <p>
+              Виводить текст або значення змінної на екран. Аргумент — те, що
+              пишемо в дужках (). Кілька значень через кому виводяться в одному
+              рядку.
+            </p>
+
+            <pre><code class="language-python">print("Hello, world!")
+
+name = "Olena"
+print("Hello,", name)
+
+print(5 + 3)  # можна виводити результат обчислень</code></pre>
+
+            <hr class="soft-hr" />
+
+            <h3>Функція input()</h3>
+            <p>
+              Зупиняє програму і чекає, поки користувач введе текст. Всередині
+              дужок пишемо текст – підказку для користувача, що він має ввести.
+              Введене значення треба зберегти у змінну.
+            </p>
+
+            <div class="callout2" style="margin-top: 20px">
+              <p style="margin: 0">
+                <strong>⚠️ Важливо:</strong>
+                <span class="accent-code">input()</span> завжди повертає текст
+                (str), навіть якщо ввести число! Щоб перетворити текст на число,
+                треба використати <span class="accent-code">int()</span> або
+                <span class="accent-code">float()</span>.
+              </p>
+            </div>
+
+            <pre><code class="language-python">age = input("Скільки тобі років? ")
+print(type(age)) # &lt;class 'str'&gt;, навіть якщо ввели число
+
+age = int(age) # перетворення на ціле число
+print(age + 1) # тепер працюють мат. оператори</code></pre>
+          </div>
+        </details>
+
+        <!-- f-рядки -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Поєднання тексту та формул (f-strings)</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <p>
+              f-рядок — це звичайний рядок з літерою
+              <span class="accent-code">f</span> перед лапками. В такому рядку
+              всередині фігурних дужок <span class="accent-code">{}</span> можна
+              писати змінні, формули та функції, а Python сам обчислить та
+              підставить результат.
+            </p>
+
+            <pre><code class="language-python">x = 3
+
+print(str(x) + "^2 = " + str(x ** 2)) # спосіб 1
+print(f"{x}^2 = {x ** 2}")            # спосіб 2
+
+name = "Olena"
+print(f"Hello, {name}!")</code></pre>
+
+            <hr class="soft-hr" />
+
+            <h3>Швидке округлення чисел</h3>
+            <p>
+              У f-рядках є вбудований спосіб округлювати дробові числа — формат
+              <span class="accent-code">:.Nf</span> (де N — кількість знаків
+              після коми).
+            </p>
+
+            <pre><code class="language-python">pi = 3.14159265
+print(f"{pi:.2f}") # 3.14
+print(f"{pi:.0f}") # 3
+
+price = 249.998
+print(f"Ціна товару: {price:.1f} грн") # Ціна товару: 250.0 грн
+
+print(f"10 / 3 = {10/3:.4f}") # 10 / 3 = 3.3333</code></pre>
+          </div>
+        </details>
+
+        <!-- Модуль math -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Модуль math</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Підключення бібліотек (import)</h3>
+            <p>
+              Бібліотека — це готовий набір функцій, які написали інші
+              розробники, щоб ми не винаходили велосипед. Щоб користуватись
+              бібліотекою, її потрібно підключити один раз на початку файлу
+              командою <span class="accent-code">import</span>.
+            </p>
+            <p>
+              Без <span class="accent-code">import math</span> Python не
+              знатиме, що таке <span class="accent-code">math.sqrt</span> і
+              видасть помилку.
+            </p>
+
+            <pre><code class="language-python">import math
+
+print(math.sqrt(16)) # квадратний корінь (4.0)</code></pre>
+
+            <hr class="soft-hr" />
+
+            <h3>Використання констант</h3>
+            <p>
+              Константа — це готове значення, яке вже “вшите” в бібліотеку.
+              Наприклад, число π (пі) в бібліотеці math.
+            </p>
+
+            <pre><code class="language-python">import math
+
+print(math.pi) # 3.141592653589793
+
+radius = 5
+length = 2 * math.pi * radius
+
+print(f"Довжина кола: {length:.2f}")</code></pre>
+
+            <hr class="soft-hr" />
+
+            <h3>math.ceil та math.floor</h3>
+            <ul type="square">
+              <li>
+                <span class="accent-code">math.ceil(x)</span> — завжди округлює
+                вгору (наскільки б близько число не було до меншого цілого).
+              </li>
+              <li>
+                <span class="accent-code">math.floor(x)</span> — завжди округлює
+                вниз.
+              </li>
+              <li>
+                <span class="accent-code">round(x)</span> — стандартна функція
+                (не потребує import), округлює до найближчого цілого.
+              </li>
+            </ul>
+
+            <pre><code class="language-python">import math
+
+number = 4.1
+
+print(math.ceil(number))  # 5 (вгору)
+print(math.floor(number)) # 4 (вниз)
+print(round(number))      # 4 (до найближчого)</code></pre>
+
+            <div class="soft-callout">
+              <p style="margin-top: 0">
+                <strong>Практичний приклад:</strong> скільки коробок потрібно,
+                щоб упакувати 23 яблука по 5 в кожній коробці?
+              </p>
+              <pre class="nocopy"><code class="language-python">import math
+
+apples = 23
+per_box = 5
+
+boxes = math.ceil(apples / per_box)
+print(f"Потрібно коробок: {boxes}") # 5, бо 4 не вистачить</code></pre>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🪴 PART 2: ПРАКТИКА -->
+      <section id="part-2" class="accordion tab-content">
+        <!-- Змінні та типи даних -->
+        <details class="accordion__item" name="section1" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Практичні завдання</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <!-- Завдання 1 -->
+            <details class="task" name="practice" open>
+              <summary><h4>Завдання 1: Поділ яблук</h4></summary>
+              <div>
+                <ol>
+                  <li>
+                    У кошику 100 яблук. Збережи це у змінній (<span
+                      class="accent-code"
+                      >apples</span
+                    >).
+                  </li>
+                  <li>
+                    Запитай кількість дітей (<span class="accent-code"
+                      >kids</span
+                    >, ціле число) і збережи відповідь.
+                  </li>
+                  <li>
+                    Порахуй і виведи, скільки цілих яблук дістанеться кожному.
+                  </li>
+                  <li>Порахуй і виведи, скільки яблук залишиться.</li>
+                </ol>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="l1-ed1"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code_t1"
+                  >
+# твій код тут:
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+
+            <!-- Завдання 2 -->
+            <details class="task" name="practice">
+              <summary><h4>Завдання 2: Середній бал</h4></summary>
+              <div>
+                <ol>
+                  <li>
+                    Запитай три оцінки учня (<span class="accent-code"
+                      >grade1</span
+                    >, <span class="accent-code">grade2</span>,
+                    <span class="accent-code">grade3</span>).
+                  </li>
+                  <li>Обчисли середнє арифметичне оцінок.</li>
+                  <li>Виведи результат.</li>
+                </ol>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="l1-ed2"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code_t2"
+                  >
+# твій код тут:
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+
+            <!-- Завдання 3 -->
+            <details class="task" name="practice">
+              <summary><h4>Завдання 3: Обмін валют</h4></summary>
+              <div>
+                <ol>
+                  <li>
+                    Запитай суму в доларах (перетвори ввід на десяткове число).
+                    Збережи у змінній (<span class="accent-code">usd</span>).
+                  </li>
+                  <li>
+                    Збережи у змінній курс – 41.5 грн за 1 долар (<span
+                      class="accent-code"
+                      >exchange_rate</span
+                    >).
+                  </li>
+                  <li>Обчисли задану суму в гривнях і виведи результат.</li>
+                </ol>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="l1-ed3"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code_t3"
+                  >
+# твій код тут:
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+
+            <!-- Завдання 4 -->
+            <details class="task" name="practice">
+              <summary><h4>Завдання 4: Поділ яблук (2.0)</h4></summary>
+              <div>
+                <ol>
+                  <li>Візьми код із “Поділу яблук”.</li>
+                  <li>
+                    Перепиши <span class="accent-code">print()</span> через
+                    f-рядок так, щоб отримати такий результат:
+                    <span class="italic"
+                      >“Якщо 100 яблук поділити на 6 дітей, то кожен отримає 16
+                      яблук, а в залишку буде 4.”</span
+                    >
+                  </li>
+                </ol>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="l1-ed4"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code_t4"
+                  >
+# твій код тут:
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+
+            <!-- Завдання 5 -->
+            <details class="task" name="practice">
+              <summary><h4>Завдання 5: Подаруй знижку</h4></summary>
+              <div>
+                <ol>
+                  <li>
+                    Запитай ціну товару (<span class="accent-code">price</span>)
+                    та розмір знижки (<span class="accent-code">discount</span>)
+                    у відсотках. (Перетвори ввід у правильний тип даних).
+                  </li>
+                  <li>
+                    Обчисли нову ціну зі знижкою (<span class="accent-code"
+                      >new_price</span
+                    >).
+                  </li>
+                  <li>
+                    Виведи результат з округленням до 2-x знаків після крапки.
+                  </li>
+                </ol>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="l1-ed5"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code_t5"
+                  >
+# твій код тут:
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+
+            <!-- Завдання 6 -->
+            <details class="task" name="practice">
+              <summary><h4>Завдання 6: Переведення градусів</h4></summary>
+              <div>
+                <ol>
+                  <li>Запитай температуру в градусах Цельсія (С).</li>
+                  <li>
+                    Переведи у Фаренгейти (F) за формулою
+                    <span class="accent-code">F = C * 1.8 + 32</span>.
+                  </li>
+                  <li>
+                    Виведи результат з округленням до одного знаку після крапки.
+                  </li>
+                </ol>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="l1-ed6"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code_t6"
+                  >
+# твій код тут:
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+
+            <!-- Завдання 7 -->
+            <details class="task" name="practice">
+              <summary><h4>Завдання 7: Площа піци</h4></summary>
+              <div>
+                <ol>
+                  <li>
+                    Запитай діаметр піци в см (<span class="accent-code"
+                      >diameter</span
+                    >). Маючи діаметр, знайди радіус (<span class="accent-code"
+                      >radius</span
+                    >).
+                  </li>
+                  <li>
+                    Обчисли площу піци (<span class="accent-code">area</span>)
+                    (<span class="accent-code">S = π * r**2</span>).
+                  </li>
+                  <li>Виведи площу, округлену до 2-x знаків після крапки.</li>
+                </ol>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="l1-ed7"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code_t7"
+                  >
+# твій код тут:
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+
+            <!-- Завдання 8 -->
+            <details class="task" name="practice">
+              <summary>
+                <h4>Завдання 8: Скільки потрібно сходинок</h4>
+              </summary>
+              <div>
+                <ol>
+                  <li>
+                    Потрібно піднятись на висоту 250 см (<span
+                      class="accent-code"
+                      >total_height</span
+                    >), одна сходинка — 18 см (<span class="accent-code"
+                      >step_height</span
+                    >).
+                  </li>
+                  <li>
+                    Знайди точну кількість сходинок (<span class="accent-code"
+                      >steps</span
+                    >), необхідну для підйому на задану висоту.
+                  </li>
+                </ol>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="l1-ed8"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code_t8"
+                  >
+import math
+
+total_height = 250
+step_height = 18
+
+# твій код тут:
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+
+            <!-- Завдання 9 -->
+            <details class="task" name="practice">
+              <summary><h4>Завдання 9: Покупки</h4></summary>
+              <div>
+                <ol>
+                  <li>
+                    Є 50 грн (<span class="accent-code">money</span>), ручка
+                    коштує 3.50 грн (<span class="accent-code">pen_price</span
+                    >).
+                  </li>
+                  <li>
+                    Порахуй, скільки ручок можна купити (<span
+                      class="accent-code"
+                      >pens</span
+                    >).
+                  </li>
+                  <li>
+                    Порахуй, скільки грошей залишиться після купівлі ручок
+                    (<span class="accent-code">money_left</span>).
+                  </li>
+                </ol>
+                <div
+                  class="custom-editor-wrapper python-editor-wrapper"
+                  id="l1-ed9"
+                >
+                  <div class="editor-header">
+                    <span class="editor-title">Python 3</span>
+                    <div class="editor-actions">
+                      <button type="button" class="reset-btn">
+                        <img src="./media/icons/refresh.svg" />
+                      </button>
+                      <button type="button" class="run-btn">
+                        <img src="./media/icons/play-green.svg" />
+                      </button>
+                    </div>
+                  </div>
+                  <textarea
+                    class="custom-editor-input"
+                    spellcheck="false"
+                    name="code_t9"
+                  >
+money = 50
+pen_price = 3.5
+
+# твій код тут:
+</textarea
+                  >
+                  <pre class="custom-editor-output">Очікування...</pre>
+                </div>
+              </div>
+            </details>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Повернутися нагору"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
+  </body>
+</html>
