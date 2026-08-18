@@ -461,6 +461,13 @@ pre.accent-string {
   padding: 10px 20px;
 }
 
+img.full-width {
+  width: 75%;
+  max-width: 75%;
+  max-height: none; 
+  height: auto;
+}
+
 /* ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ */
 /* 🌺 5. ПОСИЛАННЯ ТА ЗОБРАЖЕННЯ */
 /* ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ - ✦ */

@@ -170,6 +170,7 @@
       <div class="tabs-nav">
         <button class="tab-btn active" data-target="part-1">Теорія</button>
         <button class="tab-btn" data-target="part-2">Практика</button>
+        <button class="tab-btn" data-target="part-3">ДЗ</button>
       </div>
 
       <!-- 🌻 PART 1: ТЕОРІЯ -->
@@ -1308,6 +1309,130 @@ print(f"Пароль до Сейфа 6: {res}")
                 </ul>
               </div>
             </details>
+          </div>
+        </details>
+      </section>
+
+      <!-- 🐥 PART 3: HW -->
+      <section id="part-3" class="accordion tab-content">
+        <details class="accordion__item" name="section3" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Домашнє завдання</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання: Каталог фільмів</h3>
+
+            <p>
+              Напиши програму, яка працює точно як на відео нижче. Це повноцінне
+              інтерактивне меню для керування списком фільмів.
+            </p>
+
+            <!-- Блок з відео -->
+            <div class="video-wrapper">
+              <video src="./hw9.mov" controls></video>
+            </div>
+
+            <details class="task" style="margin-top: 15px">
+              <summary>Скріншоти</summary>
+              <div>
+                <img
+                  class="full-width"
+                  src="./images/lesson9/9_1.png"
+                  alt="step 1 - view"
+                />
+                <img
+                  class="full-width"
+                  src="./images/lesson9/9_2.png"
+                  alt="step 2 - add"
+                />
+                <img
+                  class="full-width"
+                  src="./images/lesson9/9_3.png"
+                  alt="step 3 - remove"
+                />
+                <img
+                  class="full-width"
+                  src="./images/lesson9/9_4.png"
+                  alt="step 4 - remove nonexistent"
+                />
+                <img
+                  class="full-width"
+                  src="./images/lesson9/9_5.png"
+                  alt="step 5 - pick random"
+                />
+                <img
+                  class="full-width"
+                  src="./images/lesson9/9_6.png"
+                  alt="step 6 - bad input"
+                />
+                <img
+                  class="full-width"
+                  src="./images/lesson9/9_7.png"
+                  alt="step 7 - quit"
+                />
+              </div>
+            </details>
+
+            <!-- Блок з інструкціями -->
+            <div class="soft-callout">
+              <p style="margin-top: 0">
+                <strong>Кроки для реалізації:</strong>
+              </p>
+              <ul type="square" style="margin-bottom: 0">
+                <li>
+                  Якщо користувач ввів <strong>"v"</strong> — виведи по черзі
+                  кожен фільм із нумерацією у форматі
+                  <strong>"1. Назва фільму"</strong>.
+                </li>
+                <li>
+                  Якщо <strong>"a"</strong> — запитай назву нового фільму та
+                  додай його до списку <span class="accent-code">movies</span>.
+                </li>
+                <li>
+                  Якщо <strong>"r"</strong> — запитай назву фільму. Якщо він є у
+                  списку — видали його, якщо немає — виведи
+                  <span class="italic">"This movie isn't in the list."</span>.
+                </li>
+                <li>
+                  Якщо <strong>"p"</strong> — за допомогою
+                  <span class="accent-code">random.choice()</span>
+                  обери та виведи випадковий фільм на вечір.
+                </li>
+                <li>
+                  Якщо <strong>"q"</strong> — виведи прощання і зупини цикл за
+                  допомогою <span class="accent-code">break</span>.
+                </li>
+                <li>
+                  Якщо введено будь-яку іншу команду — виведи
+                  <span class="italic">"Unknown command."</span>
+                </li>
+              </ul>
+            </div>
+
+            <p>Початковий код:</p>
+
+            <pre><code class="language-python">import random
+
+movies = [
+    "Kiki's Delivery Service",
+    "The Matrix",
+    "Howl's Moving Castle",
+    "Coco"
+]
+
+MENU = '''
+Choose a command:
+v - view the list
+a - add a movie
+r - remove a movie
+p - pick a random movie
+q - quit
+'''</code></pre>
           </div>
         </details>
       </section>
