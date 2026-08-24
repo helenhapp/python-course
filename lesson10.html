@@ -116,12 +116,12 @@
     </header>
 
     <main>
+      <!-- tab buttons -->
       <div class="tabs-nav">
-        <button class="tab-btn active" data-target="part-1">
-          Читання Файлів
-        </button>
-        <button class="tab-btn" data-target="part-2">Запис у Файли</button>
-        <button class="tab-btn" data-target="part-3">Обробка помилок</button>
+        <button class="tab-btn active" data-target="part-1">Читання</button>
+        <button class="tab-btn" data-target="part-2">Запис</button>
+        <button class="tab-btn" data-target="part-3">Помилки</button>
+        <button class="tab-btn" data-target="part-4">Функції</button>
       </div>
 
       <!-- 🌻 PART 1 -->
@@ -137,23 +137,24 @@
           </summary>
 
           <div class="accordion__content">
+            <!-- 1 -->
+
             <h3 id="p1-why">Читання даних з файлів</h3>
 
             <p>
-              Коли ти закриваєш програму, усі змінні зникають з оперативної
-              пам'яті (це швидка, але тимчасова пам'ять комп'ютера, яка
-              автоматично очищається, щойно ти виходиш із програми або вимикаєш
-              пристрій). Щоб не втратити прогрес, інвентар або налаштування
-              користувача, можна натомість зберегти ці дані у файлі на диску
-              комп'ютера (довготривала памʼять).
-            </p>
-            <p>
-              Відповідно, щоб відновити цей прогрес під час наступного запуску,
-              програма повинна вміти прочитати цей файл. Тобто читання файлів —
-              це спосіб завантажити збережені дані назад у програму.
+              Коли під час роботи програми ти запитуєш в користувача якісь дані
+              і зберігаєш їх у змінних (наприклад, створюєш список із назвами
+              фільмів), ці дані насправді зберігаються лише до завершення роботи
+              програми. Якщо ж ти хочеш, щоб дані не зникали, можна зберегти їх
+              у файлі (наприклад, у тестовому файлі – з розширенням
+              <span class="accent">.txt</span>). З допомогою коду можна
+              відкривати текстові файли, зчитувати з них інформацію, змінювати
+              або повністю переписувати їх вміст – і сьогодні ми дізнаємося як.
             </p>
 
             <hr />
+
+            <!-- 2 -->
 
             <h3 id="p1-create">Створення текстових файлів в Thonny</h3>
 
@@ -190,7 +191,14 @@
               <span class="accent-code"> Вигляд → Файли </span> в Thonny.
             </p>
 
+            <p>
+              Якщо вручну редагуєш вміст файлу, щоб зберегти зміни треба
+              натиснути <span class="accent">Ctrl + S</span>.
+            </p>
+
             <hr />
+
+            <!-- 3 -->
 
             <h3 id="p1-open">Відкриття файлу та оператор with</h3>
 
@@ -199,17 +207,17 @@
               <span class="accent-code">open()</span>. Найзручніший спосіб
               зробити це — за допомогою оператора
               <span class="accent-code">with</span>, який автоматично закриває
-              файл після завершення роботи з ним, навіть якщо виникла помилка.
+              файл після завершення роботи з ним:
             </p>
 
-            <pre><code class="language-python">with open("clues.txt", "r") as file:
+            <pre><code class="language-python">with open("names.txt", "r") as file:
     content = file.read()
 
 print(content)</code></pre>
 
-            <ul>
+            <ul type="square">
               <li>
-                <span class="accent-code">"clues.txt"</span> – назва файлу, який
+                <span class="accent-code">"names.txt"</span> – назва файлу, який
                 ми намагаємося відкрити.
               </li>
               <li>
@@ -223,51 +231,51 @@ print(content)</code></pre>
               </li>
             </ul>
 
-            <h4 style="margin-top: 20px">Що буде, якщо файлу не існує?</h4>
             <p>
               Якщо ти спробуєш відкрити для читання файл, якого немає в папці з
               програмою, Python зупинить роботу і видасть помилку:
-            </p>
-            <p style="color: tomato; font-weight: 600">
-              FileNotFoundError: [Errno 2] No such file or directory:
-              'clues.txt'
-            </p>
-            <p>
-              Як правильно обробляти такі ситуації, щоб програма не ламалася, ми
-              розглянемо в третій частині цього уроку.
+              <span style="color: tomato">
+                FileNotFoundError: [Errno 2] No such file or directory:
+                'clues.txt' </span
+              >. Як правильно обробляти такі ситуації, щоб програма не ламалася,
+              ми розглянемо в третій частині уроку.
             </p>
 
             <hr />
+
+            <!-- 4 -->
 
             <h3 id="p1-read">Методи read() та readlines()</h3>
 
             <p>Є кілька способів прочитати вміст файлу:</p>
 
-            <ul>
+            <ul type="square">
               <li>
-                <span class="accent-code">file.read()</span> – повертає весь
-                вміст файлу одним текстом.
-              </li>
-              <li>
-                <span class="accent-code">file.readlines()</span> – повертає
-                список, де кожен елемент є одним рядком файлу.
-              </li>
-            </ul>
-
-            <pre><code class="language-python">with open("clues.txt", "r") as file:
+                <span class="accent-code">file.read()</span> – повертає увесь
+                вміст файлу суцільним текстом.
+                <pre><code class="language-python">with open("names.txt", "r") as file:
     content = file.read()
 
 print(repr(content))</code></pre>
+              </li>
 
-            <pre><code class="language-python">with open("clues.txt", "r") as file:
-    lines = file.readlines()
+              <li>
+                <span class="accent-code">file.readlines()</span> – повертає
+                список, у якому кожен елемент є одним рядком файлу.
+                <pre><code class="language-python">with open("names.txt", "r") as file:
+    names = file.readlines()
 
-print(lines, "\n")
+print(names)
+print("-" * 15)
 
-for line in lines:
-    print(line)</code></pre>
+for name in names:
+    print(name)</code></pre>
+              </li>
+            </ul>
 
             <hr />
+
+            <!-- 5 -->
 
             <h3 id="p1-strip">Метод strip()</h3>
 
@@ -277,99 +285,51 @@ for line in lines:
               закінчується символом переходу на новий рядок
               <span class="accent-code">\n</span>. Метод
               <span class="accent-code">.strip()</span> прибирає зайві пробіли
-              та символи переносу з початку і кінця рядка:
+              та символи <span class="accent-code">\n</span> з початку і кінця
+              рядка:
             </p>
 
-            <pre><code class="language-python">with open("clues.txt", "r") as file:
-    lines = file.readlines()
+            <pre><code class="language-python">with open("names.txt", "r") as f:
+    names = f.readlines()
 
-for line in lines:
-    clean_line = line.strip()
-    print(clean_line)</code></pre>
+for n in names:
+    print(n.strip())</code></pre>
 
             <hr />
 
-            <h3 id="p1-func">Читання файлу у функції</h3>
+            <!-- 6 -->
+
+            <h3 id="p1-shortcut">Як зчитати та очистити дані одним рядком</h3>
 
             <p>
-              Логіку читання файлу зручно оформити як окрему функцію, яка
-              приймає назву файлу як аргумент і повертає готовий список рядків.
-              Тоді її можна повторно використовувати для будь-якого файлу, не
-              переписуючи код:
+              Замість того, щоб спочатку зчитувати всі рядки, а потім писати
+              окремий цикл для очищення тексту від
+              <span class="accent-code">\n</span>, можна зробити це відразу під
+              час зчитування:
             </p>
 
-            <pre><code class="language-python">def read_lines(filename):
-    with open(filename, "r") as file:
-        lines = file.readlines()
-    return [line.strip() for line in lines]
+            <pre><code class="language-python">with open("names.txt", "r") as file:
+    names = [name.strip() for name in file.readlines()]
   
-lines = read_lines("clues.txt")</code></pre>
-
-            <p>
-              Тепер, щоб прочитати будь-який файл, достатньо викликати
-              <span class="accent-code">read_lines("clues.txt")</span> або
-              <span class="accent-code">read_lines("suspects.txt")</span> – сама
-              функція не залежить від конкретної назви файлу.
-            </p>
+print(names)</code></pre>
 
             <div class="soft-callout">
               <p style="margin-top: 0">
-                <strong>Що це за квадратні дужки?</strong><br />
                 Конструкція
                 <span class="accent-code"
-                  >[line.strip() for line in lines]</span
+                  >[name.strip() for name in file.readlines()]</span
                 >
                 — це короткий спосіб записати цикл
                 <span class="accent-code">for</span>. Вона створює новий список
                 <span class="accent-code">[]</span>, де до кожного елемента
-                <span class="accent-code">line</span> зі списку
-                <span class="accent-code">lines</span> автоматично
+                <span class="accent-code">name</span> зі списку, який повертає
+                <span class="accent-code">file.readlines()</span>, автоматично
                 застосовується метод <span class="accent-code">.strip()</span>.
               </p>
-              <p style="margin-bottom: 0">
-                Довгий варіант цього коду виглядав би так:
-              </p>
-              <pre><code class="language-python">clean_lines = []
-for line in lines:
-    clean_line = line.strip()
-    clean_lines.append(clean_line)
-return clean_lines</code></pre>
-            </div>
-
-            <hr />
-
-            <h3 id="p1-examples">Приклади використання</h3>
-
-            <p>
-              Читання файлів використовують майже всі програми: текстові
-              редактори відкривають документи, ігри завантажують збережений
-              прогрес, браузери читають налаштування користувача. У задачах
-              аналізу даних читання файлів, як правило, є першим кроком: перш
-              ніж аналізувати інформацію (наприклад, список товарів чи
-              результати опитування), програма повинна прочитати ці дані з
-              файлу.
-            </p>
-
-            <hr />
-
-            <div class="soft-callout">
-              <h4>Перевір себе</h4>
-
-              <ol>
-                <li>
-                  Яка функція і який оператор використовуються, щоб відкрити
-                  файл?
-                </li>
-                <li>
-                  Яка різниця між <span class="accent-code">file.read()</span> і
-                  <span class="accent-code">file.readlines()</span>?
-                </li>
-                <li>
-                  Навіщо потрібен метод
-                  <span class="accent-code">.strip()</span> при обробці рядків,
-                  отриманих із файлу?
-                </li>
-              </ol>
+              <p>Довгий варіант цього коду виглядав би так:</p>
+              <pre><code class="language-python">names = []
+for name in file.readlines():
+    names.append(name.strip())</code></pre>
             </div>
           </div>
         </details>
@@ -387,35 +347,32 @@ return clean_lines</code></pre>
           <div class="accordion__content">
             <h3>Завдання</h3>
 
-            <p>
-              Ця практика складається з трьох кроків: спочатку створюєш файли,
-              потім пишеш одну універсальну функцію для читання, а тоді
-              використовуєш її тричі – для трьох різних файлів.
-            </p>
-
-            <p>
-              Перш за все, створи на робочому столі нову папку (наприклад,
-              <span class="accent-code">lesson10</span>), і збережи в ній файл,
-              в якому виконуватимеш сьогоднішні завдання (наприклад,
-              <span class="accent-code">code.py</span>).
-            </p>
-
             <!-- 1 -->
+            <!-- Expected result:
+
+import random
+
+with open("suspects.txt", "r") as file:
+    suspects = [s.strip() for s in file.readlines()]
+
+print("Suspects:")
+for i in range(len(suspects)):
+    print(f"{i+1}. {suspects[i]}")
+    
+print("Interrogate first:")
+print(random.choice(suspects))-->
             <details class="task" name="task1" open>
               <summary>
-                <h4>Крок 1: Створи три текстові файли</h4>
+                <h4>Завдання 1: Вивід підозрюваних</h4>
               </summary>
 
               <div>
-                <p>
-                  Створи і збережи три нові текстові файли, скопіюй в них
-                  відповідний текст:
-                </p>
+                <hr />
 
                 <ul>
                   <li>
-                    <span class="accent-code">suspects.txt</span> – список
-                    підозрюваних, по одному імені на рядок:
+                    Створи файл <span class="accent-code">suspects.txt</span> з
+                    іменами підозрюваних:
                     <pre><code class="language-python">Eleanor Blackwood
 Henry Ashford
 Margaret Cole
@@ -424,88 +381,83 @@ Lucy Bennett</code></pre>
                   </li>
 
                   <li>
-                    <span class="accent-code">quotes.txt</span> – кілька цитат з
-                    книжок, по одній на рядок:
-                    <pre><code class="language-python">The truth is rarely simple, but it is always there.
-Every secret leaves a trace if you know where to look.
-A calm face can hide the loudest thoughts.</code></pre>
+                    Зчитай імена підозрюваних і збережи їх як список у змінній
+                    <span class="accent-code">suspects</span>, прибравши зайві
+                    пробіли і символи переходу на новий рядок.
                   </li>
 
                   <li>
-                    <span class="accent-code">notes.txt</span> – кілька
-                    речень-нотаток, по одному на рядок:
-                    <pre><code class="language-python">The garden was quiet after the storm.
-She kept the letter in a locked drawer.
-Footprints crossed the garden near the fence.
-The old key no longer fit the door.
-No one entered the garden that evening.</code></pre>
+                    З допомогою циклу <span class="accent-code">for</span>,
+                    виведи кожне імʼя з нового рядка із нумерацією. Наприклад:
+                    <span class="italic">1. Eleanor Blackwood</span>.
+                  </li>
+
+                  <li>
+                    Використай функцію
+                    <span class="accent-code">random.choice()</span>, щоб обрати
+                    одного випадкового підозрюваного зі списку і вивести
+                    повідомлення:
+                    <span class="italic">Interrogate first: [random name]</span
+                    >.
                   </li>
                 </ul>
               </div>
             </details>
 
             <!-- 2 -->
+            <!-- Expected result:
+
+with open("clues.txt", "r") as file:
+    clues = [line.strip() for line in file.readlines()]
+
+word = input("Enter the search word: ")
+
+print("Found clues:")
+for clue in clues:
+    if word in clue:
+        print(clue) -->
             <details class="task" name="task1">
               <summary>
-                <h4>Крок 2: Напиши функцію для читання даних з файлу</h4>
+                <h4>Завдання 2: Пошук доказу</h4>
               </summary>
 
               <div>
-                <p>
-                  Спробуй з памʼяті написати функцію
-                  <span class="accent-code">read_lines(filename)</span>, яка
-                  приймає назву файлу як аргумент і повертає готовий список
-                  рядків.
-                </p>
-
-                <p>
-                  Що не згадаєш, можеш переписати з теорії (вручну, без
-                  копіювання).
-                </p>
-
-                <p>
-                  Далі вголос проговори, що робить кожен рядок: навіщо потрібен
-                  <span class="accent-code">with</span>, що саме повертає
-                  <span class="accent-code">readlines()</span>, і що робить
-                  <span class="accent-code">.strip()</span>.
-                </p>
-              </div>
-            </details>
-
-            <!-- 3 -->
-            <details class="task" name="task1">
-              <summary>
-                <h4>Крок 3: Використай цю функцію для трьох файлів</h4>
-              </summary>
-
-              <div>
-                <p>
-                  Виклич <span class="accent-code">read_lines()</span> тричі —
-                  по разу для кожного файлу — і збережи результати у трьох
-                  різних змінних (<span class="accent-code">suspects</span>,
-                  <span class="accent-code">quotes</span>,
-                  <span class="accent-code">notes</span>).
-                </p>
-
-                <p>З кожною змінною виконай відповідну дію:</p>
+                <hr />
 
                 <ul>
                   <li>
-                    <span class="accent-code">suspects</span>: Виведи увесь
-                    список імен, кожне з нового рядка і з нумерацією (наприклад,
-                    <span class="italic">1. Eleanor Blackwood</span>).
+                    Створи файл <span class="accent-code">clues.txt</span> із
+                    доказами, знайденими на місці злочину:
+                    <pre><code class="language-python">Muddy footprints near the window
+Dirty garden gloves
+Broken watch on the floor
+Rusty garden shears
+Train ticket to London
+Key with a garden shed tag</code></pre>
                   </li>
+
                   <li>
-                    <span class="accent-code">quotes</span>: За допомогою
-                    <span class="accent-code">random.choice()</span> виведи одну
-                    випадкову цитату зі списку.
+                    Зчитай назви доказів і збережи їх як список у змінній
+                    <span class="accent-code">clues</span>, прибравши зайві
+                    пробіли і символи переходу на новий рядок.
                   </li>
+
                   <li>
-                    <span class="accent-code">notes</span>: Запитай в
-                    користувача слово і виведи тільки ті рядки з нотаток, які
-                    містять це слово (зокрема, протестуй зі словом
-                    <span class="accent">garden</span>, яке зустрічається в
-                    трьох реченнях).
+                    Запитай в користувача слово, яке він хоче знайти (
+                    <span class="italic">"Enter the search word: "</span>).
+                  </li>
+
+                  <li>
+                    З допомогою циклу <span class="accent-code">for</span> та
+                    оператора <span class="accent-code">in</span>, знайди і
+                    виведи всі докази, що містять це слово.
+                  </li>
+
+                  <li>
+                    Протестуй програму зі словами:
+                    <span class="accent-code">garden</span>,
+                    <span class="accent-code">watch</span> та
+                    <span class="accent-code">knife</span>.
                   </li>
                 </ul>
               </div>
@@ -546,8 +498,8 @@ No one entered the garden that evening.</code></pre>
             <ul>
               <li>
                 <span class="accent-code">"w"</span> (write) — перезаписує весь
-                файл: якщо у файлі щось було, воно видаляється, і записується
-                нове.
+                файл: якщо у файлі вже щось написано, все видаляється, і у файл
+                записуються нові дані.
               </li>
               <li>
                 <span class="accent-code">"a"</span> (append) — дописує новий
@@ -571,10 +523,6 @@ with open("diary.txt", "a") as file:
               втрачено.
             </p>
 
-            <hr />
-
-            <h3 id="p2-write">Метод write()</h3>
-
             <p>
               Метод <span class="accent-code">.write()</span> записує рядок у
               файл. На відміну від <span class="accent-code">print()</span>, він
@@ -583,16 +531,13 @@ with open("diary.txt", "a") as file:
               якщо записуєш кілька рядків.
             </p>
 
-            <pre><code class="language-python">with open("scores.txt", "a") as file:
-    file.write(f"{name}: {score}\n")</code></pre>
-
             <hr />
 
             <h3 id="p2-loop">Запис кількох рядків у циклі</h3>
 
             <p>
-              Часто потрібно записати не один рядок, а кілька — наприклад,
-              отримані від користувача через цикл:
+              Часто потрібно записати не один рядок, а кілька. Наприклад,
+              зберегти дані, отримані від користувача через цикл:
             </p>
 
             <pre><code class="language-python">with open("notebook.txt", "a") as file:
@@ -602,105 +547,26 @@ with open("diary.txt", "a") as file:
             break
         file.write(entry + "\n")</code></pre>
 
-            <p>Ще один приклад – як записати у файл вміст словника:</p>
+            <p>Ще один приклад – як записати у файл вміст списку:</p>
 
-            <pre><code class="language-python">scores = {"Sam": 100, "Nick": 87}
+            <pre><code class="language-python">names = ["Sam", "Mary", "Nick"]
 
-with open("scores.txt", "w") as file:
-    for name, score in scores.items():
-        file.write(f"{name}: {score}\n")
+with open("name.txt", "w") as file:
+    for name in names:
+        file.write(f"{name}\n")
         
-print("scores.txt content was updated")</code></pre>
-
-            <hr />
-
-            <h3 id="p2-func">Запис у файл у функції</h3>
-
-            <p>
-              Так само, як і читання, запис зручно оформити як функцію — вона
-              приймає назву файлу та дані, які потрібно записати, а сама нічого
-              не повертає (це схоже на функції без
-              <span class="accent-code">return</span> з попередніх уроків):
-            </p>
-
-            <pre><code class="language-python">def save_lines(filename, lines):
-    with open(filename, "w") as file:
-        for line in lines:
-            file.write(line + "\n")</code></pre>
-
-            <p>
-              Виклик
-              <span class="accent-code"
-                >save_lines("suspects.txt", suspects)</span
-              >
-              повністю перезаписує файл поточним вмістом списку
-              <span class="accent-code">suspects</span>. Разом
-              <span class="accent-code">read_lines()</span> і
-              <span class="accent-code">save_lines()</span> утворюють пару
-              функцій, яку зручно використовувати в одній програмі: одна
-              завантажує дані на старті, інша зберігає їх після кожної зміни.
-            </p>
-
-            <h4 style="margin-top: 20px">
-              Приклад: read_lines() і save_lines() разом
-            </h4>
-
-            <pre><code class="language-python">suspects = read_lines("suspects.txt")
-print(suspects)
-
-suspects.append("Victor Hale")
-save_lines("suspects.txt", suspects)
-
-updated_suspects = read_lines("suspects.txt")
-print(updated_suspects)</code></pre>
-
-            <p>
-              Спочатку <span class="accent-code">read_lines()</span> завантажує
-              список підозрюваних із файлу у змінну
-              <span class="accent-code">suspects</span>, і ми виводимо його, щоб
-              побачити вихідний стан. Далі
-              <span class="accent-code">.append()</span> додає нове ім'я до
-              списку — але поки що тільки в оперативній пам'яті, у файлі ще
-              нічого не змінилося.
-              <span class="accent-code">save_lines()</span> перезаписує файл
-              новим, уже оновленим списком. І нарешті, повторний виклик
-              <span class="accent-code">read_lines()</span> показує, що зміна
-              справді збереглася на диску, а не тільки в змінній.
-            </p>
-
-            <hr />
-
-            <h3 id="p2-examples">Приклади використання</h3>
-
-            <p>
-              Запис у файли лежить в основі будь-якого збереження прогресу: ігри
-              записують збереження, текстові редактори — зміни в документі, а
-              сайти й застосунки — налаштування чи історію дій користувача. Той
-              самий принцип (<span class="accent-code">"w"</span> для нового
-              файлу, <span class="accent-code">"a"</span> для доповнення)
-              використовується і у великих системах, і в найпростіших навчальних
-              програмах.
-            </p>
-
-            <hr />
+print("names.txt content was updated")</code></pre>
 
             <div class="soft-callout">
-              <h4>Перевір себе</h4>
-              <ol>
-                <li>
-                  У чому різниця між режимами
-                  <span class="accent-code">"w"</span> і
-                  <span class="accent-code">"a"</span>?
-                </li>
-                <li>
-                  Що станеться, якщо двічі відкрити файл у режимі
-                  <span class="accent-code">"w"</span> і записати різний текст?
-                </li>
-                <li>
-                  Чому при записі кількох рядків важливо додавати
-                  <span class="accent-code">\n</span> у кінці кожного рядка?
-                </li>
-              </ol>
+              <p style="margin-top: 0">
+                <strong>Як видалити елемент зі списку за номером?</strong><br />
+                Якщо ти виводиш список на екран із нумерацією (1, 2, 3...) і
+                просиш користувача ввести номер елемента для видалення,
+                пам'ятай, що індекси в списках Python починаються з нуля. Тому
+                від введеного номера завжди треба віднімати одиницю:
+              </p>
+              <pre><code class="language-python">idx = int(input("Введіть номер елемента для видалення: "))
+del mylist[idx - 1]</code></pre>
             </div>
           </div>
         </details>
@@ -718,111 +584,175 @@ print(updated_suspects)</code></pre>
           <div class="accordion__content">
             <h3>Завдання</h3>
 
-            <p>
-              Після кожного завдання відкрий сам текстовий файл (наприклад,
-              через <span class="accent-code">Вигляд → Файли</span> в Thonny) і
-              перевір, що саме в ньому змінилося.
-            </p>
+            <!-- 3 -->
+            <!-- Expected result:
 
-            <!-- 1 -->
+correct_suspects = ["Victor Hale", "Rosalind Faye", "Charles Dunmore"]
+
+with open("suspects.txt", "w") as file:
+    for suspect in correct_suspects:
+        file.write(suspect + "\n")
+
+print("File suspects.txt was successfully updated!") -->
             <details class="task" name="task2" open>
               <summary>
-                <h4>Завдання 1: Записник спостережень</h4>
+                <h4>Завдання 3: Оновлення списку підозрюваних</h4>
               </summary>
 
               <div>
-                <p>
-                  Напиши функцію
-                  <span class="accent-code"
-                    >add_observation(filename, text)</span
-                  >, яка дописує новий рядок тексту в кінець файлу.
-                </p>
+                <hr />
 
-                <p>
-                  Виклич цю функцію в циклі, отримуючи текст спостереження від
-                  користувача, доки він не введе слово
-                  <span class="accent-code">"done"</span>.
-                </p>
+                <ul>
+                  <li>
+                    Виявилося, що ми переплутали список підозрюваних з іншої
+                    справи! Скопіюй цей правильний список у свій код:
+                    <pre><code class="language-python">correct_suspects = ["Victor Hale", "Rosalind Faye", "Charles Dunmore"]</code></pre>
+                  </li>
 
-                <p>
-                  Файл можна назвати
-                  <span class="accent-code">observations.txt</span>. Якщо під
-                  час запуску програми його ще не існуватиме, він автоматично
-                  створиться.
-                </p>
+                  <li>
+                    Відкрий файл <span class="accent-code">suspects.txt</span> у
+                    режимі запису (<span class="accent-code">"w"</span>) та
+                    повністю перепиши його вміст іменами з нового списку (не
+                    забудь додавати <span class="accent-code">\n</span>).
+                  </li>
 
-                <p>Приклади спостережень для введення:</p>
-                <pre><code class="language-python">The lights were off when we arrived.</code></pre>
-                <pre><code class="language-python">Someone had rearranged the books on the shelf.</code></pre>
-                <pre><code class="language-python">The dog didn't bark, even though a stranger was near.</code></pre>
+                  <li>
+                    В кінці програми виведи повідомлення:
+                    <span class="italic"
+                      >File suspects.txt was successfully updated!</span
+                    >
+                  </li>
+
+                  <li>
+                    Відкрий файл <span class="accent-code">suspects.txt</span> у
+                    Thonny і перевір, чи змінилися там імена.
+                  </li>
+                </ul>
               </div>
             </details>
 
-            <!-- 2 -->
+            <!-- 4 -->
+            <!-- Expected result:
+
+alibi = input("Enter an alibi: ")
+
+with open("alibis.txt", "a") as file:
+    file.write(alibi + "\n")
+
+print("New alibi added!") -->
             <details class="task" name="task2">
               <summary>
-                <h4>Завдання 2: Новий список підозрюваних</h4>
+                <h4>Завдання 4: Запис нових алібі</h4>
               </summary>
 
               <div>
-                <p>
-                  Напиши функцію
-                  <span class="accent-code">save_suspects(filename, names)</span
-                  >, яка приймає список імен і повністю перезаписує ними файл
-                  (як функція <span class="accent-code">save_lines()</span> із
-                  теорії).
-                </p>
+                <hr />
 
-                <p>
-                  Далі по черзі запитай у користувача три імені, збережи їх у
-                  список <span class="accent-code">names</span> та виклич
-                  функцію <span class="accent-code">save_suspects</span>,
-                  передавши їй цей список і назву файлу
-                  <span class="accent-code">suspects.txt</span>.
-                </p>
+                <ul>
+                  <li>
+                    Підозрюваних почали допитувати і дізнаватися їхні алібі.
+                    Напиши програму, яка просить користувача ввести нове алібі і
+                    збережи у змінній <span class="accent-code">alibi</span>.
+                  </li>
 
-                <p>
-                  A тоді використай функцію
-                  <span class="accent-code">read_lines()</span> з Частини 1, щоб
-                  одразу прочитати той самий файл і вивести його вміст.
-                </p>
+                  <li>
+                    Відкрий файл <span class="accent-code">alibis.txt</span> у
+                    режимі додавання (<span class="accent-code">"a"</span>) та
+                    запиши введене алібі в кінець файлу.
+                    <span class="italic" style="font-size: 0.9em; opacity: 0.8"
+                      >Файл вручну створювати не треба. Якщо його не існує,
+                      Python автоматично створить його при першому записі.</span
+                    >
+                  </li>
 
-                <p>Приклади нових імен підозрюваних для введення:</p>
-                <pre><code class="language-python">Victor Hale
-Rosalind Faye
-Charles Dunmore</code></pre>
+                  <li>
+                    В кінці програми виведи повідомлення:
+                    <span class="italic">New alibi added!</span>
+                  </li>
+
+                  <li>
+                    Запусти програму тричі і по черзі додай ці три алібі (можеш
+                    їх скопіювати):
+                    <pre><code class="language-python">Victor was at home reading a book.
+Rosalind was at the theater with friends.
+Charles was seen near the train station.</code></pre>
+                  </li>
+
+                  <li>
+                    Після кожного запуску відкривай і перевіряй оновлений файл
+                    <span class="accent-code">alibis.txt</span> – нові алібі
+                    мають з'являтися під старими, не видаляючи їх.
+                  </li>
+                </ul>
               </div>
             </details>
 
-            <!-- 3 -->
+            <!-- 5 -->
+            <!-- Expected result:
+
+with open("clues.txt", "r") as file:
+    clues = [line.strip() for line in file.readlines()]
+
+print("All clues:")
+for i in range(len(clues)):
+    print(f"{i+1}. {clues[i]}")
+    
+index = int(input("Enter a number of a clue to remove: "))
+del clues[index - 1]
+
+with open("clues.txt", "w") as file:
+    for clue in clues:
+        file.write(clue + "\n")
+
+print("The clue was removed from the case.") -->
             <details class="task" name="task2">
               <summary>
-                <h4>Завдання 3: Записник цитат</h4>
+                <h4>Завдання 5: Видалення фальшивого доказу</h4>
               </summary>
 
               <div>
-                <p>
-                  Напиши функцію
-                  <span class="accent-code">add_quote(filename, quote)</span>,
-                  яка дописує нову цитату у файл — але, на відміну від
-                  <span class="accent-code">add_observation()</span>, обгортає
-                  цитату в лапки перед записом.
-                </p>
+                <hr />
 
-                <p>
-                  Виклич цю функцію, щоб додати нову цитату в кінець файлу
-                  <span class="accent-code">quotes.txt</span>.
-                </p>
+                <ul>
+                  <li>
+                    Один із доказів виявився підкинутим. Для початку, зчитай
+                    дані з існуючого файлу
+                    <span class="accent-code">clues.txt</span> і збережи їх як
+                    список у змінну <span class="accent-code">clues</span>.
+                  </li>
 
-                <p>
-                  Далі використай функцію
-                  <span class="accent-code">read_lines()</span> з Частини 1, щоб
-                  прочитати всі цитати, які зараз є у файлі, і вивести їх
-                  пронумерованими.
-                </p>
+                  <li>
+                    З допомогою циклу виведи цей список на екран із нумерацією.
+                  </li>
 
-                <p>Приклад нової цитати для введення:</p>
-                <pre><code class="language-python">No alibi is perfect the second time you hear it.</code></pre>
+                  <li>
+                    Запитай в користувача номер доказу, який потрібно видалити.
+                  </li>
+
+                  <li>
+                    Видали цей доказ зі списку
+                    <span class="accent-code">clues</span>
+                    (згадай підказку з теорії).
+                  </li>
+
+                  <li>
+                    Знову відкрий файл
+                    <span class="accent-code">clues.txt</span>, але тепер у
+                    режимі <span class="accent-code">"w"</span>. З допомогою
+                    циклу запиши в нього оновлений вміст списку.
+                  </li>
+
+                  <li>
+                    Виведи повідомлення:
+                    <span class="italic"
+                      >The clue was removed from the case.</span
+                    >
+                  </li>
+
+                  <li>
+                    Відкрий файл і переконайся, що доказу там більше немає.
+                  </li>
+                </ul>
               </div>
             </details>
           </div>
@@ -864,7 +794,7 @@ Charles Dunmore</code></pre>
               <span class="accent-code">traceback</span>. Це повідомлення не є
               чимось "поганим": воно просто вказує, що саме пішло не так і в
               якому рядку коду це сталося, щоб допомогти розробнику знайти і
-              виправити помилку.
+              виправити проблему.
             </p>
 
             <hr />
@@ -932,83 +862,6 @@ except ValueError:
     print("Please enter valid numbers.")
 except ZeroDivisionError:
     print("You can't divide by zero.")</code></pre>
-
-            <hr />
-
-            <h3 id="p3-func">
-              Функція, яка повертає результат навіть у разі помилки
-            </h3>
-
-            <p>
-              Найкорисніший варіант — поєднати функцію для читання файлу з
-              обробкою помилок: якщо файл існує, функція повертає його вміст;
-              якщо ні — повертає порожній список замість того, щоб "зламати"
-              програму. Решті коду при цьому взагалі не потрібно знати, чи
-              існував файл:
-            </p>
-
-            <pre><code class="language-python">def read_lines_safe(filename):
-    try:
-        with open(filename, "r") as file:
-            lines = file.readlines()
-        return [line.strip() for line in lines]
-    except FileNotFoundError:
-        return []</code></pre>
-
-            <p>
-              Це та сама функція <span class="accent-code">read_lines()</span> з
-              Частини 1, тільки її тіло тепер обгорнуте в
-              <span class="accent-code">try/except</span>. Спочатку Python
-              намагається виконати все, що в блоці
-              <span class="accent-code">try</span>: відкрити файл, прочитати
-              рядки і повернути очищений список. Якщо файл існує — до
-              <span class="accent-code">except</span> справа взагалі не
-              доходить, і функція одразу повертає результат. Але якщо файлу
-              немає, рядок
-              <span class="accent-code">open(filename, "r")</span> викликає
-              <span class="accent-code">FileNotFoundError</span> — і замість
-              того, щоб програма впала з traceback, Python одразу переходить у
-              блок <span class="accent-code">except</span> і виконує
-              <span class="accent-code">return []</span>. Ззовні код, який
-              викликає цю функцію, не бачить різниці між "файл прочитано" і
-              "файлу не було": він в обох випадках отримує список (можливо,
-              порожній) і працює далі.
-            </p>
-
-            <hr />
-
-            <h3 id="p3-examples">Приклади використання</h3>
-
-            <p>
-              Обробка помилок — обов'язкова частина будь-якого серйозного
-              програмного забезпечення. Наприклад, застосунок для банківських
-              переказів повинен коректно реагувати, якщо користувач ввів
-              некоректну суму, а не аварійно завершувати роботу. Так само
-              браузер не "падає", коли не може завантажити сторінку, — він
-              показує повідомлення про помилку і дозволяє спробувати ще раз.
-            </p>
-
-            <hr />
-
-            <div class="soft-callout">
-              <h4>Перевір себе</h4>
-              <ol>
-                <li>
-                  Що станеться з програмою, якщо помилка виникає поза блоком
-                  <span class="accent-code">try/except</span>?
-                </li>
-                <li>
-                  Чим відрізняються <span class="accent-code">ValueError</span>,
-                  <span class="accent-code">FileNotFoundError</span> та
-                  <span class="accent-code">ZeroDivisionError</span>?
-                </li>
-                <li>
-                  Чи можна в одному блоці
-                  <span class="accent-code">try</span> обробити кілька різних
-                  типів помилок? Як це зробити?
-                </li>
-              </ol>
-            </div>
           </div>
         </details>
 
@@ -1025,139 +878,321 @@ except ZeroDivisionError:
           <div class="accordion__content">
             <h3>Завдання</h3>
 
-            <!-- 1 -->
+            <!-- 6 -->
+            <!-- Expected result:
+
+try:
+    with open("secret_notes.txt", "r") as file:
+        secret = file.read()
+except FileNotFoundError:
+    print("No secret notes were found.") -->
             <details class="task" name="task3" open>
               <summary>
-                <h4>Завдання 1: Одна перевірка</h4>
+                <h4>Завдання 6: Пошук секретних записів</h4>
               </summary>
 
               <div>
-                <p>
-                  Запитай у користувача кількість знайдених доказів і перетвори
-                  ввід на ціле число (<span class="accent-code">int()</span>).
-                  Обгорни перетворення в
-                  <span class="accent-code">try/except ValueError</span>. Якщо
-                  число введено коректно – виведи повідомлення на кшталт
-                  <span class="accent-code">"Знайдено {n} доказів."</span>; якщо
-                  ні – виведи повідомлення про помилку.
-                </p>
+                <hr />
 
-                <p>
-                  Приклад для тестування (спочатку введи щось, що не є цілим
-                  числом, а тоді правильне число):
-                </p>
-                <pre><code class="language-python">many
-5.00
-5</code></pre>
+                <ul>
+                  <li>
+                    Детектив шукає файл із секретними записами, але його може й
+                    не бути. Напиши програму, яка намагається відкрити файл
+                    <span class="accent-code">secret_notes.txt</span> в режимі
+                    читання.
+                  </li>
+                  <li>
+                    Обгорни код читання у блок
+                    <span class="accent-code">try/except</span>.
+                  </li>
+                  <li>
+                    Якщо такого файлу не існує, програма не повинна "ламатися".
+                    Замість цього вона має вивести повідомлення:
+                    <span class="italic">No secret notes were found.</span>
+                  </li>
+                  <li>
+                    Запусти програму і переконайся, що вона працює коректно і не
+                    виводить червоний
+                    <span class="accent-code">traceback</span> у консоль (адже
+                    файлу справді немає).
+                  </li>
+                </ul>
               </div>
             </details>
 
-            <!-- 2 -->
+            <!-- 7 -->
+            <!-- Expected result:
+(exercise 5 but with try/exept)
+
+try:
+  with open("clues.txt", "r") as file:
+      clues = [line.strip() for line in file.readlines()]
+except FileNotFoundError:
+  print("File not found")
+  clues = []
+
+print("All clues:")
+for i in range(len(clues)):
+    print(f"{i+1}. {clues[i]}")
+
+try:
+    index = int(input("Enter a number of a clue to remove: "))
+    del clues[index - 1]
+except ValueError:
+    print("That didn't work. You have to enter an integer.")
+
+with open("clues.txt", "w") as file:
+    for clue in clues:
+        file.write(clue + "\n")
+
+print("The clue was removed from the case.") -->
             <details class="task" name="task3">
               <summary>
-                <h4>Завдання 2: Втрачений архів справи</h4>
+                <h4>Завдання 7: Безпечне видалення доказу</h4>
               </summary>
 
               <div>
-                <p>
-                  Візьми функцію
-                  <span class="accent-code">read_lines(filename)</span> з
-                  Частини 1, і додай до неї
-                  <span class="accent-code">try/except</span>, щоб вона
-                  перехоплювала
-                  <span class="accent-code">FileNotFoundError</span> і повертала
-                  порожній список замість аварійного завершення програми.
-                </p>
+                <hr />
 
-                <p>
-                  Виклич оновлену функцію для
-                  <span class="accent-code">archive.txt</span> і виведи
-                  результат.
-                </p>
-
-                <p>
-                  Вміст для <span class="accent-code">archive.txt</span> (щоб
-                  перевірити обидва випадки, спочатку запусти програму без цього
-                  файлу – має повернутися порожній список без помилки, а тоді
-                  створи файл із таким вмістом і запусти ще раз):
-                </p>
-                <pre><code class="language-python">Case #001: The Vanishing Necklace – unsolved.
-Case #002: The Locked Library – solved, culprit: the gardener.
-Case #003: The Missing Ledger – unsolved.</code></pre>
+                <ul>
+                  <li>
+                    Скопіюй свій код із
+                    <span class="accent">Завдання 5</span> (де ми видаляли
+                    хибний доказ). Або можеш редагувати його на місці.
+                  </li>
+                  <li>
+                    <span class="accent">Захист №1:</span> Що, як файлу з
+                    доказами не існує? Обгорни зчитування файлу
+                    <span class="accent-code">clues.txt</span> у блок
+                    <span class="accent-code">try/except</span>. Якщо файл
+                    раптом не буде знайдено, виведи повідомлення
+                    <span class="italic">File not found</span> і збережи в
+                    змінній <span class="accent-code">clues</span> порожній
+                    список.
+                  </li>
+                  <li>
+                    <span class="accent">Захист №2:</span> Що, як користувач
+                    введе літери замість номера доказу? Обгорни рядок з
+                    <span class="accent-code">int(input(...))</span> та саме
+                    видалення (<span class="accent-code">del clues[...]</span>)
+                    у блок <span class="accent-code">try/except</span>. Якщо
+                    виникає <span class="accent-code">ValueError</span>,
+                    програма має попередити користувача:
+                    <span class="italic"
+                      >That didn't work. You have to enter an integer.</span
+                    >
+                  </li>
+                  <li>
+                    Протестуй програму: спробуй видалити доказ, ввівши слово
+                    (наприклад, <span class="accent">two</span>) або десяткове
+                    число (<span class="accent">2.5</span>).
+                  </li>
+                </ul>
               </div>
             </details>
+          </div>
+        </details>
+      </section>
 
-            <!-- 3 -->
-            <details class="task" name="task3">
+      <!-- 🥝 PART 4 -->
+      <section id="part-4" class="accordion tab-content">
+        <!-- 🍰 Theory 4 -->
+        <details class="accordion__item" name="section4" open>
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Теорія 4: Оптимізація роботи (Функції)</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p4-func">Структура програми</h3>
+
+            <p>
+              У попередніх частинах ми писали конструкцію
+              <span class="accent-code">with open(...)</span> щоразу, коли треба
+              було прочитати чи змінити файл. Коли програма стає більшою, ми
+              починаємо постійно копіювати той самий код для різних файлів. Це
+              робить код заплутаним і довгим. Значно ефективніший підхід —
+              написати дві універсальні функції (одну для безпечного читання,
+              іншу для запису). Після цього можна повторно використовувати їх
+              для будь-якого файлу.
+            </p>
+
+            <hr />
+
+            <h3 id="p4-func-read">Читання файлу у функції</h3>
+
+            <p>
+              Логіку читання зручно об'єднати з перевіркою на помилки. Наша
+              функція
+              <span class="accent-code">load_file(filename)</span> буде приймати
+              назву файлу, безпечно його відкривати і повертати готовий список
+              очищених рядків. Якщо ж файлу немає, вона просто поверне порожній
+              список, щоб програма не аварійно не завершувалась.
+            </p>
+
+            <pre><code class="language-python">def load_file(filename):
+    try:
+        with open(filename, "r") as file:
+            lines = file.readlines()
+        return [line.strip() for line in lines]
+    except FileNotFoundError:
+        return []
+    
+names = load_file("names.txt")</code></pre>
+
+            <p>
+              Тепер для всього іншого коду не має значення, чи існував файл:
+              виклик
+              <span class="accent-code">load_file()</span> завжди надійно
+              повертає список, з яким можна одразу працювати.
+            </p>
+
+            <hr />
+
+            <h3 id="p4-func-write">Запис у файл у функції</h3>
+
+            <p>
+              Так само ми можемо винести в окрему функцію і логіку запису.
+              Функція
+              <span class="accent-code">save_file(filename, data)</span> буде
+              приймати назву файлу та список даних, який треба туди зберегти.
+              Сама функція нічого не повертає (не має
+              <span class="accent-code">return</span>).
+            </p>
+
+            <pre><code class="language-python">def save_file(filename, data):
+    with open(filename, "w") as file:
+        for item in data:
+            file.write(item + "\n")
+          
+names = ["Mary", "Eve"]
+save_file("names.txt", names)
+
+names.append("Sam")
+save_file("names.txt", names)</code></pre>
+
+            <p>
+              Виклик
+              <span class="accent-code">save_file("names.txt", names)</span>
+              повністю перезаписує вказаний файл поточним вмістом списку.
+            </p>
+
+            <hr />
+
+            <h3 id="p4-together">load_file() та save_file() разом</h3>
+
+            <p>
+              Коли у нас є ці дві функції, алгоритм взаємодії з файлами завжди
+              складається з трьох простих кроків:<br />
+              <span class="accent"
+                >завантажити список → змінити список у пам'яті → зберегти список
+                у файл.</span
+              >
+            </p>
+
+            <p>
+              Ось приклад того, як легко можна додати новий колір і видалити
+              один зі старих:
+            </p>
+
+            <pre><code class="language-python"># 1. Завантажуємо поточні дані
+colors = load_file("colors.txt")
+print("Початкові кольори:", colors)
+
+# 2. Змінюємо дані в оперативній пам'яті
+colors.append("purple")  # додаємо новий елемент
+del colors[0]            # видаляємо перший елемент (індекс 0)
+
+# 3. Зберігаємо оновлений список у файл
+save_file("colors.txt", colors)
+
+print("Файл успішно оновлено!")</code></pre>
+          </div>
+        </details>
+
+        <!-- 🥞 Practice 4 -->
+        <details class="accordion__item" name="section4">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 4</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 8 -->
+            <details class="task" name="task4" open>
               <summary>
-                <h4>Завдання 3: Безпечний записник підозрюваних</h4>
+                <h4>Завдання 8: Оптимізація роботи з доказами</h4>
               </summary>
 
               <div>
-                <p>
-                  Напиши функцію
-                  <span class="accent-code">ask_suspicion_level()</span>, яка в
-                  циклі <span class="accent-code">while True</span> запитує
-                  число (рівень підозри) і повертає його, щойно введено коректне
-                  число, перехоплюючи
-                  <span class="accent-code">ValueError</span> при кожній
-                  невдалій спробі.
-                </p>
+                <hr />
 
-                <p>
-                  Потім напиши функцію
-                  <span class="accent-code"
-                    >add_suspect(filename, name, level)</span
-                  >, яка дописує пару "ім'я — рівень підозри" у файл. Об'єднай
-                  обидві функції в одній програмі.
-                </p>
+                <p class="accent">Частина 1: Створення функцій</p>
 
-                <p>
-                  Приклад для тестування (спочатку введи щось нечислове, щоб
-                  перевірити повторний запит, а тоді правильне число):
-                </p>
-                <pre><code class="language-python">Suspect name: Isabelle Grant
-First attempt (invalid): high
-Second attempt (valid): 8</code></pre>
-              </div>
-            </details>
+                <ul>
+                  <li>
+                    У новому файлі спробуй написати з пам'яті (або підглядаючи в
+                    теорію, але без копіювання) дві функції:
+                    <span class="accent-code">load_file(filename)</span> читання
+                    даних з файлів та
+                    <span class="accent-code">save_file(filename, data)</span>
+                    для збереження даних.
+                  </li>
 
-            <!-- 4 -->
-            <details class="task" name="task3">
-              <summary>
-                <h4>Завдання 4: Повна система справ</h4>
-              </summary>
+                  <li>
+                    Проговори вголос, як вони працюють: що робить кожен рядок,
+                    навіщо потрібен блок
+                    <span class="accent-code">try/except</span> у першій функції
+                    і навіщо ми додаємо <span class="accent-code">"\n"</span> у
+                    другій.
+                  </li>
+                </ul>
 
-              <div>
-                <p>
-                  Напиши функцію
-                  <span class="accent-code">load_cases(filename)</span>, яка
-                  повертає список записів із файлу, а якщо файл не знайдено —
-                  порожній список (той самий принцип, що й у
-                  <span class="accent-code">read_lines_safe()</span> із завдання
-                  2).
-                </p>
+                <p class="accent">Частина 2: Застосування функцій</p>
 
-                <p>
-                  Напиши також функцію
-                  <span class="accent-code">save_cases(filename, cases)</span>,
-                  яка повністю перезаписує файл.
-                </p>
-
-                <p>
-                  У головній частині програми дай користувачу можливість додати
-                  кілька нових записів (перевіряючи, що введений рядок не
-                  порожній) і збережи оновлений список.
-                </p>
-
-                <p>
-                  Вправу варто протестувати двічі: спочатку без файлу
-                  <span class="accent-code">case_files.txt</span> (перевірка
-                  гілки <span class="accent-code">FileNotFoundError</span>), а
-                  тоді створивши його з таким вмістом:
-                </p>
-                <pre><code class="language-python">Case #101: witness reported a broken window.
-Case #102: no fingerprints found at the scene.</code></pre>
+                <ul>
+                  <li>
+                    За допомогою
+                    <span class="accent-code">load_file()</span> зчитай вміст
+                    файлу <span class="accent-code">clues.txt</span> у змінну
+                    <span class="accent-code">clues</span>.
+                  </li>
+                  <li>
+                    Виведи текст
+                    <span class="italic">"Adding a new clue:"</span>
+                    і запитай користувача про новий доказ (<span class="italic"
+                      >"Enter the name of a new clue: "</span
+                    >).
+                  </li>
+                  <li>
+                    Додай цей новий доказ до списку
+                    <span class="accent-code">clues</span>.
+                  </li>
+                  <li>
+                    Використай <span class="accent-code">save_file()</span>, щоб
+                    зберегти оновлений список назад у файл
+                    <span class="accent-code">clues.txt</span>.
+                  </li>
+                  <li>
+                    Виведи повідомлення про успіх:
+                    <span class="italic"
+                      >File clues.txt was successfully updated!</span
+                    >
+                  </li>
+                  <li>
+                    Під час тестування програми можеш скопіювати цей
+                    новий доказ:
+                    <pre><code class="language-python">Piece of torn fabric near the fence</code></pre>
+                  </li>
+                </ul>
               </div>
             </details>
           </div>
