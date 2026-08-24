@@ -1,12 +1,494 @@
 <!doctype html>
-<html lang="en">
+<html lang="uk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson 10</title>
+    <meta name="description" content="Навчальні матеріали" />
+
+    <link rel="icon" type="image/svg+xml" href="./media/icons/space.svg" />
+
+    <title>Python Lesson 10</title>
+
+    <script>
+      const savedTheme = localStorage.getItem("lms_theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      const hljsThemeLink =
+        savedTheme === "dark"
+          ? "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          : "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
+
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link id="hljs-theme" rel="stylesheet" href="${hljsThemeLink}" />`,
+      );
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css"
+    />
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"
+    ></script>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"
+    ></script>
+
+    <link rel="stylesheet" href="./style.css?v=1.0" />
+    <script src="./main.js?v=1.0" defer></script>
   </head>
 
   <body>
-    <p>In development...</p>
+    <div class="transition-curtain"></div>
+
+    <div id="nav-container">
+      <nav class="top-bar">
+        <div class="logo-container">
+          <img
+            src="./media/icons/space.svg"
+            alt="Space Logo"
+            width="62"
+            height="62"
+            class="site-logo"
+          />
+        </div>
+        <div class="top-bar__controls">
+          <a href="./menu.html" class="menu-link">All Lessons</a>
+          <label class="toggle-switch" aria-label="Перемикач теми">
+            <input type="checkbox" id="theme-checkbox" />
+            <span class="slider">
+              <span class="icon sun"
+                ><img src="./media/icons/stars.svg"
+              /></span>
+              <span class="icon moon"
+                ><img src="./media/icons/moon.svg"
+              /></span>
+            </span>
+          </label>
+
+          <button
+            id="dyslexia-mode-btn"
+            class="wide-toggle"
+            title="Шрифт для дислектиків"
+          >
+            <img src="./media/icons/alphabet.svg" />
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <header>
+      <div class="title-container">
+        <a
+          href="./lesson9.html"
+          class="nav-arrow prev-arrow"
+          title="Попередній урок"
+        >
+          <img src="./media/icons/double-alt-arrow-left.svg" />
+        </a>
+
+        <h1 id="lesson-title">Python: 10</h1>
+
+        <!-- <a
+          href="./lesson11.html"
+          class="nav-arrow next-arrow"
+          title="Наступний урок"
+        >
+          <img src="./media/icons/double-alt-arrow-right.svg" />
+        </a> -->
+      </div>
+
+      <p class="topic">Робота з файлами та обробка помилок</p>
+
+      <section class="objective">
+        <p>Мета цього уроку:</p>
+        <ul type="square">
+          <li>
+            Навчитися зберігати дані програми у файлах так, щоб вони не зникали
+            після закриття програми.
+          </li>
+          <li>
+            Навчитися обробляти помилки так, щоб програма не завершувалася
+            аварійно при некоректних діях користувача.
+          </li>
+        </ul>
+      </section>
+
+      <hr />
+    </header>
+
+    <main>
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-target="part-1">
+          Читання Файлів
+        </button>
+        <button class="tab-btn" data-target="part-2">Запис у Файл</button>
+        <button class="tab-btn" data-target="part-3">Обробка помилок</button>
+      </div>
+
+      <!-- 🌻 PART 1 -->
+      <section id="part-1" class="accordion tab-content active show">
+        <!-- 🍰 Theory -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Теорія 1: Читання файлів</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p1-why">Навіщо це вчити</h3>
+
+            <p>
+              Усі програми, які ми писали до цього, "забувають" усі дані одразу
+              після завершення роботи. Список фільмів, результати гри у "Вгадай
+              число" чи записи щоденника зникають, щойно програму закрито. Файли
+              дозволяють програмі зберігати інформацію на диску — тому ці дані
+              не зникають після завершення програми. Читання файлів — це перший
+              крок: перш ніж програма зможе скористатися раніше збереженими
+              даними, вона повинна вміти відкрити файл і отримати його вміст.
+            </p>
+
+            <hr />
+
+            <h3 id="p1-open">Відкриття файлу та оператор with</h3>
+
+            <p>
+              Щоб прочитати файл, спочатку потрібно його відкрити функцією
+              <span class="accent-code">open()</span>. Найзручніший спосіб
+              зробити це — за допомогою оператора
+              <span class="accent-code">with</span>, який автоматично закриває
+              файл після завершення роботи з ним, навіть якщо станеться помилка.
+            </p>
+
+            <pre><code class="language-python">with open("clues.txt", "r") as file:
+    content = file.read()
+
+print(content)</code></pre>
+
+            <p>
+              Тут <span class="accent-code">"r"</span> означає режим читання
+              (read) — файл відкривається лише для читання, змінювати його не
+              можна. Змінна <span class="accent-code">file</span> — це об'єкт
+              файлу, через який ми отримуємо доступ до його вмісту.
+            </p>
+
+            <hr />
+
+            <h3 id="p1-read">Методи read() та readlines()</h3>
+
+            <hr />
+
+            <h3 id="p1-strip">Метод strip()</h3>
+
+            <hr />
+
+            <h3 id="p1-func">Читання файлу у функції</h3>
+
+            <hr />
+
+            <h3 id="p1-examples">Приклади використання</h3>
+
+            <p>
+              Читання файлів використовують майже всі програми: текстові
+              редактори відкривають документи, ігри завантажують збережений
+              прогрес, браузери читають налаштування користувача. У задачах
+              аналізу даних читання файлів, як правило, є першим кроком: перш
+              ніж аналізувати інформацію (наприклад, список товарів чи
+              результати опитування), програма повинна прочитати ці дані з
+              файлу.
+            </p>
+
+            <hr />
+
+            <div class="soft-callout">
+              <h4>Перевір себе</h4>
+
+              <ol>
+                <li>
+                  Що робить оператор with під час роботи з файлами і чому це
+                  зручніше, ніж просто open() без нього?
+                </li>
+                <li>Яка різниця між file.read() і file.readlines()?</li>
+                <li>
+                  Навіщо потрібен метод .strip() при обробці рядків, отриманих
+                  із файлу?
+                </li>
+              </ol>
+            </div>
+          </div>
+        </details>
+
+        <!-- 🥞 Practice -->
+        <details class="accordion__item" name="section1">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 1</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task1" open>
+              <summary>
+                <h4>Завдання 1: ...</h4>
+              </summary>
+
+              <div>
+                <p>Task description</p>
+
+                <img src="./images/lesson10/task1_1.png" alt="code result" />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task1">
+              <summary>
+                <h4>Завдання 2: ...</h4>
+              </summary>
+
+              <div>
+                <p>Task description</p>
+
+                <img src="./images/lesson10/task1_2.png" alt="code result" />
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <!-- ... -->
+
+            <!-- 4 -->
+            <!-- ... -->
+          </div>
+        </details>
+      </section>
+
+      <!-- 🌷 PART 2 -->
+      <section id="part-2" class="accordion tab-content">
+        <!-- 🍰 Theory -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Теорія 2: ...</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p2-..."></h3>
+
+            <p>...</p>
+
+            <pre><code class="language-python">...</code></pre>
+
+            <hr />
+
+            <h3 id="p2-..."></h3>
+
+            <p>...</p>
+
+            <pre><code class="language-python">...</code></pre>
+
+            <!-- ... -->
+          </div>
+        </details>
+
+        <!-- 🥞 Practice -->
+        <details class="accordion__item" name="section2">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 2</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task2" open>
+              <summary>
+                <h4>Завдання 1: ...</h4>
+              </summary>
+
+              <div>
+                <p>Task description</p>
+
+                <img src="./images/lesson10/task2_1.png" alt="code result" />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task2">
+              <summary>
+                <h4>Завдання 2: ...</h4>
+              </summary>
+
+              <div>
+                <p>Task description</p>
+
+                <img src="./images/lesson10/task2_2.png" alt="code result" />
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <!-- ... -->
+
+            <!-- 4 -->
+            <!-- ... -->
+          </div>
+        </details>
+      </section>
+
+      <!-- 🍇 PART 3 -->
+      <section id="part-3" class="accordion tab-content">
+        <!-- 🍰 Theory -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/read.svg" class="star" />
+              <span>Теорія 3: ...</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3 id="p3-..."></h3>
+
+            <p>...</p>
+
+            <pre><code class="language-python">...</code></pre>
+
+            <hr />
+
+            <h3 id="p3-..."></h3>
+
+            <p>...</p>
+
+            <pre><code class="language-python">...</code></pre>
+
+            <!-- ... -->
+          </div>
+        </details>
+
+        <!-- 🥞 Practice -->
+        <details class="accordion__item" name="section3">
+          <summary class="accordion__header">
+            <h2>
+              <img src="./media/icons/online-class.svg" class="star" />
+              <span>Практика 3</span>
+            </h2>
+            <span class="acc-arrow">▶</span>
+          </summary>
+
+          <div class="accordion__content">
+            <h3>Завдання</h3>
+
+            <!-- 1 -->
+            <details class="task" name="task3" open>
+              <summary>
+                <h4>Завдання 1: ...</h4>
+              </summary>
+
+              <div>
+                <p>Task description</p>
+
+                <img src="./images/lesson10/task3_1.png" alt="code result" />
+              </div>
+            </details>
+
+            <!-- 2 -->
+            <details class="task" name="task3">
+              <summary>
+                <h4>Завдання 2: ...</h4>
+              </summary>
+
+              <div>
+                <p>Task description</p>
+
+                <img src="./images/lesson10/task3_2.png" alt="code result" />
+              </div>
+            </details>
+
+            <!-- 3 -->
+            <!-- ... -->
+
+            <!-- 4 -->
+            <!-- ... -->
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made by Olena Hapchyna</p>
+    </footer>
+
+    <button
+      id="scrollToTopBtn"
+      class="scroll-to-top"
+      aria-label="Повернутися нагору"
+    >
+      <img src="./media/icons/ufo-alien.svg" />
+    </button>
   </body>
 </html>
