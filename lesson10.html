@@ -838,6 +838,12 @@ except ValueError:
                 <span class="accent-code">ZeroDivisionError</span> — виникає при
                 діленні на нуль.
               </li>
+              <li>
+                <span class="accent-code">IndexError</span> — виникає, коли
+                відбувається звернення до елемента списку за індексом, якого не
+                існує (наприклад, спроба отримати п'ятий елемент у списку з
+                трьох).
+              </li>
             </ul>
 
             <pre><code class="language-python">try:
@@ -862,6 +868,22 @@ except ValueError:
     print("Please enter valid numbers.")
 except ZeroDivisionError:
     print("You can't divide by zero.")</code></pre>
+
+            <p>
+              Приклад обробки <span class="accent-code">IndexError</span> разом
+              із перевіркою на правильність введеного числа:
+            </p>
+
+            <pre><code class="language-python">colors = ["red", "green", "blue"]
+
+try:
+    index = int(input("Enter an index of an element to remove: "))
+    del colors[index]
+    print("Item removed successfully.")
+except ValueError:
+    print("Please enter a valid integer.")
+except IndexError:
+    print("Error: index is out of range.")</code></pre>
           </div>
         </details>
 
@@ -938,14 +960,15 @@ for i in range(len(clues)):
 try:
     index = int(input("Enter a number of a clue to remove: "))
     del clues[index - 1]
+    print("The clue was removed from the case.")
 except ValueError:
     print("That didn't work. You have to enter an integer.")
+except IndexError:
+    print("That didn't work. Not enough clues in the list.")
 
 with open("clues.txt", "w") as file:
     for clue in clues:
-        file.write(clue + "\n")
-
-print("The clue was removed from the case.") -->
+        file.write(clue + "\n") -->
             <details class="task" name="task3">
               <summary>
                 <h4>Завдання 7: Безпечне видалення доказу</h4>
@@ -974,18 +997,29 @@ print("The clue was removed from the case.") -->
                     <span class="accent">Захист №2:</span> Що, як користувач
                     введе літери замість номера доказу? Обгорни рядок з
                     <span class="accent-code">int(input(...))</span> та саме
-                    видалення (<span class="accent-code">del clues[...]</span>)
-                    у блок <span class="accent-code">try/except</span>. Якщо
-                    виникає <span class="accent-code">ValueError</span>,
-                    програма має попередити користувача:
+                    видалення (<span class="accent-code">del...</span>) у блок
+                    <span class="accent-code">try/except</span>. Якщо виникає
+                    <span class="accent-code">ValueError</span>, програма має
+                    попередити користувача:
                     <span class="italic"
                       >That didn't work. You have to enter an integer.</span
                     >
                   </li>
                   <li>
+                    <span class="accent">Захист №3:</span> Що, якщо користувач
+                    введе число, яке є більшим за кількість доказів у списку?
+                    Додай обробку відповідної помилки і виведи повідомлення:
+                    <span class="italic"
+                      >That didn't work. Not enough clues in the list.</span
+                    >
+                  </li>
+                  <li>
                     Протестуй програму: спробуй видалити доказ, ввівши слово
-                    (наприклад, <span class="accent">two</span>) або десяткове
-                    число (<span class="accent">2.5</span>).
+                    (наприклад, <span class="accent">two</span>), тоді десяткове
+                    число (<span class="accent">2.5</span>), та ціле число, яке
+                    є більшим за кількість доказів (<span class="accent"
+                      >100</span
+                    >).
                   </li>
                 </ul>
               </div>
@@ -1188,8 +1222,8 @@ print("Файл успішно оновлено!")</code></pre>
                     >
                   </li>
                   <li>
-                    Під час тестування програми можеш скопіювати цей
-                    новий доказ:
+                    Під час тестування програми можеш скопіювати цей новий
+                    доказ:
                     <pre><code class="language-python">Piece of torn fabric near the fence</code></pre>
                   </li>
                 </ul>
