@@ -1129,19 +1129,19 @@ details {
 summary:focus {
   outline: none;
 }
-details.answer summary,
-details.task summary {
+details.answer > summary,
+details.task > summary {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 10px;
 }
-details.answer summary::-webkit-details-marker,
-details.task summary::-webkit-details-marker {
+details.answer > summary::-webkit-details-marker,
+details.task > summary::-webkit-details-marker {
   display: none;
 }
-details.answer summary::before,
-details.task summary::before {
+details.answer > summary::before,
+details.task > summary::before {
   content: "▶";
   display: inline-block;
   font-size: 15px;
@@ -1150,17 +1150,17 @@ details.task summary::before {
   transition: transform 0.2s ease;
   flex-shrink: 0;
 }
-details.answer[open] summary::before,
-details.task[open] summary::before {
+details.answer[open] > summary::before,
+details.task[open] > summary::before {
   transform: rotate(90deg);
 }
-.answer summary,
-.task summary {
+.answer > summary,
+.task > summary {
   cursor: pointer;
   transition: color 0.3s ease;
 }
-.answer summary:hover,
-.task summary:hover {
+.answer > summary:hover,
+.task > summary:hover {
   color: var(--accent-pop);
 }
 .task::details-content {
@@ -1208,10 +1208,26 @@ details.task[open] summary::before {
 [data-theme="dark"] .task:not([open]):hover {
   background-color: var(--hover-bg);
 }
-.task[open] summary {
+.task[open] > summary {
   padding-bottom: 0;
 }
-.task[open] summary:hover h4 {
+.task[open] > summary:hover h4 {
+  color: var(--accent-pop);
+}
+
+.answer2 > summary {
+  padding-left: 5px;
+  color: var(--text-soft);
+  font-weight: 500;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.answer2[open] > summary {
+  padding-bottom: 0;
+}
+
+.answer2 > summary:hover {
   color: var(--accent-pop);
 }
 

@@ -40,8 +40,8 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"
     ></script>
 
-    <link rel="stylesheet" href="./style.css?v=1.0" />
-    <script src="./main.js?v=1.0" defer></script>
+    <link rel="stylesheet" href="./style.css?v=2.0" />
+    <script src="./main.js?v=2.0" defer></script>
   </head>
 
   <body>
@@ -96,7 +96,7 @@
         <h1 id="lesson-title">Python: 10</h1>
       </div>
 
-      <p class="topic">Робота з файлами та обробка помилок</p>
+      <p class="topic">Робота з файлами (частина 1)</p>
 
       <section class="objective">
         <p>Мета цього уроку:</p>
@@ -104,10 +104,6 @@
           <li>
             Навчитися зберігати дані програми у файлах так, щоб вони не зникали
             після закриття програми.
-          </li>
-          <li>
-            Навчитися обробляти помилки так, щоб програма не завершувалася
-            аварійно при некоректних діях користувача.
           </li>
         </ul>
       </section>
@@ -120,8 +116,7 @@
       <div class="tabs-nav">
         <button class="tab-btn active" data-target="part-1">Читання</button>
         <button class="tab-btn" data-target="part-2">Запис</button>
-        <button class="tab-btn" data-target="part-3">Помилки</button>
-        <button class="tab-btn" data-target="part-4">Функції</button>
+        <button class="tab-btn" data-target="part-3">Д/З</button>
       </div>
 
       <!-- 🌻 PART 1 -->
@@ -293,38 +288,14 @@ for n in names:
 
             <!-- 6 -->
 
-            <h3 id="p1-shortcut">Як зчитати та очистити дані одним рядком</h3>
-
-            <p>
-              Замість того, щоб спочатку зчитувати всі рядки, а потім писати
-              окремий цикл для очищення тексту від
-              <span class="accent-code">\n</span>, можна зробити це відразу під
-              час зчитування:
-            </p>
+            <h3 id="p1-shortcut">Як зчитати та одразу очистити дані</h3>
 
             <pre><code class="language-python">with open("names.txt", "r") as file:
-    names = [name.strip() for name in file.readlines()]
+    names = []
+    for line in file.readlines():
+      names.append(line.strip())
   
 print(names)</code></pre>
-
-            <div class="soft-callout">
-              <p style="margin-top: 0">
-                Конструкція
-                <span class="accent-code"
-                  >[name.strip() for name in file.readlines()]</span
-                >
-                — це короткий спосіб записати цикл
-                <span class="accent-code">for</span>. Вона створює новий список
-                <span class="accent-code">[]</span>, де до кожного елемента
-                <span class="accent-code">name</span> зі списку, який повертає
-                <span class="accent-code">file.readlines()</span>, автоматично
-                застосовується метод <span class="accent-code">.strip()</span>.
-              </p>
-              <p>Довгий варіант цього коду виглядав би так:</p>
-              <pre><code class="language-python">names = []
-for name in file.readlines():
-    names.append(name.strip())</code></pre>
-            </div>
           </div>
         </details>
 
@@ -753,472 +724,208 @@ print("The clue was removed from the case.") -->
         </details>
       </section>
 
-      <!-- 🍇 PART 3 -->
+      <!-- 🥝 PART 3 -->
       <section id="part-3" class="accordion tab-content">
-        <!-- 🍰 Theory 3 -->
-        <details class="accordion__item" name="section3">
+        <!-- 🍰 Homework -->
+        <details class="accordion__item" name="section3" open>
           <summary class="accordion__header">
             <h2>
               <img src="./media/icons/read.svg" class="star" />
-              <span>Теорія 3: Обробка помилок</span>
+              <span>Домашнє завдання</span>
             </h2>
             <span class="acc-arrow">▶</span>
           </summary>
 
           <div class="accordion__content">
-            <h3 id="p3-intro">Обробка помилок</h3>
-
-            <p>
-              Досі, якщо програма отримувала несподівані дані (наприклад,
-              замість числа — текст, або назву файлу, якого не існує), вона
-              аварійно завершувала роботу з повідомленням про помилку
-              (traceback). Обробка помилок дозволяє передбачити такі ситуації
-              заздалегідь і відреагувати на них коректно — вивести зрозуміле
-              повідомлення та продовжити роботу програми, а не "зламати" її.
-            </p>
-
-            <hr />
-
-            <h3 id="p3-traceback">Що таке помилка (traceback)</h3>
-
-            <p>
-              Коли під час виконання програми трапляється щось, із чим Python не
-              може впоратися (наприклад, спроба перетворити слово на число),
-              програма зупиняється і виводить повідомлення про помилку —
-              <span class="accent-code">traceback</span>. Це повідомлення не є
-              чимось "поганим": воно просто вказує, що саме пішло не так і в
-              якому рядку коду це сталося, щоб допомогти розробнику знайти і
-              виправити проблему.
-            </p>
-
-            <hr />
-
-            <h3 id="p3-try">Конструкція try/except</h3>
-
-            <p>
-              Щоб "перехопити" помилку і не дати програмі аварійно завершитися,
-              використовують конструкцію
-              <span class="accent-code">try/except</span>: код, який може
-              викликати помилку, розміщують у блоці
-              <span class="accent-code">try</span>, а те, що робити у разі
-              помилки, — у блоці <span class="accent-code">except</span>.
-            </p>
-
-            <pre><code class="language-python">try:
-    number = int(input("Enter a number: "))
-except ValueError:
-    print("That's not a valid number.")</code></pre>
-
-            <hr />
-
-            <h3 id="p3-types">Конкретні типи винятків</h3>
-
-            <p>
-              Різні помилки мають різні назви (типи винятків), і кожну з них
-              можна обробляти окремо:
-            </p>
-
-            <ul>
-              <li>
-                <span class="accent-code">ValueError</span> — виникає, коли
-                значення має неправильний тип чи формат (наприклад, спроба
-                перетворити слово "hello" на число).
-              </li>
-              <li>
-                <span class="accent-code">FileNotFoundError</span> — виникає при
-                спробі відкрити файл, якого не існує.
-              </li>
-              <li>
-                <span class="accent-code">ZeroDivisionError</span> — виникає при
-                діленні на нуль.
-              </li>
-              <li>
-                <span class="accent-code">IndexError</span> — виникає, коли
-                відбувається звернення до елемента списку за індексом, якого не
-                існує (наприклад, спроба отримати п'ятий елемент у списку з
-                трьох).
-              </li>
-            </ul>
-
-            <pre><code class="language-python">try:
-    with open("case_file.txt", "r") as file:
-        lines = file.readlines()
-except FileNotFoundError:
-    print("No case file found. Starting a new investigation.")
-    lines = []</code></pre>
-
-            <p>
-              Можна обробити кілька типів помилок в одному блоці
-              <span class="accent-code">try</span>, вказавши кілька блоків
-              <span class="accent-code">except</span>:
-            </p>
-
-            <pre><code class="language-python">try:
-    a = int(input("Enter first number: "))
-    b = int(input("Enter second number: "))
-    result = a / b
-    print(f"Result: {result}")
-except ValueError:
-    print("Please enter valid numbers.")
-except ZeroDivisionError:
-    print("You can't divide by zero.")</code></pre>
-
-            <p>
-              Приклад обробки <span class="accent-code">IndexError</span> разом
-              із перевіркою на правильність введеного числа:
-            </p>
-
-            <pre><code class="language-python">colors = ["red", "green", "blue"]
-
-try:
-    index = int(input("Enter an index of an element to remove: "))
-    del colors[index]
-    print("Item removed successfully.")
-except ValueError:
-    print("Please enter a valid integer.")
-except IndexError:
-    print("Error: index is out of range.")</code></pre>
-          </div>
-        </details>
-
-        <!-- 🥞 Practice 3 -->
-        <details class="accordion__item" name="section3">
-          <summary class="accordion__header">
-            <h2>
-              <img src="./media/icons/online-class.svg" class="star" />
-              <span>Практика 3</span>
-            </h2>
-            <span class="acc-arrow">▶</span>
-          </summary>
-
-          <div class="accordion__content">
-            <h3>Завдання</h3>
-
-            <!-- 6 -->
-            <!-- Expected result:
-
-try:
-    with open("secret_notes.txt", "r") as file:
-        secret = file.read()
-except FileNotFoundError:
-    print("No secret notes were found.") -->
-            <details class="task" name="task3" open>
+            <!-- Завдання 1: Кольори -->
+            <details class="task" name="task_practice" open>
               <summary>
-                <h4>Завдання 6: Пошук секретних записів</h4>
+                <h4>Завдання 1: Кольори</h4>
               </summary>
 
               <div>
                 <hr />
 
+                <p>
+                  У цьому завданні ти можеш перевіряти себе на кожному кроці,
+                  відкриваючи відповіді.
+                </p>
+
+                <p class="accent">🧩 Крок 1: Створення файлу</p>
+
                 <ul>
                   <li>
-                    Детектив шукає файл із секретними записами, але його може й
-                    не бути. Напиши програму, яка намагається відкрити файл
-                    <span class="accent-code">secret_notes.txt</span> в режимі
-                    читання.
+                    Створи новий файл, назви його
+                    <span class="accent-code">colors.txt</span>.
                   </li>
                   <li>
-                    Обгорни код читання у блок
-                    <span class="accent-code">try/except</span>.
-                  </li>
-                  <li>
-                    Якщо такого файлу не існує, програма не повинна "ламатися".
-                    Замість цього вона має вивести повідомлення:
-                    <span class="italic">No secret notes were found.</span>
-                  </li>
-                  <li>
-                    Запусти програму і переконайся, що вона працює коректно і не
-                    виводить червоний
-                    <span class="accent-code">traceback</span> у консоль (адже
-                    файлу справді немає).
+                    Скопіюй туди ці назви:
+                    <pre><code class="language-python">lavender
+magenta
+teal
+periwinkle
+cerulean</code></pre>
                   </li>
                 </ul>
+
+                <p class="accent">🧩 Крок 2: Читання даних</p>
+
+                <ul>
+                  <li>
+                    Відкрий файл для читання і збережи його вміст як список у
+                    змінну <span class="accent-code">colors</span>, прибравши
+                    символи переходу на новий рядок
+                    <span class="accent-code">\n</span>.
+                  </li>
+                  <li>Виведи список на екран.</li>
+                </ul>
+
+                <details class="answer2">
+                  <summary>Показати відповідь до Кроку 2</summary>
+
+                  <pre><code class="language-python"># Відкриваємо файл у режимі читання ("r")
+with open("colors.txt", "r") as file:
+    colors = []                     # Створюємо порожній список
+    for line in file.readlines():   # Читаємо всі рядки з файлу
+        colors.append(line.strip()) # Очищаємо рядок від \n і додаємо у список
+
+# Перевіряємо, чи правильно зчиталися дані
+print(colors)</code></pre>
+                </details>
+
+                <p class="accent">🧩 Крок 3: Модифікація списку</p>
+
+                <ul>
+                  <li>
+                    Запитай у користувача назву кольору для додавання і назву
+                    кольору для видалення.
+                  </li>
+                  <li>
+                    Онови список
+                    <span class="accent-code">colors</span> (використай
+                    <span class="accent-code">.append()</span> та
+                    <span class="accent-code">.remove()</span>).
+                  </li>
+                  <li>Виведи оновлений список.</li>
+                </ul>
+
+                <details class="answer2">
+                  <summary>Показати відповідь до Кроку 3</summary>
+                  <pre><code class="language-python"># Запитуємо новий колір і додаємо його в кінець списку
+color_to_add = input("Enter a color to add: ")
+colors.append(color_to_add)
+
+# Запитуємо колір для видалення
+color_to_remove = input("Enter a color to remove: ")
+
+# Перевіряємо, чи є такий колір у списку, щоб уникнути помилки (ValueError)
+if color_to_remove in colors:
+    colors.remove(color_to_remove)
+
+# Перевіряємо, як змінився список у пам'яті
+print(colors)</code></pre>
+                </details>
+
+                <p class="accent">🧩 Крок 4: Перезапис файлу</p>
+
+                <ul>
+                  <li>
+                    Знову відкрий файл
+                    <span class="accent-code">colors.txt</span>, але в режимі
+                    перезапису, і запиши в нього оновлений список (додаючи
+                    <span class="accent-code">\n</span> до кожного кольору).
+                  </li>
+                  <li>Виведи повідомлення про успіх.</li>
+                  <li>
+                    Після виконання програми відкрий сам файл у Thonny і
+                    перевір, чи змінився список.
+                  </li>
+                </ul>
+
+                <details class="answer2">
+                  <summary>Показати відповідь до Кроку 4</summary>
+                  <pre><code class="language-python"># Відкриваємо файл у режимі перезапису ("w")
+with open("colors.txt", "w") as file:
+    for color in colors:             # Проходимо по кожному кольору в оновленому списку
+        file.write(color + "\n")     # Записуємо колір у файл, додаючи перехід на новий рядок
+        
+print("File colors.txt was updated!")</code></pre>
+                </details>
               </div>
             </details>
 
-            <!-- 7 -->
-            <!-- Expected result:
-(exercise 5 but with try/exept)
-
-try:
-  with open("clues.txt", "r") as file:
-      clues = [line.strip() for line in file.readlines()]
-except FileNotFoundError:
-  print("File not found")
-  clues = []
-
-print("All clues:")
-for i in range(len(clues)):
-    print(f"{i+1}. {clues[i]}")
-
-try:
-    index = int(input("Enter a number of a clue to remove: "))
-    del clues[index - 1]
-    print("The clue was removed from the case.")
-except ValueError:
-    print("That didn't work. You have to enter an integer.")
-except IndexError:
-    print("That didn't work. Not enough clues in the list.")
-
-with open("clues.txt", "w") as file:
-    for clue in clues:
-        file.write(clue + "\n") -->
-            <details class="task" name="task3">
+            <!-- Завдання 2: Фрукти -->
+            <details class="task" name="task_practice">
               <summary>
-                <h4>Завдання 7: Безпечне видалення доказу</h4>
+                <h4>Завдання 2: Фрукти</h4>
               </summary>
 
               <div>
                 <hr />
 
-                <ul>
-                  <li>
-                    Скопіюй свій код із
-                    <span class="accent">Завдання 5</span> (де ми видаляли
-                    хибний доказ). Або можеш редагувати його на місці.
-                  </li>
-                  <li>
-                    <span class="accent">Захист №1:</span> Що, як файлу з
-                    доказами не існує? Обгорни зчитування файлу
-                    <span class="accent-code">clues.txt</span> у блок
-                    <span class="accent-code">try/except</span>. Якщо файл
-                    раптом не буде знайдено, виведи повідомлення
-                    <span class="italic">File not found</span> і збережи в
-                    змінній <span class="accent-code">clues</span> порожній
-                    список.
-                  </li>
-                  <li>
-                    <span class="accent">Захист №2:</span> Що, як користувач
-                    введе літери замість номера доказу? Обгорни рядок з
-                    <span class="accent-code">int(input(...))</span> та саме
-                    видалення (<span class="accent-code">del...</span>) у блок
-                    <span class="accent-code">try/except</span>. Якщо виникає
-                    <span class="accent-code">ValueError</span>, програма має
-                    попередити користувача:
-                    <span class="italic"
-                      >That didn't work. You have to enter an integer.</span
-                    >
-                  </li>
-                  <li>
-                    <span class="accent">Захист №3:</span> Що, якщо користувач
-                    введе число, яке є більшим за кількість доказів у списку?
-                    Додай обробку відповідної помилки і виведи повідомлення:
-                    <span class="italic"
-                      >That didn't work. Not enough clues in the list.</span
-                    >
-                  </li>
-                  <li>
-                    Протестуй програму: спробуй видалити доказ, ввівши слово
-                    (наприклад, <span class="accent">two</span>), тоді десяткове
-                    число (<span class="accent">2.5</span>), та ціле число, яке
-                    є більшим за кількість доказів (<span class="accent"
-                      >100</span
-                    >).
-                  </li>
-                </ul>
-              </div>
-            </details>
-          </div>
-        </details>
-      </section>
+                <p>
+                  Це завдання майже ідентичне попередньому, але тут немає
+                  прихованих відповідей. Спробуй виконати його повністю
+                  самостійно з пам'яті, щоб добре закріпити алгоритм!
+                </p>
 
-      <!-- 🥝 PART 4 -->
-      <section id="part-4" class="accordion tab-content">
-        <!-- 🍰 Theory 4 -->
-        <details class="accordion__item" name="section4" open>
-          <summary class="accordion__header">
-            <h2>
-              <img src="./media/icons/read.svg" class="star" />
-              <span>Теорія 4: Оптимізація роботи (Функції)</span>
-            </h2>
-            <span class="acc-arrow">▶</span>
-          </summary>
-
-          <div class="accordion__content">
-            <h3 id="p4-func">Структура програми</h3>
-
-            <p>
-              У попередніх частинах ми писали конструкцію
-              <span class="accent-code">with open(...)</span> щоразу, коли треба
-              було прочитати чи змінити файл. Коли програма стає більшою, ми
-              починаємо постійно копіювати той самий код для різних файлів. Це
-              робить код заплутаним і довгим. Значно ефективніший підхід —
-              написати дві універсальні функції (одну для безпечного читання,
-              іншу для запису). Після цього можна повторно використовувати їх
-              для будь-якого файлу.
-            </p>
-
-            <hr />
-
-            <h3 id="p4-func-read">Читання файлу у функції</h3>
-
-            <p>
-              Логіку читання зручно об'єднати з перевіркою на помилки. Наша
-              функція
-              <span class="accent-code">load_file(filename)</span> буде приймати
-              назву файлу, безпечно його відкривати і повертати готовий список
-              очищених рядків. Якщо ж файлу немає, вона просто поверне порожній
-              список, щоб програма не аварійно не завершувалась.
-            </p>
-
-            <pre><code class="language-python">def load_file(filename):
-    try:
-        with open(filename, "r") as file:
-            lines = file.readlines()
-        return [line.strip() for line in lines]
-    except FileNotFoundError:
-        return []
-    
-names = load_file("names.txt")</code></pre>
-
-            <p>
-              Тепер для всього іншого коду не має значення, чи існував файл:
-              виклик
-              <span class="accent-code">load_file()</span> завжди надійно
-              повертає список, з яким можна одразу працювати.
-            </p>
-
-            <hr />
-
-            <h3 id="p4-func-write">Запис у файл у функції</h3>
-
-            <p>
-              Так само ми можемо винести в окрему функцію і логіку запису.
-              Функція
-              <span class="accent-code">save_file(filename, data)</span> буде
-              приймати назву файлу та список даних, який треба туди зберегти.
-              Сама функція нічого не повертає (не має
-              <span class="accent-code">return</span>).
-            </p>
-
-            <pre><code class="language-python">def save_file(filename, data):
-    with open(filename, "w") as file:
-        for item in data:
-            file.write(item + "\n")
-          
-names = ["Mary", "Eve"]
-save_file("names.txt", names)
-
-names.append("Sam")
-save_file("names.txt", names)</code></pre>
-
-            <p>
-              Виклик
-              <span class="accent-code">save_file("names.txt", names)</span>
-              повністю перезаписує вказаний файл поточним вмістом списку.
-            </p>
-
-            <hr />
-
-            <h3 id="p4-together">load_file() та save_file() разом</h3>
-
-            <p>
-              Коли у нас є ці дві функції, алгоритм взаємодії з файлами завжди
-              складається з трьох простих кроків:<br />
-              <span class="accent"
-                >завантажити список → змінити список у пам'яті → зберегти список
-                у файл.</span
-              >
-            </p>
-
-            <p>
-              Ось приклад того, як легко можна додати новий колір і видалити
-              один зі старих:
-            </p>
-
-            <pre><code class="language-python"># 1. Завантажуємо поточні дані
-colors = load_file("colors.txt")
-print("Початкові кольори:", colors)
-
-# 2. Змінюємо дані в оперативній пам'яті
-colors.append("purple")  # додаємо новий елемент
-del colors[0]            # видаляємо перший елемент (індекс 0)
-
-# 3. Зберігаємо оновлений список у файл
-save_file("colors.txt", colors)
-
-print("Файл успішно оновлено!")</code></pre>
-          </div>
-        </details>
-
-        <!-- 🥞 Practice 4 -->
-        <details class="accordion__item" name="section4">
-          <summary class="accordion__header">
-            <h2>
-              <img src="./media/icons/online-class.svg" class="star" />
-              <span>Практика 4</span>
-            </h2>
-            <span class="acc-arrow">▶</span>
-          </summary>
-
-          <div class="accordion__content">
-            <h3>Завдання</h3>
-
-            <!-- 8 -->
-            <details class="task" name="task4" open>
-              <summary>
-                <h4>Завдання 8: Оптимізація роботи з доказами</h4>
-              </summary>
-
-              <div>
-                <hr />
-
-                <p class="accent">Частина 1: Створення функцій</p>
+                <p class="accent">🧩 Крок 1: Створення файлу</p>
 
                 <ul>
                   <li>
-                    У новому файлі спробуй написати з пам'яті (або підглядаючи в
-                    теорію, але без копіювання) дві функції:
-                    <span class="accent-code">load_file(filename)</span> читання
-                    даних з файлів та
-                    <span class="accent-code">save_file(filename, data)</span>
-                    для збереження даних.
+                    Створи новий файл, назви його
+                    <span class="accent-code">fruits.txt</span>.
                   </li>
-
                   <li>
-                    Проговори вголос, як вони працюють: що робить кожен рядок,
-                    навіщо потрібен блок
-                    <span class="accent-code">try/except</span> у першій функції
-                    і навіщо ми додаємо <span class="accent-code">"\n"</span> у
-                    другій.
+                    Скопіюй туди ці назви:
+                    <pre><code class="language-python">mango
+banana
+pear
+kiwi
+apricot</code></pre>
                   </li>
                 </ul>
 
-                <p class="accent">Частина 2: Застосування функцій</p>
+                <p class="accent">🧩 Крок 2: Читання даних</p>
 
                 <ul>
                   <li>
-                    За допомогою
-                    <span class="accent-code">load_file()</span> зчитай вміст
-                    файлу <span class="accent-code">clues.txt</span> у змінну
-                    <span class="accent-code">clues</span>.
+                    Відкрий файл для читання і збережи його вміст як список у
+                    змінну <span class="accent-code">fruits</span>, прибравши
+                    символи переходу на новий рядок
+                    <span class="accent-code">\n</span>.
+                  </li>
+                  <li>Виведи список на екран.</li>
+                </ul>
+
+                <p class="accent">🧩 Крок 3: Модифікація списку</p>
+
+                <ul>
+                  <li>
+                    Запитай у користувача назву фрукта для додавання і назву
+                    фрукта для видалення.
                   </li>
                   <li>
-                    Виведи текст
-                    <span class="italic">"Adding a new clue:"</span>
-                    і запитай користувача про новий доказ (<span class="italic"
-                      >"Enter the name of a new clue: "</span
-                    >).
+                    Онови список
+                    <span class="accent-code">fruits</span>.
                   </li>
+                  <li>Виведи оновлений список на екран.</li>
+                </ul>
+
+                <p class="accent">🧩 Крок 4: Перезапис файлу</p>
+
+                <ul>
                   <li>
-                    Додай цей новий доказ до списку
-                    <span class="accent-code">clues</span>.
+                    Знову відкрий файл
+                    <span class="accent-code">fruits.txt</span>, але вже в
+                    режимі перезапису, і запиши в нього оновлений список (не
+                    забудь додавати <span class="accent-code">\n</span> до
+                    кожного слова).
                   </li>
+                  <li>Виведи повідомлення про успіх.</li>
                   <li>
-                    Використай <span class="accent-code">save_file()</span>, щоб
-                    зберегти оновлений список назад у файл
-                    <span class="accent-code">clues.txt</span>.
-                  </li>
-                  <li>
-                    Виведи повідомлення про успіх:
-                    <span class="italic"
-                      >File clues.txt was successfully updated!</span
-                    >
-                  </li>
-                  <li>
-                    Під час тестування програми можеш скопіювати цей новий
-                    доказ:
-                    <pre><code class="language-python">Piece of torn fabric near the fence</code></pre>
+                    Після виконання програми відкрий сам файл у Thonny і
+                    перевір, чи змінився список.
                   </li>
                 </ul>
               </div>
